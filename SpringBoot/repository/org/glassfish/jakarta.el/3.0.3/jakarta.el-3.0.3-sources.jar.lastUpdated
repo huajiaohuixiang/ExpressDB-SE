@@ -1,6 +1,0 @@
-#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Sat Nov 21 12:30:28 CST 2020
-http\://maven.aliyun.com/nexus/content/groups/public/.error=Could not transfer artifact org.glassfish\:jakarta.el\:jar\:sources\:3.0.3 from/to alimaven (http\://maven.aliyun.com/nexus/content/groups/public/)\: Transfer failed for http\://maven.aliyun.com/nexus/content/groups/public/org/glassfish/jakarta.el/3.0.3/jakarta.el-3.0.3-sources.jar
-@default-alimaven-http\://maven.aliyun.com/nexus/content/groups/public/.lastUpdated=1605933025963
-@default-nexus-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.lastUpdated=1605933028259
-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.error=Could not transfer artifact org.glassfish\:jakarta.el\:jar\:sources\:3.0.3 from/to nexus (http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/)\: Transfer failed for http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/org/glassfish/jakarta.el/3.0.3/jakarta.el-3.0.3-sources.jar

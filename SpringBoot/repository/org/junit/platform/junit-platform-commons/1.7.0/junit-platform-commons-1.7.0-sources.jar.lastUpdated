@@ -1,6 +1,0 @@
-#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Sat Nov 21 12:31:55 CST 2020
-http\://maven.aliyun.com/nexus/content/groups/public/.error=Could not transfer artifact org.junit.platform\:junit-platform-commons\:jar\:sources\:1.7.0 from/to alimaven (http\://maven.aliyun.com/nexus/content/groups/public/)\: Transfer failed for http\://maven.aliyun.com/nexus/content/groups/public/org/junit/platform/junit-platform-commons/1.7.0/junit-platform-commons-1.7.0-sources.jar
-@default-alimaven-http\://maven.aliyun.com/nexus/content/groups/public/.lastUpdated=1605933113496
-@default-nexus-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.lastUpdated=1605933115818
-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.error=Could not transfer artifact org.junit.platform\:junit-platform-commons\:jar\:sources\:1.7.0 from/to nexus (http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/)\: Transfer failed for http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/org/junit/platform/junit-platform-commons/1.7.0/junit-platform-commons-1.7.0-sources.jar

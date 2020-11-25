@@ -1,6 +1,0 @@
-#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Sat Nov 21 12:30:45 CST 2020
-http\://maven.aliyun.com/nexus/content/groups/public/.error=Could not transfer artifact org.mockito\:mockito-junit-jupiter\:jar\:sources\:3.6.0 from/to alimaven (http\://maven.aliyun.com/nexus/content/groups/public/)\: Transfer failed for http\://maven.aliyun.com/nexus/content/groups/public/org/mockito/mockito-junit-jupiter/3.6.0/mockito-junit-jupiter-3.6.0-sources.jar
-@default-alimaven-http\://maven.aliyun.com/nexus/content/groups/public/.lastUpdated=1605933043464
-@default-nexus-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.lastUpdated=1605933045755
-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.error=Could not transfer artifact org.mockito\:mockito-junit-jupiter\:jar\:sources\:3.6.0 from/to nexus (http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/)\: Transfer failed for http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/org/mockito/mockito-junit-jupiter/3.6.0/mockito-junit-jupiter-3.6.0-sources.jar

@@ -1,6 +1,0 @@
-#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Sat Nov 21 12:32:03 CST 2020
-http\://maven.aliyun.com/nexus/content/groups/public/.error=Could not transfer artifact org.glassfish.jaxb\:jaxb-runtime\:jar\:sources\:2.3.3 from/to alimaven (http\://maven.aliyun.com/nexus/content/groups/public/)\: Transfer failed for http\://maven.aliyun.com/nexus/content/groups/public/org/glassfish/jaxb/jaxb-runtime/2.3.3/jaxb-runtime-2.3.3-sources.jar
-@default-alimaven-http\://maven.aliyun.com/nexus/content/groups/public/.lastUpdated=1605933121158
-@default-nexus-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.lastUpdated=1605933123457
-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.error=Could not transfer artifact org.glassfish.jaxb\:jaxb-runtime\:jar\:sources\:2.3.3 from/to nexus (http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/)\: Transfer failed for http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/org/glassfish/jaxb/jaxb-runtime/2.3.3/jaxb-runtime-2.3.3-sources.jar

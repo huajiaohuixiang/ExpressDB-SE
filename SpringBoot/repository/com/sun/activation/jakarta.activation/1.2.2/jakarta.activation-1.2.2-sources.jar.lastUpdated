@@ -1,6 +1,0 @@
-#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Sat Nov 21 12:31:28 CST 2020
-http\://maven.aliyun.com/nexus/content/groups/public/.error=Could not transfer artifact com.sun.activation\:jakarta.activation\:jar\:sources\:1.2.2 from/to alimaven (http\://maven.aliyun.com/nexus/content/groups/public/)\: Transfer failed for http\://maven.aliyun.com/nexus/content/groups/public/com/sun/activation/jakarta.activation/1.2.2/jakarta.activation-1.2.2-sources.jar
-@default-alimaven-http\://maven.aliyun.com/nexus/content/groups/public/.lastUpdated=1605933086399
-@default-nexus-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.lastUpdated=1605933088716
-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.error=Could not transfer artifact com.sun.activation\:jakarta.activation\:jar\:sources\:1.2.2 from/to nexus (http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/)\: Transfer failed for http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/com/sun/activation/jakarta.activation/1.2.2/jakarta.activation-1.2.2-sources.jar

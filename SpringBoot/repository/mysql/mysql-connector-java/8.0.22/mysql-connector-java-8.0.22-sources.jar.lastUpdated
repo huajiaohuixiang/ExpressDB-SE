@@ -1,6 +1,0 @@
-#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Sat Nov 21 12:31:53 CST 2020
-http\://maven.aliyun.com/nexus/content/groups/public/.error=Could not transfer artifact mysql\:mysql-connector-java\:jar\:sources\:8.0.22 from/to alimaven (http\://maven.aliyun.com/nexus/content/groups/public/)\: Transfer failed for http\://maven.aliyun.com/nexus/content/groups/public/mysql/mysql-connector-java/8.0.22/mysql-connector-java-8.0.22-sources.jar
-@default-alimaven-http\://maven.aliyun.com/nexus/content/groups/public/.lastUpdated=1605933110971
-@default-nexus-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.lastUpdated=1605933113279
-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.error=Could not transfer artifact mysql\:mysql-connector-java\:jar\:sources\:8.0.22 from/to nexus (http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/)\: Transfer failed for http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/mysql/mysql-connector-java/8.0.22/mysql-connector-java-8.0.22-sources.jar

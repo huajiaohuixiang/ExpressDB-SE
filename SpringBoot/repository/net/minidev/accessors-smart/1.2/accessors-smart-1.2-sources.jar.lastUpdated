@@ -1,6 +1,0 @@
-#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Sat Nov 21 12:31:58 CST 2020
-http\://maven.aliyun.com/nexus/content/groups/public/.error=Could not transfer artifact net.minidev\:accessors-smart\:jar\:sources\:1.2 from/to alimaven (http\://maven.aliyun.com/nexus/content/groups/public/)\: Transfer failed for http\://maven.aliyun.com/nexus/content/groups/public/net/minidev/accessors-smart/1.2/accessors-smart-1.2-sources.jar
-@default-alimaven-http\://maven.aliyun.com/nexus/content/groups/public/.lastUpdated=1605933116001
-@default-nexus-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.lastUpdated=1605933118317
-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.error=Could not transfer artifact net.minidev\:accessors-smart\:jar\:sources\:1.2 from/to nexus (http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/)\: Transfer failed for http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/net/minidev/accessors-smart/1.2/accessors-smart-1.2-sources.jar

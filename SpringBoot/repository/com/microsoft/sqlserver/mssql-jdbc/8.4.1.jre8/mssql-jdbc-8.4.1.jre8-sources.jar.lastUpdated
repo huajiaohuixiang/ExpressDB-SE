@@ -1,6 +1,0 @@
-#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Sat Nov 21 12:31:31 CST 2020
-http\://maven.aliyun.com/nexus/content/groups/public/.error=Could not transfer artifact com.microsoft.sqlserver\:mssql-jdbc\:jar\:sources\:8.4.1.jre8 from/to alimaven (http\://maven.aliyun.com/nexus/content/groups/public/)\: Transfer failed for http\://maven.aliyun.com/nexus/content/groups/public/com/microsoft/sqlserver/mssql-jdbc/8.4.1.jre8/mssql-jdbc-8.4.1.jre8-sources.jar
-@default-alimaven-http\://maven.aliyun.com/nexus/content/groups/public/.lastUpdated=1605933089118
-@default-nexus-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.lastUpdated=1605933091481
-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.error=Could not transfer artifact com.microsoft.sqlserver\:mssql-jdbc\:jar\:sources\:8.4.1.jre8 from/to nexus (http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/)\: Transfer failed for http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/com/microsoft/sqlserver/mssql-jdbc/8.4.1.jre8/mssql-jdbc-8.4.1.jre8-sources.jar

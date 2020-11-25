@@ -1,5 +1,0 @@
-#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Sat Nov 21 12:28:26 CST 2020
-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.error=Could not transfer artifact org.codehaus.plexus\:plexus-utils\:pom\:3.0.15 from/to public (http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/)\: Transfer failed for http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/org/codehaus/plexus/plexus-utils/3.0.15/plexus-utils-3.0.15.pom
-http\://maven.aliyun.com/nexus/content/groups/public/.lastUpdated=1605932906868
-@default-public-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.lastUpdated=1605932702366

@@ -1,6 +1,0 @@
-#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Sat Nov 21 12:31:15 CST 2020
-http\://maven.aliyun.com/nexus/content/groups/public/.error=Could not transfer artifact org.mybatis\:mybatis\:jar\:sources\:3.5.6 from/to alimaven (http\://maven.aliyun.com/nexus/content/groups/public/)\: Transfer failed for http\://maven.aliyun.com/nexus/content/groups/public/org/mybatis/mybatis/3.5.6/mybatis-3.5.6-sources.jar
-@default-alimaven-http\://maven.aliyun.com/nexus/content/groups/public/.lastUpdated=1605933072947
-@default-nexus-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.lastUpdated=1605933075284
-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.error=Could not transfer artifact org.mybatis\:mybatis\:jar\:sources\:3.5.6 from/to nexus (http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/)\: Transfer failed for http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/org/mybatis/mybatis/3.5.6/mybatis-3.5.6-sources.jar
