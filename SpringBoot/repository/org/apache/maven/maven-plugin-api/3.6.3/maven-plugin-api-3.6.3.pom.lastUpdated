@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sat Nov 21 12:24:44 CST 2020
+http\://maven.aliyun.com/nexus/content/groups/public/.error=Could not transfer artifact org.apache.maven\:maven-plugin-api\:pom\:3.6.3 from/to alimaven (http\://maven.aliyun.com/nexus/content/groups/public/)\: Transfer failed for http\://maven.aliyun.com/nexus/content/groups/public/org/apache/maven/maven-plugin-api/3.6.3/maven-plugin-api-3.6.3.pom
+@default-alimaven-http\://maven.aliyun.com/nexus/content/groups/public/.lastUpdated=1605932681768
+http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.error=Could not transfer artifact org.apache.maven\:maven-plugin-api\:pom\:3.6.3 from/to public (http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/)\: Transfer failed for http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/org/apache/maven/maven-plugin-api/3.6.3/maven-plugin-api-3.6.3.pom
+@default-public-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.lastUpdated=1605932684073

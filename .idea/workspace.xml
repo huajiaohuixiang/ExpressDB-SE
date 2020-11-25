@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d769eb16-e4bc-4591-9f9f-cdbe42fe5a59" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Vue/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Vue/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Vue/public/table.json" beforeDir="false" afterPath="$PROJECT_DIR$/Vue/public/table.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Vue/src/assets/css/color-dark.css" beforeDir="false" afterPath="$PROJECT_DIR$/Vue/src/assets/css/color-dark.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Vue/src/assets/css/icon.css" beforeDir="false" afterPath="$PROJECT_DIR$/Vue/src/assets/css/icon.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Vue/src/assets/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/Vue/src/assets/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Vue/src/assets/css/theme-green/color-green.css" beforeDir="false" afterPath="$PROJECT_DIR$/Vue/src/assets/css/theme-green/color-green.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Vue/src/components/common/directives.js" beforeDir="false" afterPath="$PROJECT_DIR$/Vue/src/components/common/directives.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Vue/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/Vue/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Vue/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Vue/src/router/index.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="D:\IntelliJ IDEA 2020.2.3\plugins\maven\lib\maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1kmco445yXfD8HVuOo3NXJYMmfh" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+    <option name="showVisibilityIcons" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="D:/java/jdk11" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d769eb16-e4bc-4591-9f9f-cdbe42fe5a59" name="Default Changelist" comment="" />
+      <created>1606309378900</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1606309378900</updated>
+      <workItem from="1606309382251" duration="149000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

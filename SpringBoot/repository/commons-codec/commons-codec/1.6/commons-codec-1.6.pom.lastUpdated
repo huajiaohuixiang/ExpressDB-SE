@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sat Nov 21 12:28:25 CST 2020
+http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.error=Could not transfer artifact commons-codec\:commons-codec\:pom\:1.6 from/to public (http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/)\: Transfer failed for http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/commons-codec/commons-codec/1.6/commons-codec-1.6.pom
+http\://maven.aliyun.com/nexus/content/groups/public/.lastUpdated=1605932905133
+@default-public-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.lastUpdated=1605932697180

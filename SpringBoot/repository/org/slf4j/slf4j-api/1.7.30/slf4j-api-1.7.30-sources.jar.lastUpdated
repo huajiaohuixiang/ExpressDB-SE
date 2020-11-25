@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sat Nov 21 12:31:07 CST 2020
+http\://maven.aliyun.com/nexus/content/groups/public/.error=Could not transfer artifact org.slf4j\:slf4j-api\:jar\:sources\:1.7.30 from/to alimaven (http\://maven.aliyun.com/nexus/content/groups/public/)\: Transfer failed for http\://maven.aliyun.com/nexus/content/groups/public/org/slf4j/slf4j-api/1.7.30/slf4j-api-1.7.30-sources.jar
+@default-alimaven-http\://maven.aliyun.com/nexus/content/groups/public/.lastUpdated=1605933064993
+@default-nexus-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.lastUpdated=1605933067298
+http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.error=Could not transfer artifact org.slf4j\:slf4j-api\:jar\:sources\:1.7.30 from/to nexus (http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/)\: Transfer failed for http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/org/slf4j/slf4j-api/1.7.30/slf4j-api-1.7.30-sources.jar

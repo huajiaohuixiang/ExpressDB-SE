@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sat Nov 21 12:31:20 CST 2020
+http\://maven.aliyun.com/nexus/content/groups/public/.error=Could not transfer artifact org.springframework.boot\:spring-boot-starter-data-jpa\:jar\:sources\:2.4.0 from/to alimaven (http\://maven.aliyun.com/nexus/content/groups/public/)\: Transfer failed for http\://maven.aliyun.com/nexus/content/groups/public/org/springframework/boot/spring-boot-starter-data-jpa/2.4.0/spring-boot-starter-data-jpa-2.4.0-sources.jar
+@default-alimaven-http\://maven.aliyun.com/nexus/content/groups/public/.lastUpdated=1605933078406
+@default-nexus-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.lastUpdated=1605933080722
+http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.error=Could not transfer artifact org.springframework.boot\:spring-boot-starter-data-jpa\:jar\:sources\:2.4.0 from/to nexus (http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/)\: Transfer failed for http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/org/springframework/boot/spring-boot-starter-data-jpa/2.4.0/spring-boot-starter-data-jpa-2.4.0-sources.jar

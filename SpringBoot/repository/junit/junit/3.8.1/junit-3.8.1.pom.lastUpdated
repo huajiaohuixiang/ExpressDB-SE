@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sat Nov 21 12:28:24 CST 2020
+http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.error=Could not transfer artifact junit\:junit\:pom\:3.8.1 from/to public (http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/)\: Transfer failed for http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/junit/junit/3.8.1/junit-3.8.1.pom
+http\://maven.aliyun.com/nexus/content/groups/public/.lastUpdated=1605932904794
+@default-public-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.lastUpdated=1605932694641

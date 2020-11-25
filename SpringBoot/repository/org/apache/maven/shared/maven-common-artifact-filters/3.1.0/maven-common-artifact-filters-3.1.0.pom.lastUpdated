@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Mon Nov 23 15:56:44 CST 2020
+http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.error=Could not transfer artifact org.apache.maven.shared\:maven-common-artifact-filters\:pom\:3.1.0 from/to public (http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/)\: Transfer failed for http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/org/apache/maven/shared/maven-common-artifact-filters/3.1.0/maven-common-artifact-filters-3.1.0.pom
+http\://maven.aliyun.com/nexus/content/groups/public/.lastUpdated=1606118204433
+@default-public-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.lastUpdated=1605932681564

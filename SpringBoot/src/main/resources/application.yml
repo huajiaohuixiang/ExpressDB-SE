@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:mysql://139.224.49.108:3306/ExpressSystem
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+#spring:
+#  datasource:
+#    driver-class-name: oracle.jdbc.driver.OracleDriver
+#    username: admin
+#    password: admin
+#    url: jdbc:oracle:thin:@//localhost:1521/orclpdb1.localdomain
+server:
+  port: 8089
+  ssl:
+    enable: true
+    key-store: www.huajiao.site.jks
+    key-store-password: 4t9z5gd27786fg

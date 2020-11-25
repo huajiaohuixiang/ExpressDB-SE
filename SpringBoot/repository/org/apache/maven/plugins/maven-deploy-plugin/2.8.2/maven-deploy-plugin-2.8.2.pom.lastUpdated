@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Wed Nov 25 20:52:21 CST 2020
+http\://maven.aliyun.com/nexus/content/groups/public/.error=Could not transfer artifact org.apache.maven.plugins\:maven-deploy-plugin\:pom\:2.8.2 from/to alimaven (http\://maven.aliyun.com/nexus/content/groups/public/)\: Transfer failed for http\://maven.aliyun.com/nexus/content/groups/public/org/apache/maven/plugins/maven-deploy-plugin/2.8.2/maven-deploy-plugin-2.8.2.pom
+@default-alimaven-http\://maven.aliyun.com/nexus/content/groups/public/.lastUpdated=1606308738773
+http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.error=Could not transfer artifact org.apache.maven.plugins\:maven-deploy-plugin\:pom\:2.8.2 from/to public (http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/)\: Transfer failed for http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/org/apache/maven/plugins/maven-deploy-plugin/2.8.2/maven-deploy-plugin-2.8.2.pom
+@default-public-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.lastUpdated=1606308741394

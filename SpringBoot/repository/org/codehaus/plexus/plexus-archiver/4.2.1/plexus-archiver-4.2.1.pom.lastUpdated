@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Mon Nov 23 15:56:21 CST 2020
+http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.error=Could not transfer artifact org.codehaus.plexus\:plexus-archiver\:pom\:4.2.1 from/to public (http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/)\: Transfer failed for http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/org/codehaus/plexus/plexus-archiver/4.2.1/plexus-archiver-4.2.1.pom
+http\://maven.aliyun.com/nexus/content/groups/public/.lastUpdated=1606118181365
+@default-public-http\://nexus.hepengju.cn\:8081/nexus/content/groups/public/.lastUpdated=1605932691889
