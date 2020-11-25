@@ -1,0 +1,30 @@
+<!--myCenter.wxml-->
+<view class="body">
+  <view class="userInfo">
+    <view class="item11">
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover" ></image>
+    </view>
+    <view class="item12">
+      <view class="item121"><text>{{userInfo.nickName}}，欢迎您！</text></view>
+      <view class="item122"><text>这里是同济大学快递中心</text></view>
+    </view>
+  </view>
+  <view class="item2" bindtap="changeaddr">
+    <view class="item21">
+      <image class="server-img" src="../../images/addr.png" background-size="cover"></image>
+    </view>
+    <view class="item22">我的信息</view>
+  </view>
+  <view class="item2" bindtap="querysender" >
+    <view class="item21">
+      <image class="server-img" src="../../images/delivery.png" background-size="cover"></image>
+    </view>
+    <view class="item22" >寄件订单</view>
+  </view>
+  <view class="item2" bindtap="queryrecieve" >
+    <view class="item21">
+      <image class="server-img" src="../../images/torecieve.png" background-size="cover"></image>
+    </view>
+    <view class="item22" >我的包裹</view>
+  </view>
+</view>

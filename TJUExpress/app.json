@@ -1,0 +1,56 @@
+{
+  "entryPagePath": "pages/myCenter/myCenter",
+  "pages": [
+    "pages/logs/logs",
+    "pages/index/index",
+    "pages/myCenter/myCenter",
+    "pages/Message/Message",
+    "pages/myLogistics/myLogistics",
+    "pages/details/details",
+    "pages/lists/lists",
+    "pages/company/company",
+    "pages/changeaddr/changeaddr",
+    "pages/order3/order3",
+    "pages/order1/order1",
+    "pages/order2/order2",
+    "pages/orderList/orderList",
+    "pages/provinceSelector/provinceSelector",
+    "pages/toRecieve/toRecieve",
+    "pages/addr/addr"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "同济大学快递中心",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#000000",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "images/发送信息_填充.png",
+        "iconPath": "images/发送信息.png",
+        "pagePath": "pages/index/index",
+        "text": "寄件"
+      },
+      {
+        "selectedIconPath": "images/消息中心_填充.png",
+        "iconPath": "images/消息中心.png",
+        "pagePath": "pages/Message/Message",
+        "text": "消息"
+      },
+      {
+        "selectedIconPath": "images/用户_填充.png",
+        "iconPath": "images/用户.png",
+        "pagePath": "pages/myCenter/myCenter",
+        "text": "我的"
+      }
+    ]
+  },
+  "requiredBackgroundModes": [
+    "location"
+  ],
+  "sitemapLocation": "sitemap.json"
+}

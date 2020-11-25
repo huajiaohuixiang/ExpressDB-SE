@@ -1,0 +1,95 @@
+.btn_step{
+  width: 30%;
+  background: #444;
+  color: #fff;
+  height: 80rpx;
+  line-height: 80rpx;
+  box-shadow:0px 0px 3px darkgray;
+}
+.autofill {
+  width: 30%;
+  background: rgb(146, 146, 146);
+  color: #fff;
+  height: 80rpx;
+  line-height: 80rpx;
+  box-shadow:0px 0px 3px darkgray;
+}
+.btn_back{
+
+  width: 30%;
+  background: #fff;
+  color: #000;
+  height: 80rpx;
+  line-height: 80rpx;
+  box-shadow:0px 0px 3px darkgray;
+}
+
+page{
+  background: #eee;
+}
+.body{
+  width: 80%;
+  margin:0rpx auto;
+  margin-bottom: 0;
+  /*height: 60vh;*/
+  background: #fff;
+  border-radius: 15rpx;
+  box-shadow:0px 0px 5px darkgray;
+}
+.icon{
+  margin-left: 10rpx;
+  width: 40rpx;
+  height: 40rpx;
+  flex-shrink:0;
+}
+.item{
+  font-size: 32rpx;
+  display: flex;
+  padding: 20rpx;
+}
+.title {
+  font-weight: bold;
+}
+.input{
+  /*width: 0;*/
+  border-bottom: 1rpx solid #eee;
+  flex-grow:0.8;
+  color: #444;
+}
+.top{
+  display: flex;
+  margin: 40rpx auto 20rpx;
+  width: 80%;
+  align-content:center;
+  justify-content: center;
+}
+
+.btn{
+  margin-top: 60rpx;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 40rpx;
+}
+
+.tip{
+  text-align: center;
+  margin: 40rpx;
+}
+
+.tip{
+  display: flex;
+  justify-content: center;
+}
+
+.tip_bor{
+  width: 50rpx;
+  height: 8rpx;
+  background: #444;
+  margin-top: 25rpx;
+  flex-shrink:0;
+  
+}
+
+.tip_item{
+  width: 100rpx;
+}
