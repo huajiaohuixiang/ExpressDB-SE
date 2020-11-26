@@ -1,4 +1,6 @@
 # vue-manage-system
+如果报错，把node_modules文件夹删掉重新cnpm install
+
 
 <a href="https://github.com/vuejs/vue">
     <img src="https://img.shields.io/badge/vue-2.6.10-brightgreen.svg" alt="vue">
