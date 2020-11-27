@@ -8,7 +8,7 @@
                 <span class="tags-li-icon" @click="closeTags(index)"><i class="el-icon-close"></i></span>
             </li>
         </ul>
-        <div class="tags-close-box">
+        <div class="tags-close-box" >
             <el-dropdown @command="handleTags">
                 <el-button size="mini" type="primary">
                     标签选项<i class="el-icon-arrow-down el-icon--right"></i>
@@ -47,7 +47,7 @@
             // 关闭全部标签
             closeAll(){
                 this.tagsList = [];
-                this.$router.push('/');
+                this.$router.push('/dashboard');
             },
             // 关闭其他标签
             closeOther(){
@@ -74,6 +74,7 @@
                 bus.$emit('tags', this.tagsList);
             },
             handleTags(command){
+                console.log('a');
                 command === 'other' ? this.closeOther() : this.closeAll();
             }
         },
@@ -148,11 +149,13 @@
     }
 
     .tags-li:not(.active):hover {
-        background: #f8f8f8;
+        background: #ffd04b;
+        /* f8f8f8 */
     }
 
     .tags-li.active {
-        color: #fff;
+        color: #ffd04b;
+        /* fff */
     }
 
     .tags-li-title {
@@ -179,6 +182,7 @@
         width: 110px;
         height: 30px;
         background: #fff;
+        /* fff */
         box-shadow: -3px 0 15px 3px rgba(0, 0, 0, .1);
         z-index: 10;
     }

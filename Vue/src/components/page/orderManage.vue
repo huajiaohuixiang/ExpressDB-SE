@@ -26,6 +26,7 @@
             </div>
             <el-table
                 :data="tableData"
+                stripe
                 border
                 class="table"
                 ref="multipleTable"
