@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="pay-top-content">
-      <vab-icon class="pay-success" :icon="['fas', 'check-circle']"></vab-icon>
-      <p>支付成功</p>
+      <!-- <vab-icon class="pay-success" :icon="['fas', 'check-circle']"></vab-icon> -->
+      <p>包裹入库成功</p>
     </div>
     <el-form
       ref="form"
@@ -11,28 +11,24 @@
       label-width="120px"
       class="pay-bottom"
     >
-      <el-form-item label="付款账户：">
-        {{ infoData.payAccount }}
+      <el-form-item label="包裹ID：">
+        {{ infoData.package_ID }}
       </el-form-item>
-      <el-form-item label="收款账户：">
-        {{ infoData.gatheringAccount }}
+      <el-form-item label="寄件人：">
+        {{ infoData.sendname }}
       </el-form-item>
-      <el-form-item label="收款人姓名：">
-        {{ infoData.gatheringName }}
-      </el-form-item>
-      <el-form-item label="转账金额：">
-        <strong>
-          {{ infoData.price }}
-        </strong>
+      <el-form-item label="收件人：">
+        {{ infoData.receivename }}
       </el-form-item>
     </el-form>
     <div class="pay-button-group">
-      <el-button type="primary" @click="handlePrev">再转一笔</el-button>
+      <el-button type="primary" @click="handlePrev">继续入库</el-button>
     </div>
   </div>
 </template>
 <script>
   export default {
+    name:'Step4',
     props: {
       infoData: {
         type: Object,
@@ -41,6 +37,7 @@
         },
       },
     },
+   
     data() {
       return {
         form: {
@@ -55,19 +52,19 @@
       }
     },
     methods: {
-      handleSubmit() {
-        this.$refs.form.validate((valid) => {
-          if (valid) {
-            this.loading = true
-            setTimeout(() => {
-              this.$emit('change-step', 3)
-              this.loading = false
-            }, 2000)
-          } else {
-            this.loading = false
-          }
-        })
-      },
+      // handleSubmit() {
+      //   this.$refs.form.validate((valid) => {
+      //     if (valid) {
+      //       this.loading = true
+      //       setTimeout(() => {
+      //         this.$emit('change-step', 3)
+      //         this.loading = false
+      //       }, 2000)
+      //     } else {
+      //       this.loading = false
+      //     }
+      //   })
+      // },
       handlePrev() {
         this.$emit('change-step', 1)
       },

@@ -36,32 +36,30 @@
                 <el-table-column type="selection" width="55" align="center"></el-table-column>
                 <el-table-column prop="id" label="包裹ID" width="100" align="center"></el-table-column>
                 <el-table-column prop="name" label="发件人" width="80" align="center"></el-table-column>
-                <!-- <el-table-column prop="phone" label="发件人" width="80" align="center"> </el-table-column> -->
+                <el-table-column prop="phone" label="发件人手机" width="120" align="center"> </el-table-column>
                 <el-table-column prop="receivename" label="收件人" width="80" align="center">
-                    <template slot-scope="scope">{{scope.row.toname}}</template>
+                    <!-- <template slot-scope="scope">{{scope.row.toname}}</template> -->
                 </el-table-column>
-                <el-table-column label="收件地址" width="240" align="center">
+                <el-table-column prop="address" label="收件地址"  align="center">
                     <template slot-scope="scope">
                         {{scope.row.address}}
                     </template>
                 </el-table-column>
-                <el-table-column prop="快递公司" label="快递公司"  width="100" align="center">
+                <el-table-column prop="company" label="快递公司"  width="100" align="center">
                     <template slot-scope="scope">
                         {{scope.row.company}}
                     </template>
                 </el-table-column>
-                <el-table-column label="状态" align="center" width="80" >
+                <el-table-column prop="state" label="状态" align="center" width="80" >
                     <template slot-scope="scope">
                         <el-tag
-                            :type="scope.row.state==='入库'?'inwarehouse':(scope.row.state==='入柜'?'inboxes':(scope.row.state=='未入库'?'notarrive':(scope.row.state==='已签收'?'success':'')))"
+                            :type="scope.row.state==='已入库'?'inwarehouse':(scope.row.state==='已出库'?'outwarehouse':(scope.row.state=='已接单'?'yes':(scope.row.state==='未接单'?'no':'')))"
                         >{{scope.row.state}}</el-tag>
                     </template>
                 </el-table-column>
 
-                <el-table-column prop="date" label="入库时间" width="100"></el-table-column>
-                
-                
-                <el-table-column label="操作" width="180" align="center">
+                <el-table-column prop="date" label="入库时间" width="100"></el-table-column>             
+                <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
                         <el-button
                             type="text"
@@ -109,6 +107,7 @@
 
 <script>
 import { fetchData } from '../../api/index';
+// import axois from "axios";
 export default {
     name: 'basetable',
     data() {
@@ -135,11 +134,25 @@ export default {
     methods: {
         // 获取 easy-mock 的模拟数据
         getData() {
-            fetchData(this.query).then(res => {
-                console.log(res);
-                this.tableData = res.list;
-                this.pageTotal = res.pageTotal || 50;
-            });
+            let that =this;
+            this.$axios.get('http://localhost:8081/getOrder')
+                .then(function(response) {
+                    console.log("a");
+                    console.log(response)
+
+                    that.tableData=response.data
+                    console.log("a");
+                    
+                    that.pageTotal=1;
+                   // vm.answer = _.capitalize(response.data.answer)
+                })
+                .catch(function(error) {
+                    console.log("b");
+                    
+                   // vm.answer = 'Error! Could not reach the API. ' + error
+                })
+
+            
         },
         // 触发搜索按钮
         handleSearch() {

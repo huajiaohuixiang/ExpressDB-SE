@@ -39,10 +39,10 @@ export default new Router({
                     meta: { title: '个人主页' }
                 },
                 {
-                    path: '/pay',
+                    path: '/packageInWarehouse',
                     component: () =>
-                        import ( /* webpackChunkName: "dashboard" */ '../components/page/pay/index.vue'),
-                    meta: { title: '付款' }
+                        import ( /* webpackChunkName: "dashboard" */ '../components/page/packageInWarehouse/index.vue'),
+                    meta: { title: '包裹入库' }
                 },
                 {
                     path: '/packageManage',
@@ -50,12 +50,7 @@ export default new Router({
                         import ( /* webpackChunkName: "icon" */ '../components/page/packageManage.vue'),
                     meta: { title: '包裹管理' }
                 },
-                {
-                    path: '/packageInWare',
-                    component: () =>
-                        import ( /* webpackChunkName: "icon" */ '../components/page/packageInWare.vue'),
-                    meta: { title: '包裹入库' }
-                },
+
                 {
                     path: '/packageOutWare',
                     component: () =>
@@ -186,12 +181,12 @@ export default new Router({
                 import ( /* webpackChunkName: "login" */ '../components/page/Login.vue'),
             meta: { title: '登录' }
         },
-        {
-            path: '/tabs',
-            component: () =>
-                import ( /* webpackChunkName: "tabs" */ '../components/page/Message.vue'),
-            meta: { title: '个人中心' }
-        },
+        // {
+        //     path: '/tabs',
+        //     component: () =>
+        //         import ( /* webpackChunkName: "tabs" */ '../components/page/Message.vue'),
+        //     meta: { title: '个人中心' }
+        // },
         {
             path: '*',
             redirect: '/404'

@@ -9,8 +9,9 @@
         :xl="{ span: 12, offset: 6 }"
       >
         <el-steps :space="200" :active="active" align-center class="steps">
-          <el-step title="填写转账信息"></el-step>
-          <el-step title="确认转账信息"></el-step>
+          <el-step title="填写基本信息"></el-step>
+          <el-step title="填写寄件人信息"></el-step>
+          <el-step title="填写收件人信息"></el-step>          
           <el-step title="完成"></el-step>
         </el-steps>
         <step1 v-if="active === 1" @change-step="handleSetStep"></step1>
@@ -24,6 +25,12 @@
           :info-data="form"
           @change-step="handleSetStep"
         ></step3>
+        <step4
+         v-if="active === 4"
+          :info-data="form"
+          @change-step="handleSetStep">
+         
+        </step4>
       </el-col>
     </el-row>
   </div>
@@ -33,9 +40,10 @@
   import Step1 from './components/Step1'
   import Step2 from './components/Step2'
   import Step3 from './components/Step3'
+ import Step4 from './components/Step4'
   export default {
-    name: 'Pay',
-    components: { Step1, Step2, Step3 },
+    name: 'package',
+    components: { Step1, Step2, Step3,Step4 },
     data() {
       return {
         active: 1,

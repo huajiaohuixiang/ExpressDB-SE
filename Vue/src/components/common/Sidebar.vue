@@ -84,7 +84,7 @@ export default {
                     title: '包裹入库出库',
                     subs: [
                         {
-                            index: 'packageInWare',
+                            index: 'packageInWarehouse',
                             title: '包裹入库'
                         },
                         {

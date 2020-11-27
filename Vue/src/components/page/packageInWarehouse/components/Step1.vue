@@ -1,0 +1,73 @@
+<template>
+  <div>
+    <el-form ref="form" :model="form" :rules="rules" label-width="120px">
+      <el-form-item label-width="0">
+        <el-alert show-icon>请务必仔细填写并核对</el-alert>
+      </el-form-item>
+      <el-form-item label="包裹编号" prop="package_ID">
+        <el-input v-model="form.package_ID"></el-input>
+      </el-form-item>
+      <el-form-item label="包裹内容" prop="package_Content">
+        <el-input v-model="form.package_Content"></el-input>
+      </el-form-item>
+      <el-form-item label="包裹重量" prop="package_weight">
+        <el-input v-model="form.package_weight"></el-input>
+      </el-form-item>
+      <!-- <el-form-item label="转账金额" prop="price">
+        <el-input v-model="form.price"></el-input>
+      </el-form-item> -->
+    </el-form>
+    <div class="pay-button-group">
+     
+      <el-button type="primary" @click="handleNext">下一步</el-button>
+    </div>
+  </div>
+</template>
+<script>
+  export default {
+    name:'Step1',
+    data() {
+      return {
+        form: {
+          package_ID: '9880828645542',
+          package_Content: '雨伞',
+          package_weight: '0.5KG',
+          // price: '100',
+        },
+        rules: {
+          package_ID: [
+            { required:true, message: '请输入包裹编号', trigger: 'blur' },
+          ],
+          package_Content: [
+            { required: false, message: '请输入包裹内容', trigger: 'blur' },
+            // { type: 'email', message: '账户名应为邮箱格式', trigger: 'blur' },
+          ],
+          package_weight: [
+            { required: false, message: '请输入包裹重量', trigger: 'blur' },
+          ],
+          // price: [
+          //   { required: true, message: '请输入转账金额', trigger: 'blur' },
+          //   { pattern: /^(\d+)((?:\.\d+)?)$/, message: '请输入合法金额数字' },
+          // ],
+        },
+      }
+    },
+    methods: {
+      
+      handleNext() {
+        this.$refs.form.validate((valid) => {
+          if (valid) {
+            this.$emit('change-step', 2, this.form)
+          }
+        })
+      },
+    },
+  }
+</script>
+<style lang="scss" scoped>
+  .pay-button-group {
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+  }
+</style>
