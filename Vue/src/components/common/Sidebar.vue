@@ -80,7 +80,7 @@ export default {
                 },
                 {
                     icon: 'el-icon-lx-calendar',
-                    index: '4',
+                    index: '3',
                     title: '包裹入库出库',
                     subs: [
                         {
@@ -89,7 +89,7 @@ export default {
                         },
                         {
                             index: 'packageOutWare',
-                            title: '包裹出库'
+                            title: '包裹出库入柜'
                         },
                         {
                             index: 'ExpressInWare',
@@ -99,35 +99,14 @@ export default {
                             index: 'ExpressOutWare',
                             title: '寄件快递出库'
                         },
-                        // {
-                        //     index: '3-2',
-                        //     title: '三级菜单',
-                        //     subs: [
-                        //         {
-                        //             index: 'editor',
-                        //             title: '富文本编辑器'
-                        //         },
-                        //         {
-                        //             index: 'markdown',
-                        //             title: 'markdown编辑器'
-                        //         }
-                        //     ]
-                        // },
-                        // {
-                        //     index: 'upload',
-                        //     title: '文件上传'
-                        // }
+                       
                     ]
                 },
-                {
-                    icon: 'el-icon-lx-search',
-                    index: 'packageManage',
-                    title: '包裹信息查询'
-                },
+               
                
                 {
                     icon: 'el-icon-pie-chart',
-                    index: '2',
+                    index: '4',
                     title: '网点容量查询',
                     subs: [
                         {
@@ -139,6 +118,15 @@ export default {
                             title: '快递柜容量查询'
                         },   
                     ]
+                },
+                 {
+                    icon: 'el-icon-lx-search',
+                    index: 'packageManage',
+                    title: '包裹信息管理'
+                },{
+                    icon:'el-icon-lx-search',
+                    index: 'orderManage',
+                    title: '寄件订单管理'
                 },
                 {
                     icon:'el-icon-lx-comment',
@@ -160,11 +148,11 @@ export default {
                 //         }
                 //     ]
                 // },
-                {
-                    icon: 'el-icon-lx-recharge',
-                    index: 'pay',
-                    title: '支付'
-                },
+                // {
+                //     icon: 'el-icon-lx-recharge',
+                //     index: 'pay',
+                //     title: '支付'
+                // },
                 {
                     icon: 'el-icon-lx-emoji',
                     index: 'icon',
@@ -191,11 +179,11 @@ export default {
                 //     title: '更换语言'
                 // },
                
-                {
-                    icon: 'el-icon-lx-info',
-                    index: '/donate',
-                    title: '作者信息'
-                }
+                // {
+                //     icon: 'el-icon-lx-info',
+                //     index: '/donate',
+                //     title: '作者信息'
+                // }
             ]
         };
     },

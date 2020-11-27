@@ -21,7 +21,7 @@
                         :content="message?`有${message}条未读消息`:`消息中心`"
                         placement="bottom"
                     >
-                        <router-link to="/tabs">
+                        <router-link to="/Message">
                             <i class="el-icon-bell"></i>
                         </router-link>
                     </el-tooltip>
@@ -42,7 +42,7 @@
                             <el-dropdown-item>个人中心</el-dropdown-item>
                         </a> -->
                         <el-dropdown-item divided command="PersonalCentre">
-                            <router-link to="/tabs">
+                            <router-link to="/Message">
                             消息中心
                         </router-link>
                         </el-dropdown-item>
