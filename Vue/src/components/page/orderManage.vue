@@ -17,13 +17,17 @@
                 >批量删除</el-button>
                 <el-select  v-model="query.address" placeholder="状态" class="handle-select mr10" @change="getDataBySelect($event)">
                     <el-option key="全部" label="全部" value="全部"></el-option>
-                    <el-option key="已接单" label="已接单" value="已接单"></el-option>
                     <el-option key="未接单" label="未接单" value="未接单"></el-option>
+                    <el-option key="已接单" label="已接单" value="已接单"></el-option>
+                    <el-option key="已分配" label="已分配" value="已分配"></el-option>
                      <el-option key="已入库" label="已入库" value="已入库"></el-option>
-                  <el-option key="已出库" label="已出库" value="已出库"></el-option>
+                  
                 </el-select>
                 <el-input v-model="query.name" placeholder="包裹编号" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+                <el-button type="primary" icon="el-icon-roundcheckfill" @click="handleAccept">接单</el-button> 
+                <el-button type="primary" icon="el-icon-emoji" @click="handleAllot">分配</el-button>
+
             </div>
             <el-table
                 :data="tableData.slice((query.pageIndex-1)*query.pageSize,query.pageIndex*query.pageSize)"
@@ -53,7 +57,7 @@
                         {{scope.row.company}}
                     </template>
                 </el-table-column>
-                <el-table-column prop="state" label="状态" align="center" width="80" >
+                <el-table-column prop="state" label="状态" align="center"  >
                     <template slot-scope="scope">
                         <el-tag
                             :type="scope.row.state==='已入库'?'inwarehouse':(scope.row.state==='已出库'?'outwarehouse':(scope.row.state=='已接单'?'yes':(scope.row.state==='未接单'?'no':'')))"
@@ -62,8 +66,18 @@
                 </el-table-column>
 
                            
-                <el-table-column label="操作" align="center">
+                <el-table-column label="操作" align="center" width="249">
                     <template slot-scope="scope">
+                        <el-button
+                            type="text"
+                            icon="el-icon-edit"
+                            @click="handleAccept(scope.$index, scope.row)"
+                        >接单</el-button>
+                        <el-button
+                            type="text"
+                            icon="el-icon-edit"
+                            @click="handleAllot(scope.$index, scope.row)"
+                        >分配人员</el-button>
                         <el-button
                             type="text"
                             icon="el-icon-edit"
@@ -220,9 +234,21 @@ export default {
             this.pageTotal=this.tableData.length
             console.log("没了")
         },
-        test(){
-            this.getData();
+        handleAccept(index, row){
+            //还需添加函数
+            this.$message.success('接受订单成功');
+            let accept=this.tableData.slice(index,index+1);
+            console.log(accept);
+            accept.state="已接单";
         },
+        handleAllot(index, row){
+            //还需添加post函数
+            this.$message.success('分配人员成功');
+            let allot=this.tableData.slice(index,index+1);
+            console.log(allot);
+            allot.state="已分配"
+        },
+
         // 删除操作
         handleDelete(index, row) {
             // 二次确认删除
@@ -232,14 +258,20 @@ export default {
                 .then(() => {
                     //添加post请求删除
                     this.$message.success('删除成功');
-                    this.tableData.splice(index, 1);
+                    
+                    let del=this.tableData.splice(index, 1);
+                    //这里把del 发送给后端删除
+                    console.log(del);
                 })
                 .catch(() => {});
+            //this.getData();
+            this.pageTotal=this.tableData.length;
         },
         // 多选操作
         handleSelectionChange(val) {
             this.multipleSelection = val;
         },
+
         delAllSelection() {
             const length = this.multipleSelection.length;
             let str = '';
