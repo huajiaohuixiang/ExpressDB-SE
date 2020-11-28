@@ -15,17 +15,17 @@
                     class="handle-del mr10"
                     @click="delAllSelection"
                 >批量删除</el-button>
-                <el-select v-model="query.address" placeholder="地址" class="handle-select mr10">
-                    <el-option key="1" label="百世快递" value="百世快递"></el-option>
-                    <el-option key="2" label="圆通快递" value="圆通快递"></el-option>
-                     <el-option key="3" label="申通快递" value="申通快递"></el-option>
-                  
+                <el-select v-model="query.address" placeholder="状态" class="handle-select mr10">
+                    <el-option key="1" label="已接单" value="已接单"></el-option>
+                    <el-option key="2" label="未接单" value="未接单"></el-option>
+                     <el-option key="3" label="已入库" value="已入库"></el-option>
+                  <el-option key="4" label="已出库" value="已出库"></el-option>
                 </el-select>
                 <el-input v-model="query.name" placeholder="包裹编号" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
             </div>
             <el-table
-                :data="tableData"
+                :data="tableData.slice((query.pageIndex-1)*query.pageSize,query.pageIndex*query.pageSize)"
                 stripe
                 border
                 class="table"
@@ -80,7 +80,7 @@
                     background
                     layout="total, prev, pager, next"
                     :current-page="query.pageIndex"
-                    :page-size="query.pageSize"
+                    :page-size="query.pagesize"
                     :total="pageTotal"
                     @current-change="handlePageChange"
                 ></el-pagination>
@@ -104,7 +104,9 @@
         </el-dialog>
     </div>
 </template>
-
+<script>
+    
+</script>
 <script>
 import { fetchData } from '../../api/index';
 // import axois from "axios";
@@ -132,7 +134,7 @@ export default {
         this.getData();
     },
     methods: {
-        // 获取 easy-mock 的模拟数据
+        
         getData() {
             let that =this;
             this.$axios.get('http://localhost:8081/getOrder')
@@ -141,9 +143,10 @@ export default {
                     console.log(response)
 
                     that.tableData=response.data
-                    console.log("a");
                     
-                    that.pageTotal=1;
+                    console.log('a');
+                    that.pageTotal=parseInt((response.data.length-1));
+                    console.log(that.pageTotal);
                    // vm.answer = _.capitalize(response.data.answer)
                 })
                 .catch(function(error) {
@@ -156,6 +159,7 @@ export default {
         },
         // 触发搜索按钮
         handleSearch() {
+            //添加get 搜索操作
             this.$set(this.query, 'pageIndex', 1);
             this.getData();
         },
@@ -166,6 +170,7 @@ export default {
                 type: 'warning'
             })
                 .then(() => {
+                    //添加post请求删除
                     this.$message.success('删除成功');
                     this.tableData.splice(index, 1);
                 })
