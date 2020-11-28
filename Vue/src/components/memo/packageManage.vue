@@ -3,7 +3,7 @@
         <div class="crumbs">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item>
-                    <i class="el-icon-lx-cascades"></i> 寄件订单管理
+                    <i class="el-icon-lx-cascades"></i> 包裹查询
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
@@ -15,18 +15,17 @@
                     class="handle-del mr10"
                     @click="delAllSelection"
                 >批量删除</el-button>
-                <el-select v-model="query.address" placeholder="状态" class="handle-select mr10">
-                    <el-option key="1" label="已接单" value="已接单"></el-option>
-                    <el-option key="2" label="未接单" value="未接单"></el-option>
-                     <el-option key="3" label="已入库" value="已入库"></el-option>
-                  <el-option key="4" label="已出库" value="已出库"></el-option>
+                <el-select v-model="query.address" placeholder="地址" class="handle-select mr10">
+                    <el-option key="1" label="百世快递" value="百世快递"></el-option>
+                    <el-option key="2" label="圆通快递" value="圆通快递"></el-option>
+                     <el-option key="3" label="申通快递" value="申通快递"></el-option>
+                  
                 </el-select>
                 <el-input v-model="query.name" placeholder="包裹编号" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
             </div>
             <el-table
-                :data="tableData.slice((query.pageIndex-1)*query.pageSize,query.pageIndex*query.pageSize)"
-                stripe
+                :data="tableData"
                 border
                 class="table"
                 ref="multipleTable"
@@ -34,34 +33,31 @@
                 @selection-change="handleSelectionChange"
             >
                 <el-table-column type="selection" width="55" align="center"></el-table-column>
-                <el-table-column prop="order_id" label="订单编号" width="100" align="center"></el-table-column>
-                <el-table-column prop="name" label="发件人" width="80" align="center"></el-table-column>
-                <el-table-column prop="phone" label="发件人手机" width="120" align="center"> </el-table-column>
-                <el-table-column prop="receivename" label="收件人" width="80" align="center">
-                 
-                    <!-- <template slot-scope="scope">{{scope.row.toname}}</template> -->
+                <el-table-column prop="id" label="包裹ID" width="80" align="center"></el-table-column>
+                <el-table-column prop="name" label="发件人"></el-table-column>
+                <el-table-column label="收件人">
+                    <template slot-scope="scope">{{scope.row.toname}}</template>
                 </el-table-column>
-                 <el-table-column prop="receivephone" label="收件人手机" width="100"></el-table-column> 
-                <el-table-column prop="address" label="收件地址"  align="center">
+                <el-table-column label="发件地址" width="240" align="center">
                     <template slot-scope="scope">
                         {{scope.row.address}}
                     </template>
                 </el-table-column>
-                <el-table-column prop="company" label="快递公司"  width="100" align="center">
+                <el-table-column prop="快递公司" label="快递公司">
                     <template slot-scope="scope">
                         {{scope.row.company}}
                     </template>
                 </el-table-column>
-                <el-table-column prop="state" label="状态" align="center" width="80" >
+                <el-table-column label="状态" align="center">
                     <template slot-scope="scope">
                         <el-tag
-                            :type="scope.row.state==='已入库'?'inwarehouse':(scope.row.state==='已出库'?'outwarehouse':(scope.row.state=='已接单'?'yes':(scope.row.state==='未接单'?'no':'')))"
+                            :type="scope.row.state==='入库'?'inwarehouse':(scope.row.state==='入柜'?'inboxes':scope.row.state=='未入库'?'notarrive':scope.row.state==='已签收'?'success':'')"
                         >{{scope.row.state}}</el-tag>
                     </template>
                 </el-table-column>
 
-                           
-                <el-table-column label="操作" align="center">
+                <el-table-column prop="date" label="入库时间"></el-table-column>
+                <el-table-column label="操作" width="180" align="center">
                     <template slot-scope="scope">
                         <el-button
                             type="text"
@@ -82,7 +78,7 @@
                     background
                     layout="total, prev, pager, next"
                     :current-page="query.pageIndex"
-                    :page-size="query.pagesize"
+                    :page-size="query.pageSize"
                     :total="pageTotal"
                     @current-change="handlePageChange"
                 ></el-pagination>
@@ -92,32 +88,12 @@
         <!-- 编辑弹出框 -->
         <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
             <el-form ref="form" :model="form" label-width="70px">
-                <el-form-item label="订单编号">
-                    <el-input v-model="form.order_id"></el-input>
-                </el-form-item>
-                <el-form-item label="发件人">
+                <el-form-item label="用户名">
                     <el-input v-model="form.name"></el-input>
                 </el-form-item>
-                <el-form-item label="发件人手机号">
-                    <el-input v-model="form.phone"></el-input>
-                </el-form-item>
-                <el-form-item label="收件人">
-                    <el-input v-model="form.receivename"></el-input>
-                </el-form-item>
-                <el-form-item label="收件人手机号">
-                    <el-input v-model="form.receivephone"></el-input>
-                </el-form-item>
-                <el-form-item label="收件地址">
+                <el-form-item label="地址">
                     <el-input v-model="form.address"></el-input>
                 </el-form-item>
-                <el-form-item label="快递公司">
-                    <el-input v-model="form.company"></el-input>
-                </el-form-item>
-                <el-form-item label="状态">
-                    <el-input v-model="form.state"></el-input>
-                </el-form-item>
-
-
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="editVisible = false">取 消</el-button>
@@ -126,12 +102,9 @@
         </el-dialog>
     </div>
 </template>
-<script>
-    
-</script>
+
 <script>
 import { fetchData } from '../../api/index';
-// import axois from "axios";
 export default {
     name: 'basetable',
     data() {
@@ -156,32 +129,16 @@ export default {
         this.getData();
     },
     methods: {
-        
+        // 获取 easy-mock 的模拟数据
         getData() {
-            let that =this;
-            this.$axios.get('http://localhost:8081/getOrder')
-                .then(function(response) {
-                    console.log("a");
-                    console.log(response)
-
-                    that.tableData=response.data
-                    
-                    console.log('a');
-                    that.pageTotal=parseInt((response.data.length-1));
-                    console.log(that.pageTotal);
-                   // vm.answer = _.capitalize(response.data.answer)
-                })
-                .catch(function(error) {
-                    console.log("b");
-                    
-                   // vm.answer = 'Error! Could not reach the API. ' + error
-                })
-
-            
+            fetchData(this.query).then(res => {
+                console.log(res);
+                this.tableData = res.list;
+                this.pageTotal = res.pageTotal || 50;
+            });
         },
         // 触发搜索按钮
         handleSearch() {
-            //添加get 搜索操作
             this.$set(this.query, 'pageIndex', 1);
             this.getData();
         },
@@ -192,7 +149,6 @@ export default {
                 type: 'warning'
             })
                 .then(() => {
-                    //添加post请求删除
                     this.$message.success('删除成功');
                     this.tableData.splice(index, 1);
                 })

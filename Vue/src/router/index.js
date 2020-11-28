@@ -57,18 +57,18 @@ export default new Router({
                         import ( /* webpackChunkName: "icon" */ '../components/page/packageOutWare.vue'),
                     meta: { title: '包裹出库' }
                 },
-                {
-                    path: '/ExpressInWare',
-                    component: () =>
-                        import ( /* webpackChunkName: "icon" */ '../components/page/ExpressInWare.vue'),
-                    meta: { title: '寄件快递入库' }
-                },
-                {
-                    path: '/ExpressOutWare',
-                    component: () =>
-                        import ( /* webpackChunkName: "icon" */ '../components/page/ExpressOutWare.vue'),
-                    meta: { title: '寄件快递出库' }
-                },
+                // {
+                //     path: '/ExpressInWare',
+                //     component: () =>
+                //         import ( /* webpackChunkName: "icon" */ '../components/page/ExpressInWare.vue'),
+                //     meta: { title: '寄件快递入库' }
+                // },
+                // {
+                //     path: '/ExpressOutWare',
+                //     component: () =>
+                //         import ( /* webpackChunkName: "icon" */ '../components/page/ExpressOutWare.vue'),
+                //     meta: { title: '寄件快递出库' }
+                // },
                 {
                     path: '/CupboardCapacity',
                     component: () =>

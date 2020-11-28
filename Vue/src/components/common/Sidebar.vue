@@ -91,14 +91,14 @@ export default {
                             index: 'packageOutWare',
                             title: '包裹出库入柜'
                         },
-                        {
-                            index: 'ExpressInWare',
-                            title: '寄件快递入库'
-                        },
-                        {
-                            index: 'ExpressOutWare',
-                            title: '寄件快递出库'
-                        },
+                        // {
+                        //     index: 'ExpressInWare',
+                        //     title: '寄件快递入库'
+                        // },
+                        // {
+                        //     index: 'ExpressOutWare',
+                        //     title: '寄件快递出库'
+                        // },
                        
                     ]
                 },
