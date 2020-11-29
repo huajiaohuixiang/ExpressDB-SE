@@ -15,11 +15,11 @@
                     class="handle-del mr10"
                     @click="delAllSelection"
                 >批量删除</el-button>
-                <el-select v-model="query.address" placeholder="状态" class="handle-select mr10">
-                    <el-option key="1" label="已接单" value="已接单"></el-option>
-                    <el-option key="2" label="未接单" value="未接单"></el-option>
-                     <el-option key="3" label="已入库" value="已入库"></el-option>
-                  <el-option key="4" label="已出库" value="已出库"></el-option>
+                <el-select v-model="query.address" placeholder="请选择状态" class="handle-select mr10"  @change="getDataBySelect($event)">
+                    <el-option key="1" label="全部" value="全部"></el-option>
+                    <el-option key="2" label="已入库" value="已入库"></el-option>
+                    <el-option key="3" label="已入柜" value="已入柜"></el-option>
+                    <el-option key="4" label="已签收" value="已签收"></el-option>
                 </el-select>
                 <el-input v-model="query.name" placeholder="包裹编号" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
@@ -56,7 +56,7 @@
                 <el-table-column prop="state" label="状态" align="center" width="80" >
                     <template slot-scope="scope">
                         <el-tag
-                            :type="scope.row.state==='已入库'?'inwarehouse':(scope.row.state==='已出库'?'outwarehouse':(scope.row.state=='已接单'?'yes':(scope.row.state==='未接单'?'no':'')))"
+                            :type="scope.row.state==='已入库'?'inwarehouse':(scope.row.state==='已入柜'?'outwarehouse':(scope.row.state=='已签收'?'yes':''))"
                         >{{scope.row.state}}</el-tag>
                     </template>
                 </el-table-column>
@@ -140,6 +140,7 @@ export default {
                 pageSize: 10
             },
             tableData: [],
+            sumData:[],
             multipleSelection: [],
             delList: [],
             editVisible: false,
@@ -158,8 +159,26 @@ export default {
             fetchData(this.query).then(res => {
                 console.log(res);
                 this.tableData = res.list;
-                this.pageTotal = res.pageTotal || 50;
+                this.pageTotal = res.pageTotal ;    //|| 50
+                this.sumData=this.tableData;
             });
+        },
+        getDataBySelect(){
+            console.log("还活着");
+            if(this.query.address=="全部"){
+                this.tableData=this.sumData;
+                this.$set(this.query, 'pageIndex', 1)
+            }else{
+                let tempData=this.sumData;
+                console.log(tempData);
+                let result=[];           
+                tempData.forEach(element => {
+                    if(element.state==this.query.address){ result.push(element);}  
+                });
+                this.tableData=result;
+            }
+            this.pageTotal=this.tableData.length
+            console.log("没了")
         },
         // 触发搜索按钮
         handleSearch() {

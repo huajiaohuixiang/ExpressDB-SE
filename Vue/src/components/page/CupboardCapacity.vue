@@ -7,6 +7,19 @@
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
+         <div class="container">
+           
+            <el-tag  
+            size="medium"
+            effect="plain"
+            v-for="i in cuplist"
+            v-bind:todo="i"
+            v-bind:key="i"
+            >
+            快递柜{{i}}   剩余容量：1000
+            </el-tag>
+            
+        </div>
         <div class="container">
             <div class="handle-box">
                 <el-button
@@ -15,7 +28,8 @@
                     class="handle-del mr10"
                     @click="delAllSelection"
                 >批量删除</el-button>
-                <el-select v-model="query.address" placeholder="快递柜选择" class="handle-select mr10">
+                <el-select v-model="query.address" placeholder="快递柜选择" class="handle-select mr10" @change="getDataBySelect($event)">
+                    <el-option key="0" label="全部" value="0"></el-option>
                     <el-option key="1" label="快递柜1" value="1"></el-option>
                     <el-option key="2" label="快递柜2" value="2"></el-option>
                      <el-option key="3" label="快递柜3" value="3"></el-option>
@@ -64,8 +78,9 @@ export default {
                 pageIndex: 1,
                 pageSize: 10
             },
+            cuplist:[1,2,3,4],
             list:[1,0],
-            boxlist:[["success","warning","success","success","success"],["success","success","success","success","success"]],
+            boxlist:[["success","warning","success1","success2","success3"],["success4","success5","success6","success7","success8"]],
             tableData: [],
             multipleSelection: [],
             delList: [],
@@ -79,7 +94,23 @@ export default {
     created() {
         this.getData();
     },
-
+    getDataBySelect(){
+        console.log("还活着");
+        // if(this.query.address=="全部"){
+        //     this.tableData=this.sumData;
+        //     this.$set(this.query, 'pageIndex', 1)
+        // }else{
+        //     let tempData=this.sumData;
+        //     console.log(tempData);
+        //     let result=[];           
+        //     tempData.forEach(element => {
+        //         if(element.state==this.query.address){ result.push(element);}  
+        //     });
+        //     this.tableData=result;
+        // }
+        // this.pageTotal=this.tableData.length
+        console.log("没了")
+    },
     methods: {
         // 获取 easy-mock 的模拟数据
         getData() {

@@ -23,7 +23,7 @@
                      <el-option key="已入库" label="已入库" value="已入库"></el-option>
                   
                 </el-select>
-                <el-input v-model="query.name" placeholder="包裹编号" class="handle-input mr10"></el-input>
+                <el-input v-model="query.name" placeholder="订单编号" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
                 <el-button type="primary" icon="el-icon-roundcheckfill" @click="handleAccept">接单</el-button> 
                 <el-button type="primary" icon="el-icon-emoji" @click="handleAllot">分配</el-button>
