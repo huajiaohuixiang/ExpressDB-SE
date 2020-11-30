@@ -132,7 +132,24 @@ export default {
     },
     methods: {
         onSubmit() {
-            this.$message.success('提交成功！');
+            let that =this;
+            this.$axios.get('http://localhost:8081/ok')  
+            .then(function(response) {                  
+                    console.log(response.data);     
+                    let flag=response.data;            
+                    if(falg==true){
+                        this.$message.success('提交成功！');
+                    }else{
+                        this.$message.success('提交失败！');
+                    }
+                                                   
+                })
+                .catch(function(error) {
+                    console.log("b");                  
+                })
+
+
+            
         }
     }
 };

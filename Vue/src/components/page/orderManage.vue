@@ -178,6 +178,7 @@ export default {
             let that =this;
             this.$axios.get('http://localhost:8081/getOrder')
                 .then(function(response) {
+                    console.log(response.data);
                     that.tableData=response.data;
                     that.pageTotal=parseInt((response.data.length));
                     that.sumData=that.tableData;
@@ -191,19 +192,14 @@ export default {
         // 触发搜索按钮
         getDataByOrderID(){
             let that =this;
-            this.$axios.get('http://localhost:8081/getOrderByID?order_ID=00001')
-                .then(function(response) {
-                   
-                    console.log(response)
-
-                    that.tableData=response.data
-                    console.log(that.tableData)
+            this.$axios.get('http://localhost:8081/get1OrderByID?order_ID=00001')
+                .then(function(response) {                  
+                    console.log(response.data);                 
+                    let result=[];
+                    result.push(response.data);                 
+                    that.tableData=result;                  
                     console.log('a');
-                    that.pageTotal=1;
-                    
-                    console.log(that.pageTotal);
-                     vm.answer = _.capitalize(response.data.answer)
-                     
+                    that.pageTotal=1;                  
                 })
                 .catch(function(error) {
                     console.log("b");                  
