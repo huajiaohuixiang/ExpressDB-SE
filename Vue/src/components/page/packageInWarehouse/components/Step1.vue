@@ -13,6 +13,15 @@
       <el-form-item label="包裹重量" prop="package_weight">
         <el-input v-model="form.package_weight"></el-input>
       </el-form-item>
+      <el-form-item label="快递公司" prop="package_company">
+        <el-input v-model="form.package_company"></el-input>
+      </el-form-item>
+      <el-form-item label="仓库编号" prop="warehouse_ID">
+        <el-input v-model="form.warehouse_ID"></el-input>
+      </el-form-item>
+      <el-form-item label="员工ID" prop="employee_ID">
+        <el-input v-model="form.employee_ID"></el-input>
+      </el-form-item>
       <!-- <el-form-item label="转账金额" prop="price">
         <el-input v-model="form.price"></el-input>
       </el-form-item> -->
@@ -32,6 +41,9 @@
           package_ID: '9880828645542',
           package_Content: '雨伞',
           package_weight: '0.5KG',
+          package_company:'京东快递',
+          warehouse_ID:'1',
+          employee_ID:'000001',
           // price: '100',
         },
         rules: {

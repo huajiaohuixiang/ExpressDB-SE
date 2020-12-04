@@ -61,7 +61,7 @@
                 </el-table-column>
                  <el-table-column prop="receivephone" label="收件人手机" ></el-table-column> 
                
-                <el-table-column prop="company" label="快递公司"  align="center">
+                <el-table-column prop="in_time" label="入库时间"  align="center">
                     <template slot-scope="scope">
                         {{scope.row.company}}
                     </template>
@@ -146,6 +146,7 @@ export default {
                 pageIndex: 1,
                 pageSize: 10
             },
+            //warehouse_ID:'',
             warelist:[1,2,3,4],
             tableData: [],
             multipleSelection: [],

@@ -20,6 +20,12 @@
       <el-form-item label="收件人：">
         {{ infoData.receivename }}
       </el-form-item>
+      <el-form-item label="仓库编号：">
+        {{ infoData.warehouse_ID }}
+      </el-form-item>
+      <el-form-item label="入库时间：">
+        {{ infoData.in_time }}
+      </el-form-item>
     </el-form>
     <div class="pay-button-group">
       <el-button type="primary" @click="handlePrev">继续入库</el-button>

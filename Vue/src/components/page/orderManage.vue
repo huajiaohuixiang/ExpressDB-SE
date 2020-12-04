@@ -25,8 +25,8 @@
                 </el-select>
                 <el-input v-model="query.name" placeholder="订单编号" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
-                <el-button type="primary" icon="el-icon-check" @click="handleAccept">接单</el-button> 
-                <el-button type="primary" icon="el-icon-bicycle" @click="handleAllot">分配</el-button>
+                <el-button type="primary" icon="el-icon-check" @click="AcceptAllSelection">接单</el-button> 
+                <el-button type="primary" icon="el-icon-bicycle" @click="AllotAllSelection">分配</el-button>
 
             </div>
             <el-table
@@ -179,7 +179,7 @@ export default {
         getData() {
             console.log("getData");
             let that =this;
-            this.$axios.get('http://localhost:8081/getOrder')
+            this.$axios.get('http://huajiao.site:8081/getOrder')
                 .then(function(response) {
                     console.log(response.data);
                     that.tableData=response.data;
@@ -277,8 +277,34 @@ export default {
             this.delList = this.delList.concat(this.multipleSelection);
             for (let i = 0; i < length; i++) {
                 str += this.multipleSelection[i].name + ' ';
+                
+                console.log(this.multipleSelection[i]);
+
+
             }
             this.$message.error(`删除了${str}`);
+            this.multipleSelection = [];
+        },
+        AcceptAllSelection() {
+            const length = this.multipleSelection.length;
+            let str = '';
+            this.delList = this.delList.concat(this.multipleSelection);
+            for (let i = 0; i < length; i++) {
+                str += this.multipleSelection[i].name + ' ';
+                console.log(this.multipleSelection[i]);
+            }
+            this.$message.error(`接单了${str}`);
+            this.multipleSelection = [];
+        },
+         AllotAllSelection() {
+            const length = this.multipleSelection.length;
+            let str = '';
+            this.delList = this.delList.concat(this.multipleSelection);
+            for (let i = 0; i < length; i++) {
+                str += this.multipleSelection[i].name + ' ';
+                console.log(this.multipleSelection[i]);
+            }
+            this.$message.error(`接单了${str}`);
             this.multipleSelection = [];
         },
         // 编辑操作

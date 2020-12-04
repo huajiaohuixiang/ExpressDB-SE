@@ -22,6 +22,9 @@
       <el-form-item label="详细地址" prop="senddetail">
         <el-input v-model="form.senddetail"></el-input>
       </el-form-item>
+      <el-form-item label="寄件时间" prop="sender_time">
+        <el-input v-model="form.sender_time"></el-input>
+      </el-form-item>
     </el-form>
     <div class="pay-button-group">
       <el-button @click="handlePrev">上一步</el-button>
@@ -41,6 +44,7 @@
           sendcity: '泰安市',
           sendarea:'宁阳县',
           senddetail:'伏山镇',
+          sender_time:'',
         },
         rules: {
           sendname: [

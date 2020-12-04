@@ -153,11 +153,11 @@ export default {
                 //     index: 'pay',
                 //     title: '支付'
                 // },
-                {
-                    icon: 'el-icon-lx-emoji',
-                    index: 'icon',
-                    title: '自定义图标'
-                },
+                // {
+                //     icon: 'el-icon-lx-emoji',
+                //     index: 'icon',
+                //     title: '自定义图标'
+                // },
                 // {
                 //     icon: 'el-icon-rank',
                 //     index: '6',
