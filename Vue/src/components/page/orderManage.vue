@@ -25,8 +25,8 @@
                 </el-select>
                 <el-input v-model="query.name" placeholder="订单编号" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
-                <el-button type="primary" icon="el-icon-roundcheckfill" @click="handleAccept">接单</el-button> 
-                <el-button type="primary" icon="el-icon-emoji" @click="handleAllot">分配</el-button>
+                <el-button type="primary" icon="el-icon-check" @click="handleAccept">接单</el-button> 
+                <el-button type="primary" icon="el-icon-bicycle" @click="handleAllot">分配</el-button>
 
             </div>
             <el-table
@@ -60,22 +60,25 @@
                 <el-table-column prop="state" label="状态" align="center"  >
                     <template slot-scope="scope">
                         <el-tag
-                            :type="scope.row.state==='已入库'?'inwarehouse':(scope.row.state==='已出库'?'outwarehouse':(scope.row.state=='已接单'?'yes':(scope.row.state==='未接单'?'no':'')))"
+                          :type="scope.row.state==='已入库'?'success':(scope.row.state==='已分配'?'warning':(scope.row.state=='已接单'?'':(scope.row.state==='未接单'?'danger':'')))"   
+                          
                         >{{scope.row.state}}</el-tag>
                     </template>
                 </el-table-column>
 
-                           
+                    
                 <el-table-column label="操作" align="center" width="249">
                     <template slot-scope="scope">
                         <el-button
                             type="text"
-                            icon="el-icon-edit"
+                            icon="el-icon-check"
+                            class="jiedan"
                             @click="handleAccept(scope.$index, scope.row)"
                         >接单</el-button>
                         <el-button
                             type="text"
-                            icon="el-icon-edit"
+                            icon="el-icon-bicycle"
+                            class="yellow"
                             @click="handleAllot(scope.$index, scope.row)"
                         >分配人员</el-button>
                         <el-button
@@ -318,6 +321,12 @@ export default {
 }
 .red {
     color: #ff0000;
+}
+.jiedan {
+    color: #ec4569;
+}
+.yellow {
+    color: #e69c2e;
 }
 .mr10 {
     margin-right: 10px;

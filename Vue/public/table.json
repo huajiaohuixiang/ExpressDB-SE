@@ -1,6 +1,6 @@
 {
     "list": [{
-            "id": 1,
+            "package_id": 1,
             "name": "张三",
             "phone": "19946252101",
             "receivename": "王五的收件人",
@@ -11,7 +11,7 @@
             "thumb": "https://lin-xin.gitee.io/images/post/wms.png"
         },
         {
-            "id": 2,
+            "package_id": 2,
             "name": "李四",
             "phone": 19946252101,
             "receivename": "王五的收件人",
@@ -22,7 +22,7 @@
             "thumb": "https://lin-xin.gitee.io/images/post/node3.png"
         },
         {
-            "id": 3,
+            "package_id": 3,
             "name": "王五",
             "phone": 19946252101,
             "receivename": "王五的收件人",
@@ -33,7 +33,7 @@
             "thumb": "https://lin-xin.gitee.io/images/post/parcel.png"
         },
         {
-            "id": 4,
+            "package_id": 4,
             "name": "赵六",
             "phone": 19946252101,
             "receivename": "王五的收件人",

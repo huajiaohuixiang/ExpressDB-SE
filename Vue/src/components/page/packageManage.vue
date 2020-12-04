@@ -46,7 +46,7 @@
                  
                     <!-- <template slot-scope="scope">{{scope.row.toname}}</template> -->
                 </el-table-column>
-                 <el-table-column prop="receivephone" label="收件人手机" width="100"></el-table-column> 
+                <el-table-column prop="receivephone" label="收件人手机" width="100"></el-table-column> 
                
                 <el-table-column prop="company" label="快递公司"  width="100" align="center">
                     <template slot-scope="scope">
@@ -56,11 +56,11 @@
                 <el-table-column prop="state" label="状态" align="center" width="80" >
                     <template slot-scope="scope">
                         <el-tag
-                            :type="scope.row.state==='已入库'?'inwarehouse':(scope.row.state==='已入柜'?'outwarehouse':(scope.row.state=='已签收'?'yes':''))"
+                          :type="scope.row.state==='已入库'?'info':(scope.row.state==='已入柜'?'warning':(scope.row.state=='已签收'?'success':''))"                           
                         >{{scope.row.state}}</el-tag>
                     </template>
                 </el-table-column>
-
+ 
                            
                 <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
@@ -94,7 +94,7 @@
         <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
             <el-form ref="form" :model="form" label-width="70px">
                 <el-form-item label="订单编号">
-                    <el-input v-model="form.order_id"></el-input>
+                    <el-input v-model="form.package_id"></el-input>
                 </el-form-item>
                 <el-form-item label="发件人">
                     <el-input v-model="form.name"></el-input>
