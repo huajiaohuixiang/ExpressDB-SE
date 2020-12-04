@@ -2,9 +2,11 @@
 
    先在包裹表中插入一个包裹，
 
-   然后再在入库表中插入一条入库记录
+   然后再在入库表中插入一条入库记录，
 
-   最后向仓库明细表中插入该包裹
+   最后向仓库明细表中插入该包裹，
+
+   还需要将寄件人收件人插入到用户表中。
 
    方式:POST
 
@@ -151,9 +153,11 @@
 
    1.从仓库明细表中删除该包裹信息
 
-   2向用户取件消息表插入 （mesageID，data，userID，content）content为包裹信息以及通知来取件；
+   2根据包裹ID找到用户ID，向用户取件消息表插入 （mesageID，data，userID，content）content为包裹信息以及通知来取件；
 
-   3.然后向包裹出库入柜表插入。
+   3.根据快递柜、xy位置找到快递箱位置
+
+   4.然后向包裹出库入柜表插入。
 
    方式:
 
@@ -161,13 +165,14 @@
 
    请求参数：
 
-   | 类型   | 属性         | 说明       |
-   | ------ | ------------ | ---------- |
-   | String | package_ID   | 包裹编号   |
-   | String | warehouse_ID | 仓库ID     |
-   | String | box_ID       | 快递箱编号 |
-   | String | user_ID      | 用户ID     |
-   | String | employee_ID  | 员工编号   |
+   | 类型    | 属性         | 说明             |
+   | ------- | ------------ | ---------------- |
+   | String  | package_ID   | 包裹编号         |
+   | String  | warehouse_ID | 仓库ID           |
+   | String  | box_ID       | 快递箱编号       |
+   | String  | user_ID      | 用户ID           |
+   | String  | employee_ID  | 员工编号         |
+   | Boolean | flag         | 是否发送区间通知 |
 
    返回参数：（不要直接返回String,封装到对象里面）
 
@@ -291,21 +296,19 @@
 
     方式:GET
 
-    请求参数：
-
-    | 类型   | 属性         | 说明   |
-    | ------ | ------------ | ------ |
-    | String | warehouse_ID | 仓库ID |
+    请求参数：无
 
     返回参数：一个链表
-
-    | 类型   | 属性       | 说明       |
-    | ------ | ---------- | ---------- |
-    | String | package_ID | 包裹编号   |
-    | String | Date       | 入库时间   |
-    | String | Rec_name   | 收件人名字 |
-    | String | Rec_phone  | 收件人电话 |
-
+    
+    | 类型   | 属性        | 说明       |
+| ------ | ----------- | ---------- |
+    | String | package_ID  | 包裹编号   |
+| String | Date        | 入库时间   |
+    | String | Sender_name | 寄件人名字 |
+    | String | Sender_name | 寄件人电话 |
+    | String | Rec_name    | 收件人名字 |
+    | String | Rec_phone   | 收件人电话 |
+    
 14. 查询某快递柜所有快递箱信息
 
     方式:GET
