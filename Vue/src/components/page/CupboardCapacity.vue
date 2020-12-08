@@ -81,6 +81,7 @@ export default {
             cuplist:[1,2,3,4],
             list:[1,0],
             boxlist:[["success","warning","success1","success2","success3"],["success4","success5","success6","success7","success8"]],
+            cupboardData:[],
             tableData: [],
             multipleSelection: [],
             delList: [],

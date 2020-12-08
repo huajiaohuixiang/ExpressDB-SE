@@ -148,6 +148,7 @@ export default {
             },
             //warehouse_ID:'',
             warelist:[1,2,3,4],
+            wareData:[],
             tableData: [],
             multipleSelection: [],
             delList: [],
