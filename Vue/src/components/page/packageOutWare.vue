@@ -15,10 +15,16 @@
                     <el-form-item label="仓库号：">
                        
                         <el-select v-model="form.warehouse_ID" placeholder="请选择仓库" class="handle-select mr10">
-                            <el-option key="1" label="仓库1" value="1"></el-option>
-                            <el-option key="2" label="仓库2" value="2"></el-option>
-                            <el-option key="3" label="仓库3" value="3"></el-option>
-                            <el-option key="4" label="仓库4" value="4"></el-option>
+                            <!-- 1 -->
+                            <el-option
+                                v-for="item in warelist"
+                                v-bind:todo="item"
+                                v-bind:key="item.warehouseName"
+                                :label="item.warehouseName"
+                                :value="item.warehouseName"
+                            >
+                            </el-option>
+                            
                         </el-select>
                     </el-form-item>
                      <el-form-item label="包裹编号：">
@@ -26,11 +32,18 @@
                     </el-form-item>
                     <el-form-item label="快递柜号：">
                          <el-select v-model="form.cupboard" placeholder="请选择快递柜" class="handle-select mr10" >
-                    
-                            <el-option key="1" label="快递柜1" value="1"></el-option>
+                              <!-- 2 -->
+                               <el-option
+                                v-for="item in this.cuplist"
+                                v-bind:todo="item"
+                                v-bind:key="item.cupboardName"
+                                :label="item.cupboardName"
+                                :value="item.cupboardName"
+                                ></el-option>
+                            <!-- <el-option key="1" label="快递柜1" value="1"></el-option>
                             <el-option key="2" label="快递柜2" value="2"></el-option>
                             <el-option key="3" label="快递柜3" value="3"></el-option>
-                            <el-option key="4" label="快递柜4" value="4"></el-option>
+                            <el-option key="4" label="快递柜4" value="4"></el-option> -->
                         </el-select>
                     </el-form-item>
                      <el-form-item label="员工编号">
@@ -71,12 +84,19 @@ export default {
                 package_ID: '',
                 warehouse_ID: '',
                 cupboard:'',
+                
                 col:'',
                 row:'',
                 employee_ID:'',            
                 flag: true,                         
-            }
+            },
+            warelist:[],
+                cuplist:[],
         };
+    },
+    created() {
+        
+        this.getData();
     },
     methods: {
         onSubmit() {
@@ -97,6 +117,27 @@ export default {
                 .catch(function(error) {
                     console.log("b");                  
                 })         
+        },
+        getData(){
+            let that=this;
+            this.$axios.get('http://localhost:8081/getCupInfo')
+            .then(function(response) {
+                console.log(response.data);                
+                that.cuplist=response.data;
+                console.log("a");                   
+            })
+            .catch(function(error) {
+                console.log("b");                
+            })
+            this.$axios.get('http://localhost:8081/getWareInfo')
+                .then(function(response) {
+                    console.log(response.data);
+                    that.warelist=response.data;
+                    console.log("a");      
+                })
+                .catch(function(error) {
+                    console.log("b");                
+                })
         }
     }
 };

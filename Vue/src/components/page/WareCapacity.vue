@@ -25,12 +25,13 @@
 
         <div class="container">
             <div class="handle-box">
-                <el-button
-                    type="primary"
-                    icon="el-icon-delete"
-                    class="handle-del mr10"
-                    @click="delAllSelection"
-                >批量删除</el-button>
+                
+                 <el-tag
+                
+                 size="medium"
+                type="info">
+                请选择仓库
+               </el-tag>
                 <el-select v-model="query.address" placeholder="仓库选择" class="handle-select mr10" @change="getDataBySelect($event)">
                     <el-option 
                     key="所有"
@@ -81,7 +82,7 @@
                 
 
                            
-                <el-table-column label="操作" align="center">
+                <!-- <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
                         <el-button
                             type="text"
@@ -95,7 +96,7 @@
                             @click="handleDelete(scope.$index, scope.row)"
                         >删除</el-button>
                     </template>
-                </el-table-column>
+                </el-table-column> -->
             </el-table>
             <div class="pagination">
                 <el-pagination

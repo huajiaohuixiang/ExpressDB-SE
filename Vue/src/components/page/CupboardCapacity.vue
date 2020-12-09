@@ -22,17 +22,23 @@
         </div>
         <div class="container">
             <div class="handle-box">
-                <el-button
+                <!-- <el-button
                     type="primary"
                     icon="el-icon-delete"
                     class="handle-del mr10"
                     @click="delAllSelection"
-                >批量删除</el-button>
+                >批量删除</el-button> -->
+                <el-tag
+                 size="medium"
+                type="info">
+                
+                请选择快递柜
+               </el-tag>
                 <el-select v-model="query.address" placeholder="快递柜选择" class="handle-select mr10" @change="getDataBySelect($event)">
                    
                     <el-option
                     v-for="item in cuplist"
-                   v-bind:todo="item"
+                    v-bind:todo="item"
                     v-bind:key="item.cupboardName"
                     :label="item.cupboardName"
                     :value="item.cupboardName"
@@ -43,8 +49,8 @@
                     
                     
                 </el-select>
-                <el-input v-model="query.name" placeholder="包裹编号" class="handle-input mr10"></el-input>
-                <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+                <!-- <el-input v-model="query.name" placeholder="包裹编号" class="handle-input mr10"></el-input>
+                <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button> -->
             </div>
             
 
@@ -53,15 +59,17 @@
                 <el-tag
                 
                 >左边</el-tag>
-                 <el-tag
+                 <!-- <el-tag
                 
-                >右边</el-tag>
+                >右边</el-tag> -->
                 </div>
                  <div
                 v-for="(row,index) in boxarray"        
                 v-bind:key="index"
             >
+            
                 <el-tag
+                type="info"
                 >
                     第{{9-index}}行
                 </el-tag>
@@ -70,34 +78,17 @@
                v-for="col in row"
                v-bind:todo="col"
                     v-bind:key="col.boxId"
+                    
                     :type="col.state"
                >
-                    {{'空闲'}}
+                    {{test(col.state)}}
                </el-tag>
           
             </div>
             </div>
         </div>
 
-<!--  <div
-                v-for="(row,index) in boxarray"        
-                v-bind:key="index"
-            >
-                <el-tag
-                >
-                    第{{9-index}}行
-                </el-tag>
-               <el-tag
-                size="medium"
-               v-for="col in row"
-               v-bind:todo="col"
-                    v-bind:key="col.boxId"
-                    :type="col.state"
-               >
-                    {{'空闲'}}
-               </el-tag>
-          
-            </div> -->
+
 
 
 
@@ -110,7 +101,7 @@ export default {
     data() {
         return {
             query: {
-                address: '',
+                address: 'A',
                 name: '',
                 pageIndex: 1,
                 pageSize: 10
@@ -121,7 +112,11 @@ export default {
             list:[],
             boxlist:[],
             boxarray:[],
-
+            a:{
+                "success":'空闲',
+                "warning":'占用',
+               
+            },
             cupboardData:[],
             tableData: [],
             multipleSelection: [],
@@ -141,7 +136,7 @@ export default {
     methods: {
         // 获取 easy-mock 的模拟数据
         getData() {
-
+            console.log(this.test("success"));
             console.log("getData");
             let that =this;
             this.$axios.get('http://localhost:8081/getCupInfo')
@@ -162,19 +157,41 @@ export default {
                             that.list.push(item)
                         }
                     })
+                     that.list.sort(that.sortId)
+           
+                    
+       
+                    for (let i=0;i<10;i++){
+                        let temp=[];
+                        for(let j=0;j<20;j++){
+                            temp.push(that.list[i*20+j])
+                        }
+                        temp.sort(that.sortinseId)
+                        that.boxarray.push(temp);
+                    }
+                    console.log(that.boxarray)
                   
                   //  that.tableData=response.data;
-                   that.list.sort(that.sortId)
+                  
+                   
                      console.log(that.list)
                     console.log("a"); 
-                    that.pageTotal=parseInt((response.data.length));                    
-                    that.sumData=that.tableData;
+
+                    // that.pageTotal=parseInt((response.data.length));                    
+                    // that.sumData=that.tableData;
                 })
                 .catch(function(error) {
                     console.log("b");                
                 })
         },
-       
+        test(temp){
+            if(temp=="success"){
+                return "空闲"
+            }else{
+                return "占用"
+            }
+            
+        },
         // 触发搜索按钮
         handleSearch() {
             this.$set(this.query, 'pageIndex', 1);
@@ -199,9 +216,11 @@ export default {
             this.list=result;
             this.list.sort(this.sortId)
 
-            for(let x=0;x<this.boxarray.length;x++){
- this.boxarray.pop()
-            }
+
+            this.boxarray=[];
+//             for(let x=0;x<this.boxarray.length;x++){
+//  this.boxarray.pop()
+//             }
 
            
             for (let i=0;i<10;i++){

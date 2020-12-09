@@ -16,8 +16,19 @@
       <el-form-item label="快递公司" prop="package_company">
         <el-input v-model="form.package_company"></el-input>
       </el-form-item>
+      <!-- 3 -->
       <el-form-item label="仓库编号" prop="warehouse_ID">
-        <el-input v-model="form.warehouse_ID"></el-input>
+         <el-select v-model="form.warehouse_ID" placeholder="仓库选择" class="handle-select mr10">
+                    <el-option
+                        v-for="item in warelist"
+                        v-bind:todo="item"
+                        v-bind:key="item.warehouseName"
+                        :label="item.warehouseName"
+                        :value="item.warehouseName"
+                    >
+                    </el-option>
+         </el-select>
+        <!-- <el-input v-model="form.warehouse_ID"></el-input> -->
       </el-form-item>
       <el-form-item label="员工ID" prop="employee_ID">
         <el-input v-model="form.employee_ID"></el-input>
@@ -42,10 +53,11 @@
           package_Content: '雨伞',
           package_weight: '0.5KG',
           package_company:'京东快递',
-          warehouse_ID:'1',
+          warehouse_ID:'A',
           employee_ID:'000001',
           // price: '100',
         },
+        warelist:[],
         rules: {
           package_ID: [
             { required:true, message: '请输入包裹编号', trigger: 'blur' },
@@ -64,8 +76,26 @@
         },
       }
     },
+    created(){
+      this.getData();
+    },
     methods: {
-      
+      getData(){
+          console.log("getData");
+            let that =this;
+            this.$axios.get('http://localhost:8081/getWareInfo')
+                .then(function(response) {
+                    console.log(response.data);
+                   
+                   
+                    that.warelist=response.data;
+                    console.log("a"); 
+                   
+                })
+                .catch(function(error) {
+                    console.log("b");                
+                })
+      },
       handleNext() {
         this.$refs.form.validate((valid) => {
           if (valid) {
