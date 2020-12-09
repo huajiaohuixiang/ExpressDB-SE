@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</head>
+
+<body>
+    <script>
+        var data = {
+            boxId: '',
+            cupboardId: '',
+            type: '',
+            coly: '',
+            rowx: '',
+            state: '',
+            packageId: '',
+        }
+        var count = 1;
+        for (i = 1; i <= 8; i++) {
+            for (x = 1; x <= 10; x++) {
+                for (y = 1; y <= 20; y++) {
+                    data.boxId = count.toString();
+                    data.cupboardId = '00000' + i.toString();
+                    if (x <= 2) {
+                        data.type = 'small'
+                    } else if (x > 2 && x <= 8) {
+                        data.type = 'middle';
+                    } else {
+                        data.type = 'large';
+                    }
+                    data.coly = y;
+                    data.rowx = x;
+                    data.state = 'success';
+                    data.packageId = ''
+
+
+                    axios.post('http://localhost:8081/insertBox', data)
+                        .then(function(response) {
+                            if (response.status == 200) {
+                                console.log("success")
+                            } else {
+                                console.log("false")
+                            }
+                            console.log(response);
+                        })
+                        .catch(function(error) {
+                            // handle error
+                            console.log(error);
+                        })
+                        .then(function() {
+                            // always executed
+                        });
+                    // yyy = 0
+                    // for (temp = 0; temp < 100000000; temp++) {
+                    //     yyy++;
+                    // }
+                    count++;
+                    console.log(count)
+                }
+
+            }
+        }
+    </script>
+</body>
+
+</html>

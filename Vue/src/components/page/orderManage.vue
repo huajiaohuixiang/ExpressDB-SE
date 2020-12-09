@@ -247,7 +247,6 @@ export default {
             console.log(allot);
             allot.state="已分配"
         },
-
         // 删除操作
         handleDelete(index, row) {
             // 二次确认删除
@@ -266,6 +265,7 @@ export default {
             //this.getData();
             this.pageTotal=this.tableData.length;
         },
+        
         // 多选操作
         handleSelectionChange(val) {
             this.multipleSelection = val;

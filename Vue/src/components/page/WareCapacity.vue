@@ -12,11 +12,11 @@
             <el-tag  
             size="medium"
             effect="plain"
-            v-for="i in warelist"
-            v-bind:todo="i"
-            v-bind:key="i"
+            v-for="(item,index) in warelist"
+            v-bind:todo="item"
+            v-bind:key="index"
             >
-            仓库{{i}}   剩余容量：1000
+            仓库{{item.warehouseName}}   剩余容量：{{item.left_capacity}}
             </el-tag>
             
         </div>
@@ -31,11 +31,23 @@
                     class="handle-del mr10"
                     @click="delAllSelection"
                 >批量删除</el-button>
-                <el-select v-model="query.address" placeholder="仓库选择" class="handle-select mr10">
-                    <el-option key="1" label="仓库1" value="1"></el-option>
-                    <el-option key="2" label="仓库2" value="2"></el-option>
-                     <el-option key="3" label="仓库3" value="3"></el-option>
-                  <el-option key="4" label="仓库4" value="4"></el-option>
+                <el-select v-model="query.address" placeholder="仓库选择" class="handle-select mr10" @change="getDataBySelect($event)">
+                    <el-option 
+                    key="所有"
+                    label="所有"
+                    value="所有"
+                    >
+
+                    </el-option>
+                    <el-option
+                        v-for="item in warelist"
+                        v-bind:todo="item"
+                        v-bind:key="item.warehouseName"
+                        :label="item.warehouseName"
+                        :value="item.warehouseName"
+                    >
+                    </el-option>
+                   
                 </el-select>
                 <el-input v-model="query.name" placeholder="包裹编号" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
@@ -50,8 +62,8 @@
                 @selection-change="handleSelectionChange"
             >
                 <el-table-column type="selection" width="55" align="center"></el-table-column>
-                <el-table-column prop="warehouse_ID" label="仓库编号"  align="center"></el-table-column>
-                <el-table-column prop="package_id" label="包裹编号"  align="center"></el-table-column>
+                <el-table-column prop="warehouseId" label="仓库编号"  align="center"></el-table-column>
+                <el-table-column prop="packageId" label="包裹编号"  align="center"></el-table-column>
                 <el-table-column prop="name" label="发件人" align="center"></el-table-column>
                 <el-table-column prop="phone" label="发件人手机"  align="center"> </el-table-column>
                
@@ -146,9 +158,11 @@ export default {
                 pageIndex: 1,
                 pageSize: 10
             },
-            //warehouse_ID:'',
-            warelist:[1,2,3,4],
+            //w上半部的仓库信息
+            warelist:[],
             wareData:[],
+
+            sumData:[],
             tableData: [],
             multipleSelection: [],
             delList: [],
@@ -165,17 +179,66 @@ export default {
     methods: {
         // 获取 easy-mock 的模拟数据
         getData() {
-            fetchData(this.query).then(res => {
-                console.log(res);
-                this.tableData = res.list;
-                this.pageTotal = res.pageTotal || 50;
-            });
+
+            console.log("getData");
+            let that =this;
+            this.$axios.get('http://localhost:8081/getWareInfo')
+                .then(function(response) {
+                    console.log(response.data);
+                   
+                   
+                    that.warelist=response.data;
+                    console.log("a"); 
+                   
+                })
+                .catch(function(error) {
+                    console.log("b");                
+                })
+            this.$axios.get('http://localhost:8081/getWareDetails')
+                .then(function(response) {
+                    console.log(response.data);
+                    that.tableData=response.data;
+                   
+                   
+                    console.log("a"); 
+                    that.pageTotal=parseInt((response.data.length));                    
+                    that.sumData=that.tableData;
+                })
+                .catch(function(error) {
+                    console.log("b");                
+                })
         },
         // 触发搜索按钮
         handleSearch() {
             this.$set(this.query, 'pageIndex', 1);
             this.getData();
         },
+        getDataBySelect(){
+            console.log("还活着");
+            if(this.query.address=='所有'){
+                this.tableData=this.sumData;
+                this.$set(this.query, 'pageIndex', 1)
+            }else{
+                let tempData=this.sumData;
+                console.log(tempData);
+                let result=[];           
+                tempData.forEach(element => {
+                    let name='';
+                    this.warelist.forEach(item=>{
+                        if(item.warehouseId==element.warehouseId){
+                            name=item.warehouseName;
+                        }
+                    })
+
+                    if(name==this.query.address){ result.push(element);}  
+                });
+                this.tableData=result;
+            }
+            this.pageTotal=this.tableData.length
+            console.log("没了")
+        },
+
+
         // 删除操作
         handleDelete(index, row) {
             // 二次确认删除
@@ -188,6 +251,11 @@ export default {
                 })
                 .catch(() => {});
         },
+
+
+
+
+
         // 多选操作
         handleSelectionChange(val) {
             this.multipleSelection = val;
@@ -202,7 +270,10 @@ export default {
             this.$message.error(`删除了${str}`);
             this.multipleSelection = [];
         },
-        // 编辑操作
+
+
+
+
         handleEdit(index, row) {
             this.idx = index;
             this.form = row;
@@ -217,8 +288,11 @@ export default {
         // 分页导航
         handlePageChange(val) {
             this.$set(this.query, 'pageIndex', val);
-            this.getData();
-        }
+             //this.getData();
+        },
+      
+      
+       
     }
 };
 </script>

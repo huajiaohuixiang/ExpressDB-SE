@@ -12,11 +12,11 @@
             <el-tag  
             size="medium"
             effect="plain"
-            v-for="i in cuplist"
-            v-bind:todo="i"
-            v-bind:key="i"
+            v-for="item in cuplist"
+            v-bind:todo="item"
+            v-bind:key="item.cupboardId"
             >
-            快递柜{{i}}   剩余容量：1000
+            快递柜{{item.cupboardName}}   剩余容量：{{item.left_capacity}}
             </el-tag>
             
         </div>
@@ -29,38 +29,75 @@
                     @click="delAllSelection"
                 >批量删除</el-button>
                 <el-select v-model="query.address" placeholder="快递柜选择" class="handle-select mr10" @change="getDataBySelect($event)">
-                    <el-option key="0" label="全部" value="0"></el-option>
-                    <el-option key="1" label="快递柜1" value="1"></el-option>
-                    <el-option key="2" label="快递柜2" value="2"></el-option>
-                     <el-option key="3" label="快递柜3" value="3"></el-option>
-                  <el-option key="4" label="快递柜4" value="4"></el-option>
+                   
+                    <el-option
+                    v-for="item in cuplist"
+                   v-bind:todo="item"
+                    v-bind:key="item.cupboardName"
+                    :label="item.cupboardName"
+                    :value="item.cupboardName"
+                    >
+
+                    </el-option>
+                    
+                    
+                    
                 </el-select>
                 <el-input v-model="query.name" placeholder="包裹编号" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
             </div>
             
 
-            <div calss="container"
-                v-for="i in list"
-                v-bind:todo="i"
-                v-bind:key="i"
+            <div calss="container">
+                 <div>
+                <el-tag
+                
+                >左边</el-tag>
+                 <el-tag
+                
+                >右边</el-tag>
+                </div>
+                 <div
+                v-for="(row,index) in boxarray"        
+                v-bind:key="index"
             >
-                <el-tag  
-                    size="medium"
-                    
-                              
-                    v-for="item in boxlist[i]"
-                    v-bind:todo="item"
-                    v-bind:key="item"
-                    :type="item"
+                <el-tag
                 >
-                x={{i}}  y=0  {{item}} 
+                    第{{9-index}}行
                 </el-tag>
+               <el-tag
+                size="medium"
+               v-for="col in row"
+               v-bind:todo="col"
+                    v-bind:key="col.boxId"
+                    :type="col.state"
+               >
+                    {{'空闲'}}
+               </el-tag>
+          
             </div>
-            
+            </div>
         </div>
 
-
+<!--  <div
+                v-for="(row,index) in boxarray"        
+                v-bind:key="index"
+            >
+                <el-tag
+                >
+                    第{{9-index}}行
+                </el-tag>
+               <el-tag
+                size="medium"
+               v-for="col in row"
+               v-bind:todo="col"
+                    v-bind:key="col.boxId"
+                    :type="col.state"
+               >
+                    {{'空闲'}}
+               </el-tag>
+          
+            </div> -->
 
 
 
@@ -78,9 +115,13 @@ export default {
                 pageIndex: 1,
                 pageSize: 10
             },
-            cuplist:[1,2,3,4],
-            list:[1,0],
-            boxlist:[["success","warning","success1","success2","success3"],["success4","success5","success6","success7","success8"]],
+           
+           
+            cuplist:[],
+            list:[],
+            boxlist:[],
+            boxarray:[],
+
             cupboardData:[],
             tableData: [],
             multipleSelection: [],
@@ -93,35 +134,103 @@ export default {
         };
     },
     created() {
+        
         this.getData();
     },
-    getDataBySelect(){
-        console.log("还活着");
-        // if(this.query.address=="全部"){
-        //     this.tableData=this.sumData;
-        //     this.$set(this.query, 'pageIndex', 1)
-        // }else{
-        //     let tempData=this.sumData;
-        //     console.log(tempData);
-        //     let result=[];           
-        //     tempData.forEach(element => {
-        //         if(element.state==this.query.address){ result.push(element);}  
-        //     });
-        //     this.tableData=result;
-        // }
-        // this.pageTotal=this.tableData.length
-        console.log("没了")
-    },
+    
     methods: {
         // 获取 easy-mock 的模拟数据
         getData() {
-            
+
+            console.log("getData");
+            let that =this;
+            this.$axios.get('http://localhost:8081/getCupInfo')
+                .then(function(response) {
+                    console.log(response.data);                
+                    that.cuplist=response.data;
+                    console.log("a");                   
+                })
+                .catch(function(error) {
+                    console.log("b");                
+                })
+            this.$axios.get('http://localhost:8081/getCupDetails')
+                .then(function(response) {
+                    console.log(response.data);
+                    that.boxlist=response.data;
+                    that.boxlist.forEach(item=>{
+                        if(item.cupboardId=='000001'){
+                            that.list.push(item)
+                        }
+                    })
+                  
+                  //  that.tableData=response.data;
+                   that.list.sort(that.sortId)
+                     console.log(that.list)
+                    console.log("a"); 
+                    that.pageTotal=parseInt((response.data.length));                    
+                    that.sumData=that.tableData;
+                })
+                .catch(function(error) {
+                    console.log("b");                
+                })
         },
+       
         // 触发搜索按钮
         handleSearch() {
             this.$set(this.query, 'pageIndex', 1);
             this.getData();
         },
+        getDataBySelect(){
+            console.log("还活着");
+            
+            let templist=this.boxlist;
+            console.log(templist);
+            let result=[];           
+            templist.forEach(element => {
+                let name='';
+                this.cuplist.forEach(item=>{
+                    if(item.cupboardId==element.cupboardId){
+                        name=item.cupboardName;
+                    }
+                })
+
+                if(name==this.query.address){ result.push(element);}  
+            });
+            this.list=result;
+            this.list.sort(this.sortId)
+
+            for(let x=0;x<this.boxarray.length;x++){
+ this.boxarray.pop()
+            }
+
+           
+            for (let i=0;i<10;i++){
+                let temp=[];
+                for(let j=0;j<20;j++){
+                    temp.push(this.list[i*20+j])
+                }
+                temp.sort(this.sortinseId)
+                this.boxarray.push(temp);
+            }
+            console.log(this.boxarray)
+
+
+            this.pageTotal=this.tableData.length
+            console.log("没了")
+        },
+
+
+
+        sortId(a, b) {
+               // return a.distance - b.distance;//由低到高
+                return b.boxId - a.boxId;//由高到低
+        },
+
+           sortinseId(a, b) {
+               // return a.distance - b.distance;//由低到高
+                return a.boxId - b.boxId;//由高到低
+        }, 
+
         // 删除操作
         handleDelete(index, row) {
             // 二次确认删除
@@ -134,6 +243,11 @@ export default {
                 })
                 .catch(() => {});
         },
+
+
+
+
+
         // 多选操作
         handleSelectionChange(val) {
             this.multipleSelection = val;
@@ -148,7 +262,10 @@ export default {
             this.$message.error(`删除了${str}`);
             this.multipleSelection = [];
         },
-        // 编辑操作
+
+
+
+
         handleEdit(index, row) {
             this.idx = index;
             this.form = row;
@@ -163,8 +280,9 @@ export default {
         // 分页导航
         handlePageChange(val) {
             this.$set(this.query, 'pageIndex', val);
-            this.getData();
-        }
+             //this.getData();
+        },
+      
     }
 
 }

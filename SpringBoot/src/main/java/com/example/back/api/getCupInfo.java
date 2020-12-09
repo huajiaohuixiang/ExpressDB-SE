@@ -31,7 +31,7 @@ public class getCupInfo {
             s.setCapacity(item.getCapacity());
             s.setCupboardId(item.getCupboardId());
             s.setCupboardName(item.getCupboardName());
-            s.setLeft_capacity(item.getCapacity()-boxMapper.getSum(item.getCupboardId()));
+            s.setLeft_capacity(boxMapper.getSum(item.getCupboardId()));
             result.add(s);
 
         }

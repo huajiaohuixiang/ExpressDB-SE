@@ -17,7 +17,7 @@ public class getWareDetails {
     WareDetailsMapper wareDetailsMapper;
 
 
-    @GetMapping("/getWateDetails")
+    @GetMapping("/getWareDetails")
     public LinkedList<Waredetails> getWareDetals(){
         return wareDetailsMapper.getDetails();
     }

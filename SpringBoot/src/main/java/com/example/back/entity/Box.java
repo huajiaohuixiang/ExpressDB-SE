@@ -7,16 +7,34 @@ import javax.persistence.Id;
 
 @Entity
 public class Box {
-    private String boxId;
-    private String cupboardId;
-    private String type;
-    private String coly;
-    private String rowx;
-    private String state;
-    private String packageId;
-
     @Id
     @Column(name = "BOX_ID")
+    private String boxId;
+
+    @Basic
+    @Column(name = "CUPBOARD_ID")
+    private String cupboardId;
+    @Basic
+    @Column(name = "TYPE")
+    private String type;
+
+    @Basic
+    @Column(name = "COLY")
+    private String coly;
+
+    @Basic
+    @Column(name = "ROWX")
+    private String rowx;
+
+    @Basic
+    @Column(name = "STATE")
+    private String state;
+
+    @Basic
+    @Column(name = "PACKAGE_ID")
+    private String packageId;
+
+
     public String getBoxId() {
         return boxId;
     }
@@ -25,8 +43,7 @@ public class Box {
         this.boxId = boxId;
     }
 
-    @Basic
-    @Column(name = "CUPBOARD_ID")
+
     public String getCupboardId() {
         return cupboardId;
     }
@@ -35,8 +52,7 @@ public class Box {
         this.cupboardId = cupboardId;
     }
 
-    @Basic
-    @Column(name = "TYPE")
+
     public String getType() {
         return type;
     }
@@ -45,8 +61,7 @@ public class Box {
         this.type = type;
     }
 
-    @Basic
-    @Column(name = "COLY")
+
     public String getColy() {
         return coly;
     }
@@ -55,8 +70,7 @@ public class Box {
         this.coly = coly;
     }
 
-    @Basic
-    @Column(name = "ROWX")
+
     public String getRowx() {
         return rowx;
     }
@@ -65,8 +79,7 @@ public class Box {
         this.rowx = rowx;
     }
 
-    @Basic
-    @Column(name = "STATE")
+
     public String getState() {
         return state;
     }
@@ -75,8 +88,7 @@ public class Box {
         this.state = state;
     }
 
-    @Basic
-    @Column(name = "PACKAGE_ID")
+
     public String getPackageId() {
         return packageId;
     }
