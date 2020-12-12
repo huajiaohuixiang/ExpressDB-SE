@@ -83,7 +83,7 @@
       getData(){
           console.log("getData");
             let that =this;
-            this.$axios.get('http://localhost:8081/getWareInfo')
+            this.$axios.get('http://huajiao.site:8084/getWareInfo')
                 .then(function(response) {
                     console.log(response.data);
                    

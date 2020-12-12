@@ -24,7 +24,7 @@ public class MainApplication {
 
     private Connector createStandardConnector() {
         Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
-        connector.setPort(8081);
+        connector.setPort(8084);
         return connector;
     }
 

@@ -101,7 +101,7 @@ export default {
     methods: {
         onSubmit() {
             let that =this;
-            this.$axios.post('http://localhost:8081/ok',{
+            this.$axios.post('http://huajiao.site:8084/ok',{
 
             })  
             .then(function(response) {                  
@@ -120,7 +120,7 @@ export default {
         },
         getData(){
             let that=this;
-            this.$axios.get('http://localhost:8081/getCupInfo')
+            this.$axios.get('http://huajiao.site:8084/getCupInfo')
             .then(function(response) {
                 console.log(response.data);                
                 that.cuplist=response.data;
@@ -129,7 +129,7 @@ export default {
             .catch(function(error) {
                 console.log("b");                
             })
-            this.$axios.get('http://localhost:8081/getWareInfo')
+            this.$axios.get('http://huajiao.site:8084/getWareInfo')
                 .then(function(response) {
                     console.log(response.data);
                     that.warelist=response.data;

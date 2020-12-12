@@ -183,7 +183,7 @@ export default {
 
             console.log("getData");
             let that =this;
-            this.$axios.get('http://localhost:8081/getWareInfo')
+            this.$axios.get('http://huajiao.site:8084/getWareInfo')
                 .then(function(response) {
                     console.log(response.data);
                    
@@ -195,7 +195,7 @@ export default {
                 .catch(function(error) {
                     console.log("b");                
                 })
-            this.$axios.get('http://localhost:8081/getWareDetails')
+            this.$axios.get('http://huajiao.site:8084/getWareDetails')
                 .then(function(response) {
                     console.log(response.data);
                     that.tableData=response.data;

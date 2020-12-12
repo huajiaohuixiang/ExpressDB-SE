@@ -12,7 +12,7 @@ spring:
     url: jdbc:oracle:thin:@//42.192.169.11:1521/orclpdb1
 
 server:
-  port: 8089
+  port: 8088
   ssl:
     enable: true
     key-store: www.huajiao.site.jks

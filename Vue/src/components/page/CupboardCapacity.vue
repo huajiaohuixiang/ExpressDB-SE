@@ -139,7 +139,7 @@ export default {
             console.log(this.test("success"));
             console.log("getData");
             let that =this;
-            this.$axios.get('http://localhost:8081/getCupInfo')
+            this.$axios.get('http://huajiao.site:8084/getCupInfo')
                 .then(function(response) {
                     console.log(response.data);                
                     that.cuplist=response.data;
@@ -148,7 +148,7 @@ export default {
                 .catch(function(error) {
                     console.log("b");                
                 })
-            this.$axios.get('http://localhost:8081/getCupDetails')
+            this.$axios.get('http://huajiao.site:8084/getCupDetails')
                 .then(function(response) {
                     console.log(response.data);
                     that.boxlist=response.data;
