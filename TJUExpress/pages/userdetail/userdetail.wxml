@@ -1,0 +1,37 @@
+<!--pages/order/order.wxml-->
+<view class="header">
+  <view class="title">个人信息中心</view>
+</view>
+<view class="body">
+  <view class="item">
+    <view class="item1">
+      <image src="../../images/nickname.png" class="img"></image>
+      <text style="font-size:18px">昵称：</text>
+    </view>
+    <view class="content">{{username}}</view>
+  </view>
+  <view class="item">
+    <view class="item1">
+      <image src="../../images/phone.png" class="img"></image>
+      <text style="font-size:18px">手机号：</text>
+    </view>
+    <view class="content">{{phone}}</view>
+  </view>
+  <view class="address">
+    <view class="item1">
+      <image src="../../images/address.png" class="img"></image>
+      <text style="font-size:18px">地址：</text>
+    </view>
+    <view class="addrcontent">
+      <view class="item3"><view class="item2">省份：</view><view class="content">{{province}}</view></view>
+      <view class="item3"><view class="item2">城市：</view><view class="content">{{city}}</view></view>
+      <view class="item3"><view class="item2">区/县：</view><view class="content">{{region}}</view></view>
+      <view class="item3"><view class="item2">详细地址：</view><view class="content">{{detail}}</view></view>
+    </view>
+  </view>
+</view>
+<view class="bottom">
+  <button class="bnt" bindtap="changeinfo" style="font-size:15px;"><text decode="{{true}}">修&nbsp;&nbsp;&nbsp;&nbsp;改</text></button>
+</view>
+
+

@@ -1,69 +1,83 @@
 const re = require('../../utils/request.js')
-var id, url1, url2, list = [], that, data, listadd;
+var app = getApp()
+var url1, url2, that, data, listadd;
 Page({
   data: {
-    "num":list.length
+    "userid":app.globalData.userInfo.userId,
+    "list":[{
+      Company:"顺丰速运",
+      ExpressId:"Bq908",
+      Sender_name:"DBJ",
+      Sender_province:"上海",
+      Sender_city:"直辖市",
+      Sender_region:"杨浦区",
+      Sender_detail:"同济大学",
+      Rec_name:"Sleepycat",
+      Rec_province:"上海",
+      Rec_city:"直辖市",
+      Rec_region:"嘉定区",
+      Rec_detail:"同济大学",
+      status:1
+
+    }],
+    "choose":1,
+    "color1":"#7ccefd",
+    "color2":"darkgrey",
+    "color3":"darkgrey"
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
+    
+  },
+  torecieve: function() {
     this.setData({
-      id:options.id //options.id是上个页面传来的参数 赋值给此js对应的html
+      choose:1,
+      "color1":"#7ccefd",
+      "color2":"darkgrey",
+      "color3":"darkgrey"
     })
-    that = this;//在请求数据时setData使用
-    //id = options.id;//options.id为上个页面传来的参数
-    // console.log(id)
-    url1 = "" + getApp().globalData.openId.data +"&pageSize=10&currentPage="+1;
-    queryRequest(url1);
   },
-  lower: function (e) {
-    url2 = "" + getApp().globalData.openId.data + "&pageSize=10&currentPage="+parseInt(url1.charAt(str.length - 1))+1;
-    getmoreRequest(url2);
+  recieved: function() {
+    this.setData({
+      choose:2,
+      "color2":"#7ccefd",
+      "color1":"darkgrey",
+      "color3":"darkgrey"
+    })
   },
+  problem: function() {
+    this.setData({
+      choose:3,
+      "color3":"#7ccefd",
+      "color2":"darkgrey",
+      "color1":"darkgrey"
+    })
+  },
+  
   //签收监听事件
-  item22_qianshou_click:function(e){
+  qianshou_click:function(e){
     console.log(e);
-    var orderId = e.currentTarget.id;
-      wx.showModal({
-        title: '注意事项',
-        content: '确认签收后不可取消',
-        complete: function () {
-          wx.showLoading({
-            title: '正在撤单...',
-          })
-          affirmTheOrder(orderId, function () {
-            setTimeout(function () {
-              wx.hideLoading()
-              wx.showToast({
-                title: '签收成功',
-                icon: 'success',
-                duration: 2000
-              })
-            }, 2000)
-          })
-        }
-      })
+    var that = this;
+    var index = e.currentTarget.dataset.index;
+    wx.showModal({
+      title: '注意事项',
+      content: '确认签收后不可取消',
+      complete:function(){
+        var temp= "list["+ index + "].status";
+        that.setData({
+          [temp]:0
+        })
+        wx.showToast({
+          title: '签收成功',
+          icon: 'success',
+          duration: 1500
+        })
+      }
+    })
+        
   }
+  
 })
-
-// 签收
-function affirmTheOrder(orderId, callback) {
-  console.log('签收')
-  wx.request({
-    url: '' + orderId,
-    header: {
-      'content-type': 'application/json'
-    },
-    success: function (res) {
-      callback(res.data);
-      wx.navigateBack({
-        delta: 1
-      })
-    },
-    fail: function (err) {
-      ShowModal()
-    }
-  })
-}
 
 //请求数据
 function queryRequest(url) {

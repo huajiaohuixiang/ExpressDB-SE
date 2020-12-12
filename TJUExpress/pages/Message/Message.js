@@ -1,4 +1,5 @@
 // pages/Message.js
+var app = getApp()
 var id, url1, url2, list1 = [],list2=[], that, data, listadd;
 Page({
 
@@ -14,7 +15,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
 
   /**
@@ -28,7 +29,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var iflogin = app.globalData.login
+    if(iflogin==0){
+      wx.showModal({
+        title: '提示',
+        content:'请先登录'
+      })
+    }
   },
 
   /**

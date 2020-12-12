@@ -6,17 +6,17 @@
   <view class="body">
     <view class="item">
       <view class="title" style="flex-shrink:0;">昵称:</view>
-      <input name="sender_name" class="input" value="{{sender_name}}" />
+      <input name="sender_name" bindinput="_username" class="input" value="{{username}}" />
     </view>
     <view class="item">
       <view class="title" style="flex-shrink:0;">手机号:</view>
-      <input name="sender_telphone" type="number" maxlength="11" class="input" value="{{sender_telphone}}" />
+      <input name="sender_telphone" type="number" bindinput="_phone" maxlength="11" class="input" value="{{phone}}" />
     </view>
     <view class="item">
       <view class="title" style="flex-shrink:0;">省份:</view>
       <picker class="input" id="{{index}}" bindchange="_province" range-key="Name" range="{{provinces}}">
         <view class="picker">
-          {{provinces_name}}
+          {{province}}
         </view>
       </picker>
     </view>
@@ -24,7 +24,7 @@
       <view class="title" style="flex-shrink:0;">城市:</view>
       <picker class="input" id="{{index}}" bindchange="_city" range-key="Name" range="{{OneCity}}">
         <view class="picker">
-          {{cities_name}}
+          {{city}}
         </view>
       </picker>
     </view>
@@ -32,14 +32,14 @@
       <view class="title" style="flex-shrink:0;">区/县:</view>
       <picker class="input" id="{{index}}" bindchange="_area" range-key="Name" range="{{OneDistricts}}">
         <view class="picker">
-          {{districts_name}}
+          {{region}}
         </view>
       </picker>
     </view>
     <view class="item">
       <view class="title" style="flex-shrink:0;">详细地址:</view>
-      <input class="input" name="sender_address" value="{{sender_address}}"/>
+      <input class="input" bindinput="_detail" name="sender_address" value="{{detail}}"/>
     </view>
   </view>
-<button class="btn" formType="submit" bindtap="_submit">提交</button>
+<button class="btn" formType="submit">提交</button>
 </form>

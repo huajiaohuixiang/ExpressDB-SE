@@ -1,72 +1,118 @@
 const re = require('../../utils/request.js')
-var id, url1, url2, list = [], that, data, listadd;
+var app = getApp()
 Page({
   data: {
-    "num":list.length
+    "userid":app.globalData.userInfo.userId,
+    "list":[{
+      Company:"顺丰速运",
+      OrderId:"Bq908",
+      Sender_name:"Sleepycat",
+      Sender_province:"上海",
+      Sender_city:"直辖市",
+      Sender_region:"杨浦区",
+      Sender_detail:"同济大学",
+      Rec_name:"DBJ",
+      Rec_province:"上海",
+      Rec_city:"直辖市",
+      Rec_region:"嘉定区",
+      Rec_detail:"同济大学",
+      status:1
+    },
+    {
+      Company:"申通快递",
+      OrderId:"Bq90834",
+      Sender_name:"Maya",
+      Sender_province:"上海",
+      Sender_city:"直辖市",
+      Sender_region:"杨浦区",
+      Sender_detail:"同济大学",
+      Rec_name:"DBJ",
+      Rec_province:"上海",
+      Rec_city:"直辖市",
+      Rec_region:"嘉定区",
+      Rec_detail:"同济大学",
+      status:1
+    },
+    {
+      Company:"顺丰速运",
+      OrderId:"Bq908900",
+      Sender_name:"Sleepycat",
+      Sender_province:"上海",
+      Sender_city:"直辖市",
+      Sender_region:"杨浦区",
+      Sender_detail:"同济大学",
+      Rec_name:"DBJ",
+      Rec_province:"上海",
+      Rec_city:"直辖市",
+      Rec_region:"嘉定区",
+      Rec_detail:"同济大学",
+      status:1
+    }
+  ],
+    "choose":1,
+    "color1":"#7ccefd",
+    "color2":"darkgrey",
+    "color3":"darkgrey"
   },
   onLoad: function (options) {
-    // 页面初始化 options为页面跳转所带来的参数
+    var userid = app.globalData.userInfo.userId
     this.setData({
-      id:options.id //options.id是上个页面传来的参数 赋值给此js对应的html
+      userid:userid
     })
-    that = this;//在请求数据时setData使用
-    //id = options.id;//options.id为上个页面传来的参数
-    // console.log(id)
-    url1 = "" + getApp().globalData.openId.data +"&pageSize=10&currentPage="+1;
-    queryRequest(url1);
   },
+  under: function() {
+    this.setData({
+      choose:1,
+      "color1":"#7ccefd",
+      "color2":"darkgrey",
+      "color3":"darkgrey"
+    })
+  },
+  done: function() {
+    this.setData({
+      choose:2,
+      "color2":"#7ccefd",
+      "color1":"darkgrey",
+      "color3":"darkgrey"
+    })
+  },
+  cancel: function() {
+    this.setData({
+      choose:3,
+      "color3":"#7ccefd",
+      "color2":"darkgrey",
+      "color1":"darkgrey"
+    })
+  },
+  
   lower: function (e) {
     url2 = "" + getApp().globalData.openId.data + "&pageSize=10&currentPage="+parseInt(url1.charAt(str.length - 1))+1;
     getmoreRequest(url2);
   },
   //撤单监听事件
-  item22_chedan_click:function(e){
-    console.log(e);
-    var orderId = e.currentTarget.id;
-
-      wx.showModal({
-        title: '注意事项',
-        content: '撤单后，不可恢复，每天仅允许一次撤单行为！',
-        complete: function () {
-          wx.showLoading({
-            title: '正在撤单...',
-          })
-          cancelTheOrder(orderId, function () {
-            setTimeout(function () {
-              wx.hideLoading()
-              wx.showToast({
-                title: '撤单成功',
-                icon: 'success',
-                duration: 2000
-              })
-            }, 2000)
-          })
-        }
-      })
+  cancel_click:function(e){
+    var that = this;
+    var index = e.currentTarget.dataset.index;
+    wx.showModal({
+      title: '注意事项',
+      content: '确认撤单后不可取消',
+      complete:function(){
+        var temp= "list["+ index + "].status";
+        that.setData({
+          [temp]:2
+        })
+        wx.showToast({
+          title: '撤单成功',
+          icon: 'success',
+          duration: 1500
+        })
+      }
+    })
+         
   }
 })
 
-// 撤单
-function cancelTheOrder(orderId, callback) {
-  console.log('撤单')
-  wx.request({
-    // 下单的地址，加上传进来的url  
-    //url: baseUrl +'http://v.juhe.cn/expressonline/getCarriers.php?' + url,
-    url: '' + orderId,
-    header: {
-      'content-type': 'application/json'
-    },
-    success: function (res) {
-      callback(res.data);
-      wx.navigateBack({
-        delta: 1
-      })
-    },
-    fail: function (err) {
-      ShowModal()
-    }
-  })
-}
+
 
 //请求数据
 function queryRequest(url) {

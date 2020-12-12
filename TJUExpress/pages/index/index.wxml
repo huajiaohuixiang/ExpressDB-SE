@@ -37,7 +37,7 @@
     <view style="font-size:26rpx;color:#696969;">下单成功</view>
   </view>
 </view>
-<view class="body">
+<view class="body" bindtap="iflogin">
   <view class="selectbox">
     <picker class="input" value="{{index}}" bindchange="_courier" range="{{couriers}}">
         <view class="picker">

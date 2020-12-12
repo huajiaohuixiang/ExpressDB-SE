@@ -1,0 +1,34 @@
+<!--pages/register/register.wxml-->
+<view class="header"><image class="server-img" src="../../images/register.png" background-size="cover"></image></view>
+<view class="body">
+  <form bindsubmit="formSubmit">
+    <view class="item">
+      <view class="text"><text decode="{{true}}" space="{{true}}">昵&nbsp;&nbsp;&nbsp;&nbsp;称:</text></view>
+      <input name="username" class="input" bindinput="_username"/>
+    </view>
+    <view class="item">
+      <view class="text">手机号:</view>
+      <input name="phone" class="input" bindinput="_phone"/>
+    </view>
+    <view class="item">
+      <view class="text"><text decode="{{true}}" space="{{true}}">密&nbsp;&nbsp;&nbsp;&nbsp;码:</text></view>
+      <input name="password" class="input" type="password" bindinput="_password"/>
+    </view>
+    <view class="item">
+      <view class="text"><text decode="{{true}}" space="{{true}}">性&nbsp;&nbsp;&nbsp;&nbsp;别:</text></view>
+      <radio-group class="pick" name="sex" bindchange="_sex">
+        <label>
+          <radio value="男" />男</label>
+        <label style="margin-left:5px">
+          <radio value="女" />女</label>
+      </radio-group>
+    </view>
+    <view class="item">
+      <view class="tips">注意：本程序不提供验证手机号功能，请用户自觉输入正确手机号以便享受更多功能，若注册手机号有误，可前往个人信息页进行修改。
+      </view>
+    </view>
+    <button class="bnt" formType="submit"><text decode="{{true}}" space="{{true}}">注&nbsp;&nbsp;&nbsp;&nbsp;册</text></button>
+  </form>
+  <view class="denglu" bindtap="login">已有账号？返回登陆</view>
+</view>
+

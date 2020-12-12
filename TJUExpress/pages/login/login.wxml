@@ -1,0 +1,16 @@
+<!--pages/login/login.wxml-->
+<view class="header"><image class="server-img" src="../../images/login.png" background-size="cover"></image></view>
+<view class="body">
+  <form bindsubmit="formSubmit">
+    <view class="item">
+      <view class="text">账号:</view>
+      <input name="userid" class="input" bindinput="_userid"/>
+    </view>
+    <view class="item">
+      <view class="text">密码:</view>
+      <input name="password" class="input" type="password" bindinput="_password"/>
+    </view>
+    <button class="bnt" formType="submit"><text decode="{{true}}" space="{{true}}">登&nbsp;&nbsp;&nbsp;&nbsp;录</text></button>
+  </form>
+  <view class="zhuce" bindtap="register">还没有账号？免费注册</view>
+</view>

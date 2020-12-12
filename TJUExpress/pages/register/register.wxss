@@ -1,0 +1,57 @@
+/* pages/register/register.wxss */
+/* pages/login/login.wxss */
+.header {
+  color: rgb(0, 0, 0);
+  height:80px;
+  width:100%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+.server-img {
+  width: 73px;
+  height: 40px;
+  margin-left:20px;
+  margin-top:5px;
+}
+.body {
+  margin-top: 20px;
+  width:100%;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+.item {
+  width:100%;
+  height:40px;
+  display:flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.tips{
+  width:90%;
+  font-size: small;
+  color: dimgrey;
+}
+.text {
+  height:30px;
+  padding-top: 3px;
+  font-size: 18px;
+}
+.input {
+  margin-left: 5px;
+  width:160px;
+  height:30px;
+  border: solid 1px rgb(116, 116, 116);
+  border-radius: 5px;
+}
+.pick {
+  margin-left: 5px;
+  width:160px;
+  height:30px;
+}
+.bnt {
+  width:50%;
+  margin-top: 20px;
+  color:rgb(2, 175, 2);
+}
