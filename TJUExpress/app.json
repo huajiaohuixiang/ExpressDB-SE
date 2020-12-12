@@ -9,19 +9,21 @@
     "pages/details/details",
     "pages/lists/lists",
     "pages/company/company",
-    "pages/changeaddr/changeaddr",
     "pages/order3/order3",
     "pages/order1/order1",
     "pages/order2/order2",
     "pages/orderList/orderList",
     "pages/provinceSelector/provinceSelector",
     "pages/toRecieve/toRecieve",
-    "pages/addr/addr"
+    "pages/addr/addr",
+    "pages/login/login",
+    "pages/register/register",
+    "pages/userdetail/userdetail"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "同济大学快递中心",
+    "navigationBarTitleText": "快递中心",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {

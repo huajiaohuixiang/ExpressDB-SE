@@ -1,69 +1,43 @@
-//const { userInfo } = require("os");
-
 //app.js
-globalData: {
-  openId:""
-};
 App({
+  globalData: {
+    openId:"",
+    login:0,
+    userInfo:{
+      userId:"",
+      userName:"",
+      phone:"",
+      sex:"",
+      province:"",
+      city:"",
+      region:"",
+      detail:""
+    }
+  },
   onLaunch: function () {
-    
-    var that = this
     //调用API从本地缓存中获取数据
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
+    var logs = wx.getStorageSync('logs') || [];
+    logs.unshift(Date.now());
+    wx.setStorageSync('logs', logs);
     /*wx.login({
       success: function (res) {
-        //调用request请求api转换登录凭证
+        var code = res.code; //返回code
+        console.log(code);
+        var appId = 'wxc5c06037860cba5d';
+        var secret = '1ea491654d6153790704e40c4b8697dd';
         wx.request({
-          url: 'https://test.com/onLogin',
-          data: {
-            code: res.code
+          url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appId + '&secret=' + secret + '&js_code=' + code + '&grant_type=authorization_code',
+          data: {},
+          header: {
+            'content-type': 'json'
           },
-          success: function (code) {
-            getApp().globalData.openId=res.code;
-            console.log("login",res) //获取openid
+          success: function (res) {
+            var openid = res.data.openid //返回openid
+            console.log('openid为' + openid);
           }
         })
       }
-    }),
-    wx.getUserInfo({
-      success: function(res) {
-        var userInfo = res.userInfo
-        var nickName = userInfo.nickName
-        var avatarUrl = userInfo.avatarUrl
-        var gender = userInfo.gender //性别 0：未知、1：男、2：女 
-        var province = userInfo.province
-        var city = userInfo.city
-        var country = userInfo.country
-        console.log('user',userInfo)
-      }
     })*/
   },
-  getUserInfo: function (cb) {
-    var that = this
-    if (this.globalData.userInfo) {
-      typeof cb == "function" && cb(this.globalData.userInfo)
-    } else {
-      //调用登录接口
-      wx.login({
-        url: 'https://test.com/onLogin',
-        data: {
-          code: res.code
-        },
-        success: function () {
-          wx.getUserInfo({
-            success: function (res) {
-              that.globalData.userInfo = res.userInfo
-              typeof cb == "function" && cb(that.globalData.userInfo)
-            }
-          })
-        }
-      })
-    }
-  },
-  globalData: {
-    userInfo: null
-  }
+  
 })
