@@ -10,7 +10,7 @@ public class PackInWare {
     private String packageId;
     private String warehouseId;
     private String employeeId;
-    private Time inDate;
+    private String inDate;
 
     @Id
     @Column(name = "PACKAGE_ID")
@@ -44,11 +44,11 @@ public class PackInWare {
 
     @Basic
     @Column(name = "IN_DATE")
-    public Time getInDate() {
+    public String getInDate() {
         return inDate;
     }
 
-    public void setInDate(Time inDate) {
+    public void setInDate(String inDate) {
         this.inDate = inDate;
     }
 

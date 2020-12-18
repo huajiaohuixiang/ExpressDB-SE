@@ -65,19 +65,19 @@
                 <el-table-column type="selection" width="55" align="center"></el-table-column>
                 <el-table-column prop="warehouseId" label="仓库编号"  align="center"></el-table-column>
                 <el-table-column prop="packageId" label="包裹编号"  align="center"></el-table-column>
-                <el-table-column prop="name" label="发件人" align="center"></el-table-column>
-                <el-table-column prop="phone" label="发件人手机"  align="center"> </el-table-column>
+                <el-table-column prop="senderName" label="发件人" align="center"></el-table-column>
+                <el-table-column prop="senderPhone" label="发件人手机"  align="center"> </el-table-column>
                
-                <el-table-column prop="receivename" label="收件人"  align="center">
+                <el-table-column prop="receiverName" label="收件人"  align="center">
                  
                     <!-- <template slot-scope="scope">{{scope.row.toname}}</template> -->
                 </el-table-column>
-                 <el-table-column prop="receivephone" label="收件人手机" ></el-table-column> 
+                 <el-table-column prop="receiverPhone" label="收件人手机" ></el-table-column> 
                
                 <el-table-column prop="in_time" label="入库时间"  align="center">
-                    <template slot-scope="scope">
+                    <!-- <template slot-scope="scope">
                         {{scope.row.company}}
-                    </template>
+                    </template> -->
                 </el-table-column>
                 
 
@@ -111,7 +111,7 @@
         </div>
 
         <!-- 编辑弹出框 -->
-        <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
+        <!-- <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
             <el-form ref="form" :model="form" label-width="70px">
                 <el-form-item label="订单编号">
                     <el-input v-model="form.order_id"></el-input>
@@ -144,7 +144,7 @@
                 <el-button @click="editVisible = false">取 消</el-button>
                 <el-button type="primary" @click="saveEdit">确 定</el-button>
             </span>
-        </el-dialog>
+        </el-dialog> -->
     </div>
 </template>
 <script>
@@ -196,6 +196,7 @@ export default {
                     console.log("b");                
                 })
             this.$axios.get('http://huajiao.site:8084/getWareDetails')
+            // 'http://huajiao.site:8084/getWareDetails'
                 .then(function(response) {
                     console.log(response.data);
                     that.tableData=response.data;
