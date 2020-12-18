@@ -3,61 +3,35 @@ var app = getApp()
 Page({
   data: {
     "userid":app.globalData.userInfo.userId,
-    "list":[{
-      Company:"顺丰速运",
-      OrderId:"Bq908",
-      Sender_name:"Sleepycat",
-      Sender_province:"上海",
-      Sender_city:"直辖市",
-      Sender_region:"杨浦区",
-      Sender_detail:"同济大学",
-      Rec_name:"DBJ",
-      Rec_province:"上海",
-      Rec_city:"直辖市",
-      Rec_region:"嘉定区",
-      Rec_detail:"同济大学",
-      status:1
-    },
-    {
-      Company:"申通快递",
-      OrderId:"Bq90834",
-      Sender_name:"Maya",
-      Sender_province:"上海",
-      Sender_city:"直辖市",
-      Sender_region:"杨浦区",
-      Sender_detail:"同济大学",
-      Rec_name:"DBJ",
-      Rec_province:"上海",
-      Rec_city:"直辖市",
-      Rec_region:"嘉定区",
-      Rec_detail:"同济大学",
-      status:1
-    },
-    {
-      Company:"顺丰速运",
-      OrderId:"Bq908900",
-      Sender_name:"Sleepycat",
-      Sender_province:"上海",
-      Sender_city:"直辖市",
-      Sender_region:"杨浦区",
-      Sender_detail:"同济大学",
-      Rec_name:"DBJ",
-      Rec_province:"上海",
-      Rec_city:"直辖市",
-      Rec_region:"嘉定区",
-      Rec_detail:"同济大学",
-      status:1
-    }
-  ],
+    "list":[],
     "choose":1,
     "color1":"#7ccefd",
     "color2":"darkgrey",
     "color3":"darkgrey"
   },
   onLoad: function (options) {
+    wx.showLoading({
+      title: '正在加载',
+    })
     var userid = app.globalData.userInfo.userId
+    var that=this
     this.setData({
       userid:userid
+    })
+    wx.request({
+      url:'https://www.csystd.cn:9999/checkMyOrder',
+      method:'POST',
+      data:{
+        userID:userid
+      },
+      success:function(res){
+        wx.hideLoading()
+        console.log(res.data)
+        var list=res.data
+        that.setData({
+          list:list
+        })
+      }
     })
   },
   under: function() {
@@ -116,6 +90,7 @@ Page({
 
 //请求数据
 function queryRequest(url) {
+  var that = this
   wx.request({
     url: url,
     data: {},

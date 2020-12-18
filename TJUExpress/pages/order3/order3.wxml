@@ -58,19 +58,13 @@
   <view class="item">收件人电话号码:{{recipient.receiver_telphone}}</view>
   <view class="item">收件人地址:{{recipient.receiver_province_name}}{{recipient.receiver_city_name}}{{recipient.receiver_district_name}}</view>
   <view class="item">收件人详细地址:{{recipient.receiver_address}}</view>
-  <view class="item2">货物信息</view>
-  <view class="item">货物名称:{{sender.item_name}}</view>
-  
-  <view class="tui-picker-content">
-    <view class="item2">选择上门取件时间</view>
-    <picker mode="multiSelector" value="{{dateTime}}" bindchange="changeDateTime" bindcolumnchange="changeDateTimeColumn" range="{{dateTimeArray}}">
-      <view class="tui-picker-detail">
-        {{dateTimeArray[0][dateTime[0]]}}-{{dateTimeArray[1][dateTime[1]]}}-{{dateTimeArray[2][dateTime[2]]}} {{dateTimeArray[3][dateTime[3]]}}:{{dateTimeArray[4][dateTime[4]]}}
-      </view>
-    </picker>
+  <view class="item2">预约时间</view>
+  <view class="item">
+      <view style="flex-shrink:0;">上门取件时间:</view>
+      <input name="Orderdate" bindinput="date" class="input" placeholder="如：2020-12-21"/>
   </view>
 </view>
 <view class="btn">
   <button class="btn_back" style="background: #fff;color:#000;" bindtap="back">上一步</button>
-  <button class="btn_step" bindtap="com">确认下单</button>
+  <button class="btn_step" bindtap="com">下单</button>
 </view>

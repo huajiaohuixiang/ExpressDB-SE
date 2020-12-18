@@ -8,11 +8,10 @@ Page({
     districts: [],
     OneCity: [],
     OneDistricts: [],
-    province:"请选择",
+    province:"",
     city:"",
     region: "",
     username:"",
-    phone:"",
     detail:""
   },
   onLoad: function (options) {
@@ -21,14 +20,12 @@ Page({
     var cities = lk.cities
     var districts = lk.districts
     var username = app.globalData.userInfo.userName
-    var phone = app.globalData.userInfo.phone
     var province = app.globalData.userInfo.province
     var city = app.globalData.userInfo.city
     var region = app.globalData.userInfo.region
-    var detail = app.globalData.userInfo.datail
+    var detail = app.globalData.userInfo.detail
     this.setData({
       username:username,
-      phone:phone,
       province:province,
       city:city,
       region:region,
@@ -47,11 +44,6 @@ Page({
   _username:function(e){
     this.setData({
       username:e.detail.value
-    })
-  },
-  _phone:function(e){
-    this.setData({
-      phone:e.detail.value
     })
   },
   _detail:function(e){
@@ -107,34 +99,58 @@ Page({
     })
   },
   formSubmit: function (e) {
+    var userid = app.globalData.userInfo.userId
+    console.log(userid)
     var params = e.detail.value
     params.sender_name = this.data.username
-    params.sender_telphone = this.data.phone
     params.sender_address = this.data.detail
     params.sender_province_name = this.data.province
     params.sender_city_name = this.data.city
     params.sender_district_name = this.data.region
     console.log('params', params)
-    if (params.sender_name == "" || params.sender_telphone == "" || params.sender_address == "") {
+    if (params.sender_name == "" || params.sender_address == "") {
       wx.showModal({
         title: '提示',
         content: '请填写完整的信息',
       })
       return
     }
-    wx.showModal({
-        title: '提示',
-        content: '修改信息成功',
-    }),
-    app.globalData.userInfo.userName=this.data.username
-    app.globalData.userInfo.phone=this.data.phone
-    app.globalData.userInfo.province=this.data.province
-    app.globalData.userInfo.city=this.data.city
-    app.globalData.userInfo.region=this.data.region
-    app.globalData.userInfo.datail=this.data.detail
-    wx.navigateTo({
-      url:'../userdetail/userdetail'
+    wx.showLoading({
+      title: '正在提交',
     })
+    wx.request({
+      url: 'https://www.csystd.cn:9999/updateUserInfo',
+      method:'POST',
+      data:{
+        userID:userid,
+        name:params.sender_name,
+        province:params.sender_province_name,
+        city:params.sender_city_name,
+        region:params.sender_district_name,
+        detail:params.sender_address
+      },
+      success:function(res){
+        console.log(res.data)
+        wx.hideLoading()
+        wx.showModal({
+            title: '提示',
+            content: '修改信息成功',
+            complete:function(){
+              app.globalData.userInfo.userName=params.sender_name
+              app.globalData.userInfo.province=params.sender_province_name
+              app.globalData.userInfo.city=params.sender_city_name
+              app.globalData.userInfo.region=params.sender_district_name
+              app.globalData.userInfo.detail=params.sender_address
+              wx.navigateBack({
+                delta: 1
+              })
+            }
+        })
+
+      }
+    })
+        
+          
 
   },
   

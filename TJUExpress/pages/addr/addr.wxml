@@ -8,10 +8,10 @@
       <view class="title" style="flex-shrink:0;">昵称:</view>
       <input name="sender_name" bindinput="_username" class="input" value="{{username}}" />
     </view>
-    <view class="item">
+    <!--<view class="item">
       <view class="title" style="flex-shrink:0;">手机号:</view>
       <input name="sender_telphone" type="number" bindinput="_phone" maxlength="11" class="input" value="{{phone}}" />
-    </view>
+    </view>-->
     <view class="item">
       <view class="title" style="flex-shrink:0;">省份:</view>
       <picker class="input" id="{{index}}" bindchange="_province" range-key="Name" range="{{provinces}}">

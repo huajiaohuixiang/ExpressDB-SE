@@ -20,11 +20,11 @@ Page({
   onLoad: function () {
     console.log(app.globalData.userInfo)
     var username = app.globalData.userInfo.userName
-    var phone = app.globalData.userInfo.phone
+    var phone = app.globalData.userInfo.userId
     var province = app.globalData.userInfo.province
     var city = app.globalData.userInfo.city
     var region = app.globalData.userInfo.region
-    var detail = app.globalData.userInfo.datail
+    var detail = app.globalData.userInfo.detail
     this.setData({
       username:username,
       phone:phone,
@@ -41,11 +41,11 @@ Page({
   },
   onShow:function(){
     var username = app.globalData.userInfo.userName
-    var phone = app.globalData.userInfo.phone
+    var phone = app.globalData.userInfo.userId
     var province = app.globalData.userInfo.province
     var city = app.globalData.userInfo.city
     var region = app.globalData.userInfo.region
-    var detail = app.globalData.userInfo.datail
+    var detail = app.globalData.userInfo.detail
     this.setData({
       username:username,
       phone:phone,
