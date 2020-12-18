@@ -1,12 +1,10 @@
 //app.js
 App({
   globalData: {
-    openId:"",
     login:0,
     userInfo:{
       userId:"",
       userName:"",
-      phone:"",
       sex:"",
       province:"",
       city:"",
@@ -19,25 +17,23 @@ App({
     var logs = wx.getStorageSync('logs') || [];
     logs.unshift(Date.now());
     wx.setStorageSync('logs', logs);
-    /*wx.login({
-      success: function (res) {
-        var code = res.code; //返回code
-        console.log(code);
-        var appId = 'wxc5c06037860cba5d';
-        var secret = '1ea491654d6153790704e40c4b8697dd';
-        wx.request({
-          url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appId + '&secret=' + secret + '&js_code=' + code + '&grant_type=authorization_code',
-          data: {},
-          header: {
-            'content-type': 'json'
-          },
-          success: function (res) {
-            var openid = res.data.openid //返回openid
-            console.log('openid为' + openid);
-          }
-        })
+    console.log("准备请求");
+    wx.request({
+      
+      url: 'https://huajiao.site:8089/test', //路由
+      data:{   //数据
+        
+      },
+      method:"GET",//请求方法
+      header:{ //请求头
+        "content-type":"application/json"
+      },
+      success(e){ //回调
+          //e为后台返回的值
+        console.log(e.data)
       }
-    })*/
+    })
+    
   },
   
 })
