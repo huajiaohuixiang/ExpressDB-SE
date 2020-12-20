@@ -4,24 +4,58 @@ import javax.persistence.*;
 import java.sql.Time;
 
 @Entity
-@Table(name = "EX_ORDER", schema = "TEST", catalog = "")
+@Table(name = "EX_ORDER", schema = "TEST")
 public class ExOrder {
-    private String orderId;
-    private String senderName;
-    private String sendPhone;
-    private String sendAddress;
-    private String company;
-    private String receiverName;
-    private String receiverAddress;
-    private String receiverPhone;
-    private String packageContent;
-    private Time orderDate;
-    private String weight;
-    private String status;
-    private String employeeId;
-
     @Id
     @Column(name = "ORDER_ID")
+    private String orderId;
+    @Basic
+    @Column(name = "SENDER_NAME")
+    private String senderName;
+    @Basic
+    @Column(name = "SENDER_PHONE")
+    private String senderPhone;
+    @Basic
+    @Column(name = "SENDER_ADDRESS")
+    private String sendAddress;
+    @Basic
+    @Column(name = "COMPANY")
+    private String company;
+
+    @Basic
+    @Column(name = "RECEIVER_NAME")
+    private String receiverName;
+
+    @Basic
+    @Column(name = "RECEIVER_ADDRESS")
+    private String receiverAddress;
+
+    @Basic
+    @Column(name = "RECEIVER_PHONE")
+    private String receiverPhone;
+
+    @Basic
+    @Column(name = "PACKAGE_CONTENT")
+    private String packageContent;
+
+    @Basic
+    @Column(name = "ORDER_DATE")
+    private Time orderDate;
+
+    @Basic
+    @Column(name = "WEIGHT")
+    private String weight;
+    @Basic
+    @Column(name = "STATUS")
+
+    private String status;
+
+    @Basic
+    @Column(name = "EMPLOYEE_ID")
+    private String employeeId;
+
+    @Basic
+    @Column(name = "order_id")
     public String getOrderId() {
         return orderId;
     }
@@ -31,7 +65,7 @@ public class ExOrder {
     }
 
     @Basic
-    @Column(name = "SENDER_NAME")
+    @Column(name = "sender_name")
     public String getSenderName() {
         return senderName;
     }
@@ -41,17 +75,16 @@ public class ExOrder {
     }
 
     @Basic
-    @Column(name = "SEND_PHONE")
+    @Column(name = "SENDER_PHONE")
     public String getSendPhone() {
-        return sendPhone;
+        return senderPhone;
     }
 
     public void setSendPhone(String sendPhone) {
-        this.sendPhone = sendPhone;
+        this.senderPhone = sendPhone;
     }
-
     @Basic
-    @Column(name = "SEND_ADDRESS")
+    @Column(name = "SENDER_ADDRESS")
     public String getSendAddress() {
         return sendAddress;
     }
@@ -61,7 +94,7 @@ public class ExOrder {
     }
 
     @Basic
-    @Column(name = "COMPANY")
+    @Column(name = "company")
     public String getCompany() {
         return company;
     }
@@ -71,7 +104,7 @@ public class ExOrder {
     }
 
     @Basic
-    @Column(name = "RECEIVER_NAME")
+    @Column(name = "receiver_name")
     public String getReceiverName() {
         return receiverName;
     }
@@ -85,6 +118,7 @@ public class ExOrder {
     public String getReceiverAddress() {
         return receiverAddress;
     }
+
 
     public void setReceiverAddress(String receiverAddress) {
         this.receiverAddress = receiverAddress;
@@ -101,7 +135,7 @@ public class ExOrder {
     }
 
     @Basic
-    @Column(name = "PACKAGE_CONTENT")
+    @Column(name = "Package_Content")
     public String getPackageContent() {
         return packageContent;
     }
@@ -111,7 +145,7 @@ public class ExOrder {
     }
 
     @Basic
-    @Column(name = "ORDER_DATE")
+    @Column(name = "order_date")
     public Time getOrderDate() {
         return orderDate;
     }
@@ -121,7 +155,7 @@ public class ExOrder {
     }
 
     @Basic
-    @Column(name = "WEIGHT")
+    @Column(name = "weight")
     public String getWeight() {
         return weight;
     }
@@ -131,7 +165,7 @@ public class ExOrder {
     }
 
     @Basic
-    @Column(name = "STATUS")
+    @Column(name = "status")
     public String getStatus() {
         return status;
     }
@@ -141,7 +175,7 @@ public class ExOrder {
     }
 
     @Basic
-    @Column(name = "EMPLOYEE_ID")
+    @Column(name = "employee_id")
     public String getEmployeeId() {
         return employeeId;
     }
@@ -159,7 +193,7 @@ public class ExOrder {
 
         if (orderId != null ? !orderId.equals(exOrder.orderId) : exOrder.orderId != null) return false;
         if (senderName != null ? !senderName.equals(exOrder.senderName) : exOrder.senderName != null) return false;
-        if (sendPhone != null ? !sendPhone.equals(exOrder.sendPhone) : exOrder.sendPhone != null) return false;
+        if (senderPhone != null ? !senderPhone.equals(exOrder.senderPhone) : exOrder.senderPhone != null) return false;
         if (sendAddress != null ? !sendAddress.equals(exOrder.sendAddress) : exOrder.sendAddress != null) return false;
         if (company != null ? !company.equals(exOrder.company) : exOrder.company != null) return false;
         if (receiverName != null ? !receiverName.equals(exOrder.receiverName) : exOrder.receiverName != null)
@@ -182,7 +216,7 @@ public class ExOrder {
     public int hashCode() {
         int result = orderId != null ? orderId.hashCode() : 0;
         result = 31 * result + (senderName != null ? senderName.hashCode() : 0);
-        result = 31 * result + (sendPhone != null ? sendPhone.hashCode() : 0);
+        result = 31 * result + (senderPhone != null ? senderPhone.hashCode() : 0);
         result = 31 * result + (sendAddress != null ? sendAddress.hashCode() : 0);
         result = 31 * result + (company != null ? company.hashCode() : 0);
         result = 31 * result + (receiverName != null ? receiverName.hashCode() : 0);

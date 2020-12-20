@@ -53,8 +53,9 @@
                 <el-input v-model="query.name" placeholder="包裹编号" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
             </div>
+            <!--     :data="tableData.slice((query.pageIndex-1)*query.pageSize,query.pageIndex*query.pageSize)" -->
             <el-table
-                :data="tableData.slice((query.pageIndex-1)*query.pageSize,query.pageIndex*query.pageSize)"
+                :data="tableData"
                 stripe
                 border
                 class="table"
@@ -65,14 +66,14 @@
                 <el-table-column type="selection" width="55" align="center"></el-table-column>
                 <el-table-column prop="warehouseId" label="仓库编号"  align="center"></el-table-column>
                 <el-table-column prop="packageId" label="包裹编号"  align="center"></el-table-column>
-                <el-table-column prop="senderName" label="发件人" align="center"></el-table-column>
+                <el-table-column prop="senderName" label="发件人" width='70px' align="center"></el-table-column>
                 <el-table-column prop="senderPhone" label="发件人手机"  align="center"> </el-table-column>
                
-                <el-table-column prop="receiverName" label="收件人"  align="center">
+                <el-table-column prop="receiverName" label="收件人" width='70px' align="center">
                  
                     <!-- <template slot-scope="scope">{{scope.row.toname}}</template> -->
                 </el-table-column>
-                 <el-table-column prop="receiverPhone" label="收件人手机" ></el-table-column> 
+                 <el-table-column prop="receiverPhone" label="收件人手机" align="center" ></el-table-column> 
                
                 <el-table-column prop="in_time" label="入库时间"  align="center">
                     <!-- <template slot-scope="scope">
@@ -81,30 +82,16 @@
                 </el-table-column>
                 
 
-                           
-                <!-- <el-table-column label="操作" align="center">
-                    <template slot-scope="scope">
-                        <el-button
-                            type="text"
-                            icon="el-icon-edit"
-                            @click="handleEdit(scope.$index, scope.row)"
-                        >编辑</el-button>
-                        <el-button
-                            type="text"
-                            icon="el-icon-delete"
-                            class="red"
-                            @click="handleDelete(scope.$index, scope.row)"
-                        >删除</el-button>
-                    </template>
-                </el-table-column> -->
+                           <!-- "query.pagesize" -->
+               
             </el-table>
             <div class="pagination">
                 <el-pagination
                     background
                     layout="total, prev, pager, next"
-                    :current-page="query.pageIndex"
-                    :page-size="query.pagesize"
-                    :total="pageTotal"
+                    :current-page="this.query.pageIndex"
+                    :page-size="this.query.pageSize"
+                    :total="this.packagenum"
                     @current-change="handlePageChange"
                 ></el-pagination>
             </div>
@@ -162,13 +149,13 @@ export default {
             //w上半部的仓库信息
             warelist:[],
             wareData:[],
-
+            pageTotal:0,
             sumData:[],
             tableData: [],
             multipleSelection: [],
             delList: [],
             editVisible: false,
-            pageTotal: 0,
+            packagenum:0,
             form: {},
             idx: -1,
             id: -1
@@ -183,27 +170,31 @@ export default {
 
             console.log("getData");
             let that =this;
-            this.$axios.get('http://huajiao.site:8084/getWareInfo')
+            this.$axios.get('http://localhost:8084/getWareInfo')
                 .then(function(response) {
-                    console.log(response.data);
-                   
-                   
+                    console.log(response.data);             
                     that.warelist=response.data;
-                    console.log("a"); 
-                   
+                    console.log("a");                   
                 })
                 .catch(function(error) {
                     console.log("b");                
                 })
-            this.$axios.get('http://huajiao.site:8084/getWareDetails')
+            this.$axios.get("http://localhost:8084/getmetedata")
+                .then(function(response){
+                    
+                    that.packagenum=response.data;
+                    
+                    that.pageTotal=Math.ceil(that.packagenum/that.query.pageSize) ;
+                    console.log(that.pageTotal)
+                })
+
+            this.$axios.get("http://localhost:8084/getWareDetails?pageindex="+"1"+"&pagesize="+this.query.pageSize)
             // 'http://huajiao.site:8084/getWareDetails'
                 .then(function(response) {
                     console.log(response.data);
                     that.tableData=response.data;
-                   
-                   
                     console.log("a"); 
-                    that.pageTotal=parseInt((response.data.length));                    
+                   // that.pageTotal=parseInt((response.data.length));                    
                     that.sumData=that.tableData;
                 })
                 .catch(function(error) {
@@ -212,8 +203,19 @@ export default {
         },
         // 触发搜索按钮
         handleSearch() {
-            this.$set(this.query, 'pageIndex', 1);
-            this.getData();
+            let that =this;
+            this.$axios.get('http://localhost:8084/worker/getWarePackageById?id='+this.query.name)
+                .then(function(response) {                  
+                    console.log(response.data);                     
+                    that.tableData=[];                                                
+                    that.tableData.push(response.data)                  
+                    that.packagenum=1
+                          
+                })
+                .catch(function(error) {
+                    console.log("b");                  
+                })
+
         },
         getDataBySelect(){
             console.log("还活着");
@@ -254,10 +256,6 @@ export default {
                 .catch(() => {});
         },
 
-
-
-
-
         // 多选操作
         handleSelectionChange(val) {
             this.multipleSelection = val;
@@ -289,6 +287,14 @@ export default {
         },
         // 分页导航
         handlePageChange(val) {
+            console.log(val)
+            let that=this
+            this.$axios.get("http://localhost:8084/getWareDetails?pageindex="+val+"&pagesize="+this.query.pageSize)
+            .then(function(response) {
+                    console.log(response.data);
+                    that.tableData=response.data;
+                    })
+
             this.$set(this.query, 'pageIndex', val);
              //this.getData();
         },

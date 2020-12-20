@@ -4,11 +4,12 @@ import com.example.back.entity.Box;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.hibernate.dialect.Oracle12cDialect;
 
 import java.util.LinkedList;
 
 @Mapper
-public interface BoxMapper {
+public interface BoxMapper  {
     @Select("select count(*) from box where cupboard_ID=#{id} and state='success'")
     public int getSum(String id);
 

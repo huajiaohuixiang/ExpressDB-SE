@@ -39,30 +39,33 @@
                 @selection-change="handleSelectionChange"
             >
                 <el-table-column type="selection" width="55" align="center"></el-table-column>
-                <el-table-column prop="order_ID" label="订单编号" width="100" align="center"></el-table-column>
-                <el-table-column prop="name" label="发件人" width="80" align="center"></el-table-column>
-                <el-table-column prop="phone" label="发件人手机" width="120" align="center"> </el-table-column>
-                <el-table-column prop="receivename" label="收件人" width="80" align="center">
+                <el-table-column prop="orderId" label="订单编号" width="100" align="center"></el-table-column>
+                <el-table-column prop="senderName" label="发件人" width="80" align="center"></el-table-column>
+                <el-table-column prop="sendPhone" label="发件人手机" width="120" align="center"> </el-table-column>
+                <el-table-column prop="receiverName" label="收件人" width="80" align="center">
                  
                     <!-- <template slot-scope="scope">{{scope.row.toname}}</template> -->
                 </el-table-column>
-                 <el-table-column prop="receivephone" label="收件人手机" width="100"></el-table-column> 
-                <el-table-column prop="address" label="收件地址"  align="center">
-                    <template slot-scope="scope">
+                 <el-table-column prop="receiverPhone" label="收件人手机" width="100"></el-table-column> 
+                <el-table-column prop="receiverAddress" label="收件地址"  align="center">
+                    <!-- <template slot-scope="scope">
                         {{scope.row.address}}
-                    </template>
+                    </template> -->
                 </el-table-column>
                 <el-table-column prop="company" label="快递公司"  width="100" align="center">
                     <template slot-scope="scope">
                         {{scope.row.company}}
                     </template>
                 </el-table-column>
-                <el-table-column prop="state" label="状态" align="center"  >
+                <el-table-column prop="employeeId" label="分配的员工"   align="center">
+                    
+                </el-table-column>
+                <el-table-column prop="status" label="状态" align="center"  >
                     <template slot-scope="scope">
                         <el-tag
-                          :type="scope.row.state==='已入库'?'success':(scope.row.state==='已分配'?'warning':(scope.row.state=='已接单'?'':(scope.row.state==='未接单'?'danger':'')))"   
+                          :type="scope.row.status==='已入库'?'success':(scope.row.status==='已分配'?'warning':(scope.row.status=='已接单'?'':(scope.row.status==='未接单'?'danger':'')))"   
                           
-                        >{{scope.row.state}}</el-tag>
+                        >{{scope.row.status}}</el-tag>
                     </template>
                 </el-table-column>
 
@@ -101,7 +104,7 @@
                     layout="total, prev, pager, next"
                     :current-page="query.pageIndex"
                     :page-size="query.pagesize"
-                    :total="pageTotal"
+                    :total="ordernum"
                     @current-change="handlePageChange"
                 ></el-pagination>
             </div>
@@ -109,30 +112,34 @@
 
         <!-- 编辑弹出框 -->
         <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
-            <el-form ref="form" :model="form" label-width="70px">
+            <el-form ref="form" :model="form" label-width="100px">
                 <el-form-item label="订单编号">
-                    <el-input v-model="form.order_id"></el-input>
+                    <el-input v-model="form.orderId"></el-input>
                 </el-form-item>
                 <el-form-item label="发件人">
-                    <el-input v-model="form.name"></el-input>
+                    <el-input v-model="form.senderName"></el-input>
                 </el-form-item>
                 <el-form-item label="发件人手机号">
-                    <el-input v-model="form.phone"></el-input>
+                    <el-input v-model="form.sendPhone"></el-input>
                 </el-form-item>
                 <el-form-item label="收件人">
-                    <el-input v-model="form.receivename"></el-input>
+                    <el-input v-model="form.receiverName"></el-input>
                 </el-form-item>
                 <el-form-item label="收件人手机号">
-                    <el-input v-model="form.receivephone"></el-input>
+                    <el-input v-model="form.receiverPhone"></el-input>
                 </el-form-item>
                 <el-form-item label="收件地址">
-                    <el-input v-model="form.address"></el-input>
+                    <el-input v-model="form.receiverAddress"></el-input>
                 </el-form-item>
+                
                 <el-form-item label="快递公司">
                     <el-input v-model="form.company"></el-input>
                 </el-form-item>
+                <el-form-item label="分配的员工">
+                    <el-input v-model="form.employeeId"></el-input>
+                </el-form-item>
                 <el-form-item label="状态">
-                    <el-input v-model="form.state"></el-input>
+                    <el-input v-model="form.status"></el-input>
                 </el-form-item>
 
 
@@ -144,12 +151,9 @@
         </el-dialog>
     </div>
 </template>
+
 <script>
-    
-</script>
-<script>
-//import { fetchData } from '../../api/index';
-// import axois from "axios";
+
 export default {
     name: 'basetable',
     data() {
@@ -162,6 +166,8 @@ export default {
             },
             sumData:[],
             tableData: [],
+            ordernum:0,
+
             multipleSelection: [],
             delList: [],
             editVisible: false,
@@ -174,16 +180,22 @@ export default {
     created() {
         this.getData();
     },
-    methods: {
-        
+    methods: {       
         getData() {
             console.log("getData");
             let that =this;
-            this.$axios.get('http://huajiao.site:8081/getOrder')
+            this.$axios.get('http://localhost:8084/worker/getOrderNum')
+                .then(function(response) {
+                    console.log(response.data);
+                    that.ordernum=response.data;
+                })
+
+
+            this.$axios.get('http://localhost:8084/worker/getOrder?pageindex=1&pagesize='+that.query.pageSize)
                 .then(function(response) {
                     console.log(response.data);
                     that.tableData=response.data;
-                    that.pageTotal=parseInt((response.data.length));
+                //    that.pageTotal=parseInt((response.data.length));
                     that.sumData=that.tableData;
                 })
                 .catch(function(error) {
@@ -192,17 +204,16 @@ export default {
 
             
         },
-        // 触发搜索按钮
         getDataByOrderID(){
             let that =this;
-            this.$axios.get('http://localhost:8081/get1OrderByID?order_ID=00001')
+            this.$axios.get('http://localhost:8084/worker/getOrderById?id='+this.query.name)
                 .then(function(response) {                  
-                    console.log(response.data);                 
-                    let result=[];
-                    result.push(response.data);                 
-                    that.tableData=result;                  
-                    console.log('a');
-                    that.pageTotal=1;                  
+                    console.log(response.data);                     
+                    var ssss=[]                   
+                    ssss.push(response.data)                                                  
+                    that.tableData=ssss                  
+                    that.ordernum=1
+                          
                 })
                 .catch(function(error) {
                     console.log("b");                  
@@ -219,34 +230,82 @@ export default {
         getDataBySelect(){
             console.log("还活着");
             if(this.query.address=="全部"){
-                this.tableData=this.sumData;
-                this.$set(this.query, 'pageIndex', 1)
+                this.getData();
             }else{
-                let tempData=this.sumData;
-                console.log(tempData);
-                let result=[];           
-                tempData.forEach(element => {
-                    if(element.state==this.query.address){ result.push(element);}  
-                });
-                this.tableData=result;
+                var that=this
+                this.$axios.get('http://localhost:8084/worker/getSomeNum?status='+that.query.address)
+                .then(function(response) {
+                    that.ordernum=response.data
+                    
+                })
+                this.$axios.get('http://localhost:8084/worker/getSomeOrder?status='+that.query.address+'&pageindex='+1+'&pagesize='+that.query.pageSize)
+                .then(function(response) {
+                    that.tableData=response.data
+
+                })
+                // let tempData=this.sumData;
+                // console.log(tempData);
+                // let result=[];           
+                // tempData.forEach(element => {
+                //     if(element.status==this.query.address){ result.push(element);}  
+                // });
+                // this.tableData=result;
             }
-            this.pageTotal=this.tableData.length
+            // this.pageTotal=this.tableData.length
             console.log("没了")
         },
         handleAccept(index, row){
             //还需添加函数
-            this.$message.success('接受订单成功');
-            let accept=this.tableData.slice(index,index+1);
+           
+            var accept=this.tableData.slice(index,index+1);
             console.log(accept);
-            accept.state="已接单";
+            accept=accept[0]
+            if(accept.status!='未接单'){
+                this.$message.warning('只有未接单的订单才能接单');
+            }else{
+                 var that=this;
+            this.$axios.get('http://localhost:8084/worker/updateStatus?id='+accept.orderId+'&status='+'已接单')
+                .then(function(response){
+                    if(response.data==1){
+                        that.$message.success('接受订单成功');
+                        accept.status="已接单";
+                    }else{
+
+                    }
+                })
+            console.log(accept.orderId)
+            }
+           
+            
+            
         },
         handleAllot(index, row){
             //还需添加post函数
-            this.$message.success('分配人员成功');
+
+            
             let allot=this.tableData.slice(index,index+1);
-            console.log(allot);
-            allot.state="已分配"
+            allot=allot[0]
+            if(allot.status!='已接单'){
+                this.$message.warning('只有已接单的订单才能分配');
+            }else{
+            var that=this;
+            this.$axios.get('http://localhost:8084/worker/updateOrderEmployee?id='+allot.orderId+'&employeeId='+'000001')
+                .then(function(response){
+                    if(response.data==1){
+                       that.$message.success('分配人员成功');
+                       allot.status="已分配"
+                       allot.employeeId='000001'
+                    }else{
+
+                    }
+                })         
+            }
+            
+                   
         },
+
+
+
         // 删除操作
         handleDelete(index, row) {
             // 二次确认删除
@@ -254,18 +313,26 @@ export default {
                 type: 'warning'
             })
                 .then(() => {
-                    //添加post请求删除
-                    this.$message.success('删除成功');
                     
-                    let del=this.tableData.splice(index, 1);
-                    //这里把del 发送给后端删除
-                    console.log(del);
+                    let del=this.tableData.splice(index,index+1);
+                    console.log(del)
+                    del=del[0]
+                    var that=this;
+                    this.$axios.delete('http://localhost:8084/worker/deleteOrder?id='+del.orderId)
+                        .then(function(response){
+                            if(response.data==1){
+                                that.$message.success('删除成功');
+                                that.getData();
+                            }else{
+
+                            }
+                        })  
                 })
                 .catch(() => {});
-            //this.getData();
-            this.pageTotal=this.tableData.length;
+           
         },
         
+
         // 多选操作
         handleSelectionChange(val) {
             this.multipleSelection = val;
@@ -296,7 +363,7 @@ export default {
             this.$message.error(`接单了${str}`);
             this.multipleSelection = [];
         },
-         AllotAllSelection() {
+        AllotAllSelection() {
             const length = this.multipleSelection.length;
             let str = '';
             this.delList = this.delList.concat(this.multipleSelection);
@@ -307,6 +374,11 @@ export default {
             this.$message.error(`接单了${str}`);
             this.multipleSelection = [];
         },
+
+
+
+
+
         // 编辑操作
         handleEdit(index, row) {
             this.idx = index;
@@ -316,11 +388,32 @@ export default {
         // 保存编辑
         saveEdit() {
             this.editVisible = false;
-            this.$message.success(`修改第 ${this.idx + 1} 行成功`);
-            this.$set(this.tableData, this.idx, this.form);
+            let order=this.form
+          
+            var that=this;
+            this.$axios.post('http://localhost:8084/worker/updateOrder',order)
+                .then(function(response){
+                    if(response.data==1){
+                        that.$message.success(`修改第 ${that.idx + 1} 行成功`);
+                        that.$set(this.tableData, that.idx, this.form);
+                    }else{
+
+                    }
+                })
+            
+
+
+            
+
+            
         },
+
+
         // 分页导航
         handlePageChange(val) {
+            // 获取第i页的信息
+
+
             this.$set(this.query, 'pageIndex', val);
             // this.getData();
         }

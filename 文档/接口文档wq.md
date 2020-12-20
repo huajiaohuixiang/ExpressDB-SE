@@ -169,12 +169,13 @@
    | ------- | ------------ | ---------------- |
    | String  | package_ID   | 包裹编号         |
    | String  | warehouse_ID | 仓库ID           |
-   | String  | box_ID       | 快递箱编号       |
-   | String  | user_ID      | 用户ID           |
+   | String  | cupboard_ID   | 快递柜编号       |
+   | String  | x   | 行       |
+   | String  | y   | 列       |
    | String  | employee_ID  | 员工编号         |
-   | Boolean | flag         | 是否发送区间通知 |
+   | Boolean | flag         | 是否发送取件通知 |
 
-   返回参数：（不要直接返回String,封装到对象里面）
+   返回参数：
 
    | 类型   | 属性  | 说明                          |
    | ------ | ----- | -----------------------------|

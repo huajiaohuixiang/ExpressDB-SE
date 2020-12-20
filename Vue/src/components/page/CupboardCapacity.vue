@@ -184,6 +184,8 @@ export default {
                     console.log("b");                
                 })
         },
+
+        
         test(temp){
             if(temp=="success"){
                 return "空闲"
@@ -197,6 +199,9 @@ export default {
             this.$set(this.query, 'pageIndex', 1);
             this.getData();
         },
+
+
+
         getDataBySelect(){
             console.log("还活着");
             
