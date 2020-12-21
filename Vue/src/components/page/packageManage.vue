@@ -34,26 +34,22 @@
                 @selection-change="handleSelectionChange"
             >
                 <el-table-column type="selection" width="55" align="center"></el-table-column>
-                <el-table-column prop="package_id" label="包裹编号" width="100" align="center"></el-table-column>
-                <el-table-column prop="name" label="发件人" width="80" align="center"></el-table-column>
-                <el-table-column prop="phone" label="发件人手机" width="120" align="center"> </el-table-column>
-                <el-table-column prop="address" label="发件人地址"  align="center">
-                    <template slot-scope="scope">
-                        {{scope.row.address}}
-                    </template>
+                <el-table-column prop="packageID" label="包裹编号" width="100" align="center"></el-table-column>
+                <el-table-column prop="senderName" label="发件人" width="80" align="center"></el-table-column>
+                <el-table-column prop="senderPhone" label="发件人手机" width="120" align="center"> </el-table-column>
+                <el-table-column prop="senderAddress" label="发件人地址"  align="center">
+                    
                 </el-table-column>
-                <el-table-column prop="receivename" label="收件人" width="80" align="center">
+                <el-table-column prop="receiverName" label="收件人" width="80" align="center">
                  
                     <!-- <template slot-scope="scope">{{scope.row.toname}}</template> -->
                 </el-table-column>
-                <el-table-column prop="receivephone" label="收件人手机" width="100"></el-table-column> 
+                <el-table-column prop="receiverPhone" label="收件人手机" width="100"></el-table-column> 
                
                 <el-table-column prop="company" label="快递公司"  width="100" align="center">
-                    <template slot-scope="scope">
-                        {{scope.row.company}}
-                    </template>
+                   
                 </el-table-column>
-                <el-table-column prop="state" label="状态" align="center" width="80" >
+                <el-table-column prop="status" label="状态" align="center" width="80" >
                     <template slot-scope="scope">
                         <el-tag
                           :type="scope.row.state==='已入库'?'info':(scope.row.state==='已入柜'?'warning':(scope.row.state=='已签收'?'success':''))"                           
@@ -83,8 +79,8 @@
                     background
                     layout="total, prev, pager, next"
                     :current-page="query.pageIndex"
-                    :page-size="query.pagesize"
-                    :total="pageTotal"
+                    :page-size="query.pageSize"
+                    :total="packagenum"
                     @current-change="handlePageChange"
                 ></el-pagination>
             </div>
@@ -92,7 +88,7 @@
 
         <!-- 编辑弹出框 -->
         <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
-            <el-form ref="form" :model="form" label-width="70px">
+            <el-form ref="form" :model="form" label-width="100px">
                 <el-form-item label="订单编号">
                     <el-input v-model="form.package_id"></el-input>
                 </el-form-item>
@@ -137,7 +133,7 @@ export default {
                 address: '',
                 name: '',
                 pageIndex: 1,
-                pageSize: 10
+                pageSize: 1
             },
             tableData: [],
             sumData:[],
@@ -145,6 +141,7 @@ export default {
             delList: [],
             editVisible: false,
             pageTotal: 0,
+            packagenum:0,
             form: {},
             idx: -1,
             id: -1
@@ -156,13 +153,46 @@ export default {
     methods: {
         // 获取 easy-mock 的模拟数据
         getData() {
-            fetchData(this.query).then(res => {
-                console.log(res);
-                this.tableData = res.list;
-                this.pageTotal = res.pageTotal ;    //|| 50
-                this.sumData=this.tableData;
-            });
+            var that=this;
+            this.$axios.get('https://www.csystd.cn:9999/worker/package/countPackage')
+                .then(function(response){
+                    console.log(response.data)
+                    that.packagenum=response.data
+
+                }) 
+            this.$axios.get('https://www.csystd.cn:9999/worker/package/allQuery/'+this.query.pageSize+'/1')
+                .then(function(response){
+                    console.log("start")
+                    that.tableData=response.data.records
+                    
+                    console.log(response.data)
+                })   
+            // fetchData(this.query).then(res => {
+            //     console.log(res);
+            //     this.tableData = res.list;
+            //     this.pageTotal = res.pageTotal ;    //|| 50
+            //     this.sumData=this.tableData;
+            // });
         },
+       
+        // 触发搜索按钮
+        handleSearch() {
+            let that=this;
+             this.$axios.get('https://www.csystd.cn:9999/worker/package/singleQuery/'+this.query.name)
+                .then(function(response){
+                    that.tableData=[];
+                    that.tableData.push(response.data);
+                    that.packagenum=1
+                    console.log(response)
+                    console.log(response.data)
+                })   
+            
+            this.$set(this.query, 'pageIndex', 1);
+            //this.getData();
+        },
+
+
+        //筛选
         getDataBySelect(){
             console.log("还活着");
             if(this.query.address=="全部"){
@@ -179,11 +209,6 @@ export default {
             }
             this.pageTotal=this.tableData.length
             console.log("没了")
-        },
-        // 触发搜索按钮
-        handleSearch() {
-            this.$set(this.query, 'pageIndex', 1);
-            this.getData();
         },
         // 删除操作
         handleDelete(index, row) {
@@ -214,6 +239,8 @@ export default {
             this.$message.error(`删除了${str}`);
             this.multipleSelection = [];
         },
+
+
         // 编辑操作
         handleEdit(index, row) {
             this.idx = index;
@@ -228,8 +255,25 @@ export default {
         },
         // 分页导航
         handlePageChange(val) {
+
+            var that=this;
+            // this.$axios.get('https://www.csystd.cn:9999/worker/package/countPackage')
+            //     .then(function(response){
+            //         console.log(response.data)
+            //         that.packagenum=response.data
+
+            //     })
+            this.$axios.get('https://www.csystd.cn:9999/worker/package/allQuery/'+that.query.pageSize+'/'+val)
+                .then(function(response){
+                    console.log(val)
+                    that.tableData=response.data.records
+                    console.log(that.tableData)
+                    
+                })   .catch(function(error) {
+                    console.log("b");                
+                })
             this.$set(this.query, 'pageIndex', val);
-            this.getData();
+           // this.getData();
         }
     }
 };

@@ -51,7 +51,7 @@
           receivecity: '泰安市',
           receivearea:'宁阳县',
           receivedetail:'伏山镇',
-          in_time:''
+          in_time:'111'
         },
         rules: {
           receivename: [
@@ -81,20 +81,16 @@
     methods: {
       handleSubmit() {
         //这里就是把返回结果赋值给in_time
-        // let that =this;
-        // this.$axios.post('http://localhost:8081/getOrder',{
-        //       package_ID
-        //     })
-        //     .then(function(response) {
-        //         that.in_time='';
-        //         console.log(response.data);
-        //         that.tableData=response.data;
-        //         that.pageTotal=parseInt((response.data.length));
-        //         that.sumData=that.tableData;
-        //     })
-        //     .catch(function(error) {
-        //         console.log("b");                
-        //     })
+        let that =this;
+        //this.form.in_time='2020-10-20'
+
+        this.$axios.post('http://www.csystd.cn:9999/worker/packInWarehouse',this.form)
+            .then(function(response) {
+                that.in_time=response.data.in_time;
+            })
+            .catch(function(error) {
+                console.log("b");                
+            })
 
       
         this.$refs.form.validate((valid) => {

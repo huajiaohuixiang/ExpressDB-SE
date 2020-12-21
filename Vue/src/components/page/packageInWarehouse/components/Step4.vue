@@ -47,12 +47,10 @@
     data() {
       return {
         form: {
-          password: '123456',
+          
         },
         rules: {
-          password: [
-            { required: true, message: '请输入支付密码', trigger: 'blur' },
-          ],
+         
         },
         loading: false,
       }

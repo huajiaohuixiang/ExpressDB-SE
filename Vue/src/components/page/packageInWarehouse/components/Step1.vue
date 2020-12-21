@@ -98,13 +98,21 @@
       },
       handleNext() {
         this.$refs.form.validate((valid) => {
+          
           if (valid) {
-            this.$emit('change-step', 2, this.form)
+           this.$emit('change-step', 2, this.form)
+            
           }
+         
         })
       },
     },
   }
+  // this.$refs.form.validate((valid) => {
+        //   if (valid) {
+        //     this.$emit('change-step', 3, this.form)
+        //   }
+        // })
 </script>
 <style lang="scss" scoped>
   .pay-button-group {

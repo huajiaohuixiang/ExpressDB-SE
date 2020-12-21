@@ -48,13 +48,27 @@
       return {
         active: 1,
         form: {},
+        form1:{},
+        form2:{},
+        form3:{},
+        form4:{}
       }
     },
     methods: {
       handleSetStep(active, form) {
+        console.log("active")
         this.active = active
         if (form) this.form = Object.assign(this.form, form)
-      },
+      }
+      // handle1(index,active, form) {
+      //   this.active = active
+      //   if (form) this.form = Object.assign(this.form, form)
+      //   switch (index){
+      //     case 1:
+      //       this.form1=Object.assign(this.form1, form)
+      //       case 2:
+      //   }
+      // }
     },
   }
 </script>
