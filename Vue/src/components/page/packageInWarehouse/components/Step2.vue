@@ -4,26 +4,26 @@
       <el-form-item label-width="0">
         <el-alert show-icon>请务必仔细填写并核对</el-alert>
       </el-form-item>
-      <el-form-item label="姓名" prop="sendname">
-        <el-input v-model="form.sendname"></el-input>
+      <el-form-item label="姓名" prop="senderName">
+        <el-input v-model="form.senderName"></el-input>
       </el-form-item>
-      <el-form-item label="电话号码" prop="sendphone">
-        <el-input v-model="form.sendphone"></el-input>
+      <el-form-item label="电话号码" prop="senderPhone">
+        <el-input v-model="form.senderPhone"></el-input>
       </el-form-item>
-      <el-form-item label="所在省" prop="sendprovince">
-        <el-input v-model="form.sendprovince"></el-input>
+      <el-form-item label="所在省" prop="senderProvince">
+        <el-input v-model="form.senderProvince"></el-input>
       </el-form-item>
-      <el-form-item label="所在城市" prop="sendcity">
-        <el-input v-model="form.sendcity"></el-input>
+      <el-form-item label="所在城市" prop="senderCity">
+        <el-input v-model="form.senderCity"></el-input>
       </el-form-item>
-      <el-form-item label="所在区" prop="sendarea">
-        <el-input v-model="form.sendarea"></el-input>
+      <el-form-item label="所在区" prop="senderArea">
+        <el-input v-model="form.senderArea"></el-input>
       </el-form-item>
-      <el-form-item label="详细地址" prop="senddetail">
-        <el-input v-model="form.senddetail"></el-input>
+      <el-form-item label="详细地址" prop="senderDetail">
+        <el-input v-model="form.senderDetail"></el-input>
       </el-form-item>
-      <el-form-item label="寄件时间" prop="sender_time">
-        <el-input v-model="form.sender_time"></el-input>
+      <el-form-item label="寄件时间" prop="sendDate">
+        <el-input v-model="form.sendDate"></el-input>
       </el-form-item>
     </el-form>
     <div class="pay-button-group">
@@ -38,33 +38,33 @@
     data() {
       return {
         form: {
-          sendname: 'wq',
-          sendphone: '19946251111',
-          sendprovince: '山东省',
-          sendcity: '泰安市',
-          sendarea:'宁阳县',
-          senddetail:'伏山镇',
-          sender_time:'',
+          senderName: 'wq',
+          senderPhone: '19946251111',
+          senderProvince: '山东省',
+          senderCity: '泰安市',
+          senderArea:'宁阳县',
+          senderDetail:'伏山镇',
+          sendDate:'2020-09-09',
         },
         rules: {
-          sendname: [
+          senderName: [
             { required: true, message: '请输入姓名', trigger: 'blur' },
           ],
-          sendphone: [
+          senderPhone: [
             { required: true, message: '请输入电话号码', trigger: 'blur' },
             // { type: 'email', message: '账户名应为邮箱格式', trigger: 'blur' },
           ],
-          sendprovince: [
+          senderProvince: [
             { required: true, message: '请输入省份', trigger: 'blur' },
           ],
-          sendcity: [
+          senderCity: [
             { required: true, message: '请输入城市', trigger: 'blur' },
             // { pattern: /^(\d+)((?:\.\d+)?)$/, message: '请输入合法金额数字' },
           ],
-          sendarea:[
+          senderArea:[
             {required:true,message:'请输入区县',trigger:'blur'},
           ],
-           senddetail:[
+           senderDetail:[
             {required:true,message:'请输入详细地址',trigger:'blur'},
           ]
         },

@@ -52,23 +52,12 @@
         rules: {
          
         },
+        in_time:'',
         loading: false,
       }
     },
     methods: {
-      // handleSubmit() {
-      //   this.$refs.form.validate((valid) => {
-      //     if (valid) {
-      //       this.loading = true
-      //       setTimeout(() => {
-      //         this.$emit('change-step', 3)
-      //         this.loading = false
-      //       }, 2000)
-      //     } else {
-      //       this.loading = false
-      //     }
-      //   })
-      // },
+    
       handlePrev() {
         this.$emit('change-step', 1)
       },

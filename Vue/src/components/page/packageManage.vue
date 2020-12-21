@@ -47,13 +47,15 @@
                 <el-table-column prop="receiverPhone" label="收件人手机" width="100"></el-table-column> 
                
                 <el-table-column prop="company" label="快递公司"  width="100" align="center">
-                   
+                   <!-- :type="scope.row.state==='0'?'info':(scope.row.state==='1'?'warning':(scope.row.state=='2'?'success':''))" 
+                           -->
                 </el-table-column>
                 <el-table-column prop="status" label="状态" align="center" width="80" >
                     <template slot-scope="scope">
                         <el-tag
-                          :type="scope.row.state==='已入库'?'info':(scope.row.state==='已入柜'?'warning':(scope.row.state=='已签收'?'success':''))"                           
-                        >{{scope.row.state}}</el-tag>
+                          :type="scope.row.status==='2'?'success':(scope.row.status==='1'?'warning':(scope.row.status=='0'?'info':''))"   
+                                                    
+                        >{{test(scope.row.status)}}</el-tag>
                     </template>
                 </el-table-column>
  
@@ -90,28 +92,28 @@
         <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
             <el-form ref="form" :model="form" label-width="100px">
                 <el-form-item label="订单编号">
-                    <el-input v-model="form.package_id"></el-input>
+                    <el-input v-model="form.packageID"></el-input>
                 </el-form-item>
                 <el-form-item label="发件人">
-                    <el-input v-model="form.name"></el-input>
+                    <el-input v-model="form.senderName"></el-input>
                 </el-form-item>
                 <el-form-item label="发件人手机号">
-                    <el-input v-model="form.phone"></el-input>
+                    <el-input v-model="form.senderPhone"></el-input>
                 </el-form-item>
                 <el-form-item label="收件人">
-                    <el-input v-model="form.receivename"></el-input>
+                    <el-input v-model="form.receiverName"></el-input>
                 </el-form-item>
                 <el-form-item label="收件人手机号">
-                    <el-input v-model="form.receivephone"></el-input>
+                    <el-input v-model="form.receiverPhone"></el-input>
                 </el-form-item>
-                <el-form-item label="收件地址">
-                    <el-input v-model="form.address"></el-input>
+                <el-form-item label="寄件地址">
+                    <el-input v-model="form.senderAddress"></el-input>
                 </el-form-item>
                 <el-form-item label="快递公司">
                     <el-input v-model="form.company"></el-input>
                 </el-form-item>
                 <el-form-item label="状态">
-                    <el-input v-model="form.state"></el-input>
+                    <el-input v-model="form.status"></el-input>
                 </el-form-item>
 
 
@@ -133,7 +135,7 @@ export default {
                 address: '',
                 name: '',
                 pageIndex: 1,
-                pageSize: 1
+                pageSize: 10
             },
             tableData: [],
             sumData:[],
@@ -143,6 +145,7 @@ export default {
             pageTotal: 0,
             packagenum:0,
             form: {},
+            delpack:{},
             idx: -1,
             id: -1
         };
@@ -178,20 +181,28 @@ export default {
         // 触发搜索按钮
         handleSearch() {
             let that=this;
-             this.$axios.get('https://www.csystd.cn:9999/worker/package/singleQuery/'+this.query.name)
-                .then(function(response){
-                    that.tableData=[];
-                    that.tableData.push(response.data);
-                    that.packagenum=1
-                    console.log(response)
-                    console.log(response.data)
-                })   
+            this.$axios.get('https://www.csystd.cn:9999/worker/package/singleQuery/'+this.query.name)
+            .then(function(response){
+                that.tableData=[];
+                that.tableData.push(response.data);
+                that.packagenum=1
+                console.log(response)
+                console.log(response.data)
+            })   
             
             this.$set(this.query, 'pageIndex', 1);
             //this.getData();
         },
 
-
+        test(packstatus){
+            if(packstatus=="0"){
+                return "已入库"
+            }else if(packstatus=="1"){
+                return "已入柜"
+            }else if(packstatus=="2"){
+                return "已出库"
+            }
+        },
         //筛选
         getDataBySelect(){
             console.log("还活着");
@@ -217,11 +228,27 @@ export default {
                 type: 'warning'
             })
                 .then(() => {
-                  
+                    let that=this;
+                    let del=this.tableData.splice(index, index+1);
+                    del=del[0];
+                    this.delpack.packageID=del.packageID;
+                    
+                    this.$axios.post('https://www.csystd.cn:9999/worker/package/del',this.delpack)
+                        .then(function(response){
+                            
+                            console.log(response)
+                            console.log(response.data)
 
+                            that.$message.success(`删除第 ${that.idx + 1} 行成功`);
+                            that.$set(that.tableData, that.idx, that.form);
+                        })  
+                        .catch(function(error){
+                            that.$message.warning(`删除第 ${that.idx + 1} 行失败`);
+                        }) 
+                    
 
                     this.$message.success('删除成功');
-                    this.tableData.splice(index, 1);
+                    
                 })
                 .catch(() => {});
         },
@@ -250,8 +277,22 @@ export default {
         // 保存编辑
         saveEdit() {
             this.editVisible = false;
-            this.$message.success(`修改第 ${this.idx + 1} 行成功`);
-            this.$set(this.tableData, this.idx, this.form);
+            let that=this;
+            this.$axios.post('https://www.csystd.cn:9999/worker/package/updatePackageInfo',this.form)
+                .then(function(response){
+                    
+                    console.log(response)
+                    console.log(response.data)
+
+                     that.$message.success(`修改第 ${that.idx + 1} 行成功`);
+                    that.$set(that.tableData, that.idx, that.form);
+                })  
+                .catch(function(error){
+                    that.$message.warning(`修改第 ${that.idx + 1} 行失败`);
+                }) 
+
+
+           
         },
         // 分页导航
         handlePageChange(val) {

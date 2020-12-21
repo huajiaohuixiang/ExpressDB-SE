@@ -101,7 +101,7 @@ export default {
     methods: {
         onSubmit() {
             let that =this;
-            this.$axios.post('http://huajiao.site:8084/ok',{
+            this.$axios.post('https://www.csystd.cn:9999/worker/package/packInWare',{
 
             })  
             .then(function(response) {                  
@@ -111,8 +111,7 @@ export default {
                         this.$message.success('提交成功！');
                     }else{
                         this.$message.success('提交失败！');
-                    }
-                                                   
+                    }                                                  
                 })
                 .catch(function(error) {
                     console.log("b");                  

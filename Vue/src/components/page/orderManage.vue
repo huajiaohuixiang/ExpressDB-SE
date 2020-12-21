@@ -46,7 +46,7 @@
                  
                     <!-- <template slot-scope="scope">{{scope.row.toname}}</template> -->
                 </el-table-column>
-                 <el-table-column prop="receiverPhone" label="收件人手机" width="100"></el-table-column> 
+                 <el-table-column prop="receiverPhone" label="收件人手机" width="100" align="center"></el-table-column> 
                 <el-table-column prop="receiverAddress" label="收件地址"  align="center">
                     <!-- <template slot-scope="scope">
                         {{scope.row.address}}
@@ -63,18 +63,18 @@
                 <el-table-column prop="status" label="状态" align="center"  >
                     <template slot-scope="scope">
                         <el-tag
-                          :type="scope.row.status==='已入库'?'success':(scope.row.status==='已分配'?'warning':(scope.row.status=='已接单'?'':(scope.row.status==='未接单'?'danger':'')))"   
+                          :type="scope.row.status==='已完成'?'success':(scope.row.status==='已分配'?'warning':(scope.row.status=='已接单'?'':(scope.row.status==='未接单'?'danger':(scope.row.status==='已取消'?'info':''))))"   
                           
                         >{{scope.row.status}}</el-tag>
                     </template>
                 </el-table-column>
 
                     
-                <el-table-column label="操作" align="center" width="249">
+                <el-table-column label="操作" align="center" >
                     <template slot-scope="scope">
                         <el-button
                             type="text"
-                            icon="el-icon-check"
+                            icon="el-icon-s-promotion"
                             class="jiedan"
                             @click="handleAccept(scope.$index, scope.row)"
                         >接单</el-button>
@@ -84,6 +84,12 @@
                             class="yellow"
                             @click="handleAllot(scope.$index, scope.row)"
                         >分配人员</el-button>
+                         <el-button
+                            type="text"
+                            icon="el-icon-check"
+                            class="green"
+                            @click="handleOK(scope.$index, scope.row)"
+                        >完成</el-button>
                         <el-button
                             type="text"
                             icon="el-icon-edit"
@@ -196,7 +202,22 @@ export default {
                     console.log(response.data);
                     that.tableData=response.data;
                 //    that.pageTotal=parseInt((response.data.length));
-                    that.sumData=that.tableData;
+                   // that.sumData=that.tableData;
+                   that.tableData.forEach(element => {
+                       if(element.status==null){
+                           console.log(1)
+                           var that2=that;
+                            that.$axios.get('http://localhost:8084/worker/updateStatus?id='+element.orderId+'&status='+'未接单')
+                                .then(function(response){
+                                    if(response.data==1){
+                                        that2.$message.success('初始化成功');
+                                        element.status="未接单";
+                                    }else{
+
+                                    }
+                                })
+                       }
+                   });
                 })
                 .catch(function(error) {
                     console.log("b");                
@@ -279,6 +300,27 @@ export default {
             
             
         },
+        handleOK(index, row){
+            //还需添加函数
+           
+            var finsh=this.tableData.slice(index,index+1);
+            console.log(finsh);
+            finsh=finsh[0]
+            if(finsh.status!='已分配'){
+                this.$message.warning('只有已分配的订单才能完成');
+            }else{
+                 var that=this;
+            this.$axios.get('http://localhost:8084/worker/updateStatus?id='+finsh.orderId+'&status='+'已完成')
+                .then(function(response){
+                    if(response.data==1){
+                        that.$message.success('该订单已完成');
+                        finsh.status="已完成";
+                    }else{
+                    }
+                })
+            console.log(finsh.orderId)
+            }
+        },
         handleAllot(index, row){
             //还需添加post函数
 
@@ -342,36 +384,97 @@ export default {
             const length = this.multipleSelection.length;
             let str = '';
             this.delList = this.delList.concat(this.multipleSelection);
-            for (let i = 0; i < length; i++) {
-                str += this.multipleSelection[i].name + ' ';
-                
-                console.log(this.multipleSelection[i]);
 
+            this.$confirm('确定要删除已选订单吗？', '提示', {
+                type: 'warning'
+            })
+                .then(() => {
+                    for (let i = 0; i < length; i++) {
+                    
+                        let del=this.multipleSelection[i]
+                        console.log(del)
+                        //del=del[0]
+                        var that=this;
+                        this.$axios.delete('http://localhost:8084/worker/deleteOrder?id='+del.orderId)
+                            .then(function(response){
+                                if(response.data==1){
+                                    that.$message.success('删除'+del.orderId+'成功');
+                                    that.getData();
+                                }else{
 
-            }
-            this.$message.error(`删除了${str}`);
-            this.multipleSelection = [];
+                                }
+                            })  
+                            console.log(this.multipleSelection[i]);
+                    }
+                    this.multipleSelection = [];
+                })
+                .catch(() => {});
+
+            
+           // this.$message.error(`删除了${str}`);
+            
         },
+
+
         AcceptAllSelection() {
             const length = this.multipleSelection.length;
             let str = '';
             this.delList = this.delList.concat(this.multipleSelection);
             for (let i = 0; i < length; i++) {
-                str += this.multipleSelection[i].name + ' ';
+                let accept=this.multipleSelection[i]
                 console.log(this.multipleSelection[i]);
+                if(accept.status!='未接单'){
+                    this.$message.warning('只有未接单的订单才能接单');
+                }
+                else{
+                    var that=this;
+                    this.$axios.get('http://localhost:8084/worker/updateStatus?id='+accept.orderId+'&status='+'已接单')
+                        .then(function(response){
+                            if(response.data==1){
+                                that.$message.success('接受订单'+accept.orderId+'成功');
+                                accept.status="已接单";
+                            }else{
+
+                            }
+                        })
+                    console.log(accept.orderId)
+                    
+                    // str += this.multipleSelection[i].name + ' ';
+                    
+                }
+              //  this.$message.error(`接单了${str}`);
+               
             }
-            this.$message.error(`接单了${str}`);
-            this.multipleSelection = [];
+             this.multipleSelection = [];
         },
         AllotAllSelection() {
             const length = this.multipleSelection.length;
             let str = '';
             this.delList = this.delList.concat(this.multipleSelection);
+            
             for (let i = 0; i < length; i++) {
-                str += this.multipleSelection[i].name + ' ';
+                let allot=this.multipleSelection[i];
+
+                if(allot.status!='已接单'){
+                    this.$message.warning('只有已接单的订单才能分配');
+                }else{
+                var that=this;
+                this.$axios.get('http://localhost:8084/worker/updateOrderEmployee?id='+allot.orderId+'&employeeId='+'000001')
+                    .then(function(response){
+                        if(response.data==1){
+                        that.$message.success('分配人员成功');
+                        allot.status="已分配"
+                        allot.employeeId='000001'
+                        }else{
+
+                        }
+                    })         
+                }
+
+               // str += this.multipleSelection[i].name + ' ';
                 console.log(this.multipleSelection[i]);
             }
-            this.$message.error(`接单了${str}`);
+          //  this.$message.error(`接单了${str}`);
             this.multipleSelection = [];
         },
 
@@ -446,6 +549,9 @@ export default {
 }
 .yellow {
     color: #e69c2e;
+}
+.green{
+    color:#168307;
 }
 .mr10 {
     margin-right: 10px;

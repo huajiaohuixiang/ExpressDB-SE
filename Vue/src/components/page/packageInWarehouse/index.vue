@@ -24,12 +24,13 @@
           v-if="active === 3"
           :info-data="form"
           @change-step="handleSetStep"
+           @submit="submitInWare"
         ></step3>
         <step4
          v-if="active === 4"
           :info-data="form"
-          @change-step="handleSetStep">
-         
+          @change-step="handleSetStep"
+          @submit="submitInWare">
         </step4>
       </el-col>
     </el-row>
@@ -48,18 +49,42 @@
       return {
         active: 1,
         form: {},
-        form1:{},
-        form2:{},
-        form3:{},
-        form4:{}
+        submitform:{},
+        // form2:{},
+        // form3:{},
+        // form4:{}
       }
     },
     methods: {
+        submitInWare(form){
+          console.log('index')
+          if (form) this.form = Object.assign(this.form, form)
+          console.log(this.form)
+          let submitform=this.form;
+          submitform.senderAddress=this.form.senderProvince+this.form.senderCity+this.form.senderArea+this.form.senderDetail
+          submitform.receiverAddress=this.form.receiverProvince+this.form.receiverCity+this.form.receiverArea+this.form.receiverDetail
+          
+          submitform.weight=submitform.weight*1
+          
+          console.log(submitform)
+          this.$axios.post('https://www.csystd.cn:9999/worker/package/packInWare',this.form)
+            .then(function(response) {
+              console.log('response.data')
+              console.log(response)
+              that.in_time=response.data.in_time;
+            })
+            .catch(function(error) {
+                console.log("b");                
+            })
+      },
+
       handleSetStep(active, form) {
-        console.log("active")
+        
         this.active = active
         if (form) this.form = Object.assign(this.form, form)
-      }
+      },
+
+      
       // handle1(index,active, form) {
       //   this.active = active
       //   if (form) this.form = Object.assign(this.form, form)

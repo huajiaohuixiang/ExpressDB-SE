@@ -4,21 +4,21 @@
       <el-form-item label-width="0">
         <el-alert show-icon>请务必仔细填写并核对</el-alert>
       </el-form-item>
-      <el-form-item label="包裹编号" prop="package_ID">
-        <el-input v-model="form.package_ID"></el-input>
+      <el-form-item label="包裹编号" prop="packageID">
+        <el-input v-model="form.packageID"></el-input>
       </el-form-item>
-      <el-form-item label="包裹内容" prop="package_Content">
-        <el-input v-model="form.package_Content"></el-input>
+      <el-form-item label="包裹内容" prop="packageContent">
+        <el-input v-model="form.packageContent"></el-input>
       </el-form-item>
-      <el-form-item label="包裹重量" prop="package_weight">
-        <el-input v-model="form.package_weight"></el-input>
+      <el-form-item label="包裹重量" prop="weight">
+        <el-input v-model="form.weight"></el-input>
       </el-form-item>
-      <el-form-item label="快递公司" prop="package_company">
-        <el-input v-model="form.package_company"></el-input>
+      <el-form-item label="快递公司" prop="company">
+        <el-input v-model="form.company"></el-input>
       </el-form-item>
       <!-- 3 -->
-      <el-form-item label="仓库编号" prop="warehouse_ID">
-         <el-select v-model="form.warehouse_ID" placeholder="仓库选择" class="handle-select mr10">
+      <el-form-item label="仓库编号" prop="warehouseID">
+         <el-select v-model="form.warehouseID" placeholder="仓库选择" class="handle-select mr10">
                     <el-option
                         v-for="item in warelist"
                         v-bind:todo="item"
@@ -30,8 +30,8 @@
          </el-select>
         <!-- <el-input v-model="form.warehouse_ID"></el-input> -->
       </el-form-item>
-      <el-form-item label="员工ID" prop="employee_ID">
-        <el-input v-model="form.employee_ID"></el-input>
+      <el-form-item label="员工ID" prop="employeeID">
+        <el-input v-model="form.employeeID"></el-input>
       </el-form-item>
       <!-- <el-form-item label="转账金额" prop="price">
         <el-input v-model="form.price"></el-input>
@@ -49,12 +49,12 @@
     data() {
       return {
         form: {
-          package_ID: '9880828645542',
-          package_Content: '雨伞',
-          package_weight: '0.5KG',
-          package_company:'京东快递',
-          warehouse_ID:'A',
-          employee_ID:'000001',
+          packageID: '9880828645542',
+          packageContent: '雨伞',
+          weight: 0.45,
+          company:'京东快递',
+          warehouseID:'000001',
+          employeeID:'000001',
           // price: '100',
         },
         warelist:[],

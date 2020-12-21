@@ -4,23 +4,23 @@
       <el-form-item label-width="0">
         <el-alert show-icon>请务必仔细填写并核对</el-alert>
       </el-form-item>
-      <el-form-item label="姓名" prop="receivename">
-        <el-input v-model="form.receivename"></el-input>
+      <el-form-item label="姓名" prop="receivrName">
+        <el-input v-model="form.receiverName"></el-input>
       </el-form-item>
-      <el-form-item label="电话号码" prop="receivephone">
-        <el-input v-model="form.receivephone"></el-input>
+      <el-form-item label="电话号码" prop="receiverPhone">
+        <el-input v-model="form.receiverPhone"></el-input>
       </el-form-item>
-      <el-form-item label="所在省" prop="receiveprovince">
-        <el-input v-model="form.receiveprovince"></el-input>
+      <el-form-item label="所在省" prop="receiverProvince">
+        <el-input v-model="form.receiverProvince"></el-input>
       </el-form-item>
-      <el-form-item label="所在城市" prop="receivecity">
-        <el-input v-model="form.receivecity"></el-input>
+      <el-form-item label="所在城市" prop="receiverCity">
+        <el-input v-model="form.receiverCity"></el-input>
       </el-form-item>
-      <el-form-item label="所在区" prop="receivearea">
-        <el-input v-model="form.receivearea"></el-input>
+      <el-form-item label="所在区" prop="receiverArea">
+        <el-input v-model="form.receiverArea"></el-input>
       </el-form-item>
-      <el-form-item label="详细地址" prop="receivedetail">
-        <el-input v-model="form.receivedetail"></el-input>
+      <el-form-item label="详细地址" prop="receiverDetail">
+        <el-input v-model="form.receiverDetail"></el-input>
       </el-form-item>
     </el-form>
     <div class="pay-button-group">
@@ -45,14 +45,15 @@
     data() {
       return {
         form: {
-          receivename: 'wq',
-          receivephone: '19946251111',
-          receiveprovince: '山东省',
-          receivecity: '泰安市',
-          receivearea:'宁阳县',
-          receivedetail:'伏山镇',
-          in_time:'111'
+          receiverName: 'wq',
+          receiverPhone: '19946251111',
+          receiverProvince: '山东省',
+          receiverCity: '泰安市',
+          receiverArea:'宁阳县',
+          receiverDetail:'伏山镇',
+          in_time:'',
         },
+        
         rules: {
           receivename: [
             { required: true, message: '请输入姓名', trigger: 'blur' },
@@ -81,28 +82,31 @@
     methods: {
       handleSubmit() {
         //这里就是把返回结果赋值给in_time
-        let that =this;
-        //this.form.in_time='2020-10-20'
+        //let that =this;
+       
+        console.log("start")
+        //this.$emit('submitInWare', 4,this.form)
+        
 
-        this.$axios.post('http://www.csystd.cn:9999/worker/packInWarehouse',this.form)
-            .then(function(response) {
-                that.in_time=response.data.in_time;
-            })
-            .catch(function(error) {
-                console.log("b");                
-            })
-
-      
         this.$refs.form.validate((valid) => {
-     
-          if (valid) {
-            this.loading = true
-            this.$emit('change-step', 4,this.form)
-          } else {
-            this.loading = false
-          }
-        })
+  
+            if (valid) {
+              this.loading = true
+              console.log("1")
+              this.$emit('submit',this.form)
+              //this.$emit('change-step', 4,this.form)
+            } else {
+              this.loading = false
+            }
+          })
+        
       },
+
+
+
+
+
+
       handlePrev() {
         this.$emit('change-step', 2)
       },
