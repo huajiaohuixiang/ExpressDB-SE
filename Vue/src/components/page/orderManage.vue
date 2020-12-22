@@ -57,10 +57,10 @@
                         {{scope.row.company}}
                     </template>
                 </el-table-column>
-                <el-table-column prop="employeeId" label="分配的员工"   align="center">
+                <el-table-column prop="employeeId" label="分配的员工" width='100px'  align="center">
                     
                 </el-table-column>
-                <el-table-column prop="status" label="状态" align="center"  >
+                <el-table-column prop="status" label="状态" width='70px' align="center"  >
                     <template slot-scope="scope">
                         <el-tag
                           :type="scope.row.status==='已完成'?'success':(scope.row.status==='已分配'?'warning':(scope.row.status=='已接单'?'':(scope.row.status==='未接单'?'danger':(scope.row.status==='已取消'?'info':''))))"   
@@ -70,7 +70,7 @@
                 </el-table-column>
 
                     
-                <el-table-column label="操作" align="center" >
+                <el-table-column label="          操作          " align="center" >
                     <template slot-scope="scope">
                         <el-button
                             type="text"
@@ -141,8 +141,8 @@
                 <el-form-item label="快递公司">
                     <el-input v-model="form.company"></el-input>
                 </el-form-item>
-                <el-form-item label="分配的员工">
-                    <el-input v-model="form.employeeId"></el-input>
+                <el-form-item label="分配的员工"  >
+                    <el-input v-model="form.employeeId" ></el-input>
                 </el-form-item>
                 <el-form-item label="状态">
                     <el-input v-model="form.status"></el-input>

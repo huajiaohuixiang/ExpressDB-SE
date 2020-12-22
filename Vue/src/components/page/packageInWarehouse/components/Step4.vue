@@ -12,16 +12,16 @@
       class="pay-bottom"
     >
       <el-form-item label="包裹ID：">
-        {{ infoData.package_ID }}
+        {{ infoData.packageID }}
       </el-form-item>
       <el-form-item label="寄件人：">
-        {{ infoData.sendname }}
+        {{ infoData.senderName }}
       </el-form-item>
       <el-form-item label="收件人：">
-        {{ infoData.receivename }}
+        {{ infoData.receiverName }}
       </el-form-item>
       <el-form-item label="仓库编号：">
-        {{ infoData.warehouse_ID }}
+        {{ infoData.warehouseID }}
       </el-form-item>
       <el-form-item label="入库时间：">
         {{ infoData.in_time }}

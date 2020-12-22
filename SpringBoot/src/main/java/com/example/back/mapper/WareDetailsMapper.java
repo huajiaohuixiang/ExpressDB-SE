@@ -18,9 +18,9 @@ public interface WareDetailsMapper {
 
     @Select("select count(*) from pack_in_ware where (package_id,warehouse_id) IN  (SELECT * from waredetails)")
     public Integer getpacknum();
-
-    @Select("select e.* from (select * from pack_in_ware where (package_id,warehouse_id) IN  (SELECT * from waredetails)) e " +
-            "where ROWNUM BETWEEN (#{pageIndex}-1)*#{pageSize}+1 AND #{pageIndex}*#{pageSize}")
+//select e.* from (select G.*,ROWNUM rn from (pack_in_ware)G where (package_id,warehouse_id)IN  (SELECT * from waredetails)  AND ROWNUM<=5) e where e.rn>=2  ;
+    @Select("select e.* from (select G.*,ROWNUM rn from (pack_in_ware)G where (package_id,warehouse_id)IN  (SELECT * from waredetails)  AND ROWNUM<=#{pageIndex}*#{pageSize}) e " +
+            "where e.rn>=(#{pageIndex}-1)*#{pageSize}+1")
     public LinkedList<PackInWare> getDetailsWithTime(int pageIndex,int pageSize);
 
 

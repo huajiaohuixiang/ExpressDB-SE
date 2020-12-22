@@ -53,7 +53,7 @@
                     点我打开
             </el-button> -->
             <el-table
-                :data="tableData.slice((query.pageIndex-1)*query.pageSize,query.pageIndex*query.pageSize)"
+                :data="tableData"
                 stripe
                 border
                 class="table"
@@ -82,7 +82,7 @@
                 <el-table-column prop="status" label="状态" align="center" width="80" >
                     <template slot-scope="scope">
                         <el-tag
-                          :type="scope.row.status==='2'?'success':(scope.row.status==='1'?'warning':(scope.row.status=='0'?'info':''))"   
+                          :type="scope.row.status==='2'?'error':(scope.row.status==='1'?'warning':(scope.row.status=='0'?'success':''))"   
                                                     
                         >{{test(scope.row.status)}}</el-tag>
                     </template>
@@ -96,12 +96,12 @@
                             icon="el-icon-edit"
                             @click="handleEdit(scope.$index, scope.row)"
                         >编辑</el-button>
-                        <el-button
+                        <!-- <el-button
                             type="text"
                             icon="el-icon-delete"
                             class="red"
                             @click="handleDelete(scope.$index, scope.row)"
-                        >删除</el-button>
+                        >删除</el-button> -->
                     </template>
                 </el-table-column>
             </el-table>

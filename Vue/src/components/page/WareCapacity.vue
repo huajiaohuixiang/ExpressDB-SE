@@ -97,41 +97,7 @@
             </div>
         </div>
 
-        <!-- 编辑弹出框 -->
-        <!-- <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
-            <el-form ref="form" :model="form" label-width="70px">
-                <el-form-item label="订单编号">
-                    <el-input v-model="form.order_id"></el-input>
-                </el-form-item>
-                <el-form-item label="发件人">
-                    <el-input v-model="form.name"></el-input>
-                </el-form-item>
-                <el-form-item label="发件人手机号">
-                    <el-input v-model="form.phone"></el-input>
-                </el-form-item>
-                <el-form-item label="收件人">
-                    <el-input v-model="form.receivename"></el-input>
-                </el-form-item>
-                <el-form-item label="收件人手机号">
-                    <el-input v-model="form.receivephone"></el-input>
-                </el-form-item>
-                <el-form-item label="收件地址">
-                    <el-input v-model="form.address"></el-input>
-                </el-form-item>
-                <el-form-item label="快递公司">
-                    <el-input v-model="form.company"></el-input>
-                </el-form-item>
-                <el-form-item label="状态">
-                    <el-input v-model="form.state"></el-input>
-                </el-form-item>
-
-
-            </el-form>
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="editVisible = false">取 消</el-button>
-                <el-button type="primary" @click="saveEdit">确 定</el-button>
-            </span>
-        </el-dialog> -->
+        
     </div>
 </template>
 <script>

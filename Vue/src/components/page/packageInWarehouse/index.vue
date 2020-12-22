@@ -63,15 +63,23 @@
           let submitform=this.form;
           submitform.senderAddress=this.form.senderProvince+this.form.senderCity+this.form.senderArea+this.form.senderDetail
           submitform.receiverAddress=this.form.receiverProvince+this.form.receiverCity+this.form.receiverArea+this.form.receiverDetail
-          
+          let that=this;
           submitform.weight=submitform.weight*1
           
           console.log(submitform)
           this.$axios.post('https://www.csystd.cn:9999/worker/package/packInWare',this.form)
             .then(function(response) {
-              console.log('response.data')
+              console.log(response.data)
               console.log(response)
-              that.in_time=response.data.in_time;
+              if(response.data==""){
+                console.log("shibai")
+                that.$message.error('入库失败！')
+              }else{
+                that.form.in_time=response.data;
+                that.$message.success('入库成功！')
+                that.handleSetStep(4,that.form)
+              }
+              
             })
             .catch(function(error) {
                 console.log("b");                

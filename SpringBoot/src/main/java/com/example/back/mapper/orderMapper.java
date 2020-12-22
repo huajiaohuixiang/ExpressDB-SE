@@ -14,14 +14,14 @@ public interface orderMapper {
     @Select("select * from Ex_Order where order_id=#{id}")
     public ExOrder getOrderById(String id);
 
-    @Select("select e.* from(select * from Ex_Order) e where ROWNUM BETWEEN (#{pageindex}-1)*#{pagesize}+1 AND #{pageindex}*#{pagesize}")
+    @Select("select e.* from (select G.*,ROWNUM rn from (Ex_order) G where   ROWNUM<=#{pageindex}*#{pagesize})  e where rn >=(#{pageindex}-1)*#{pagesize}+1 ")
     public LinkedList<ExOrder> getOrder(int pageindex,int pagesize);
 
     @Select("select count(*) from EX_ORDER ")
     public Integer getOrderNum();
     @Select("select count(*) from EX_ORDER where status=#{status}")
     public Integer getSomeNum(String status);
-    @Select("select e.* from (select * from Ex_order where status=#{status})  e where ROWNUM BETWEEN (#{pageindex}-1)*#{pagesize}+1 AND #{pageindex}*#{pagesize}")
+    @Select("select e.* from (select G.*,ROWNUM rn from (Ex_order) G where status=#{status} AND ROWNUM<=#{pageindex}*#{pagesize})  e where rn >=(#{pageindex}-1)*#{pagesize}+1  ")
     public LinkedList<ExOrder> getSomeOrder(String status,int pageindex,int pagesize);
 
     @Delete("delete from EX_ORDER where order_id=#{id}")
