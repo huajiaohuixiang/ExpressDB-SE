@@ -20,7 +20,7 @@
                     <el-option key="未接单" label="未接单" value="未接单"></el-option>
                     <el-option key="已接单" label="已接单" value="已接单"></el-option>
                     <el-option key="已分配" label="已分配" value="已分配"></el-option>
-                     <el-option key="已入库" label="已入库" value="已入库"></el-option>
+                     <el-option key="已完成" label="已完成" value="已完成"></el-option>
                   
                 </el-select>
                 <el-input v-model="query.name" placeholder="订单编号" class="handle-input mr10"></el-input>
@@ -30,7 +30,7 @@
 
             </div>
             <el-table
-                :data="tableData.slice((query.pageIndex-1)*query.pageSize,query.pageIndex*query.pageSize)"
+                :data="tableData"
                 stripe
                 border
                 class="table"
@@ -190,14 +190,14 @@ export default {
         getData() {
             console.log("getData");
             let that =this;
-            this.$axios.get('http://localhost:8084/worker/getOrderNum')
+            this.$axios.get('http://huajiao.site:8084/worker/getOrderNum')
                 .then(function(response) {
                     console.log(response.data);
                     that.ordernum=response.data;
                 })
 
 
-            this.$axios.get('http://localhost:8084/worker/getOrder?pageindex=1&pagesize='+that.query.pageSize)
+            this.$axios.get('http://huajiao.site:8084/worker/getOrder?pageindex=1&pagesize='+that.query.pageSize)
                 .then(function(response) {
                     console.log(response.data);
                     that.tableData=response.data;
@@ -207,7 +207,7 @@ export default {
                        if(element.status==null){
                            console.log(1)
                            var that2=that;
-                            that.$axios.get('http://localhost:8084/worker/updateStatus?id='+element.orderId+'&status='+'未接单')
+                            that.$axios.get('http://huajiao.site:8084/worker/updateStatus?id='+element.orderId+'&status='+'未接单')
                                 .then(function(response){
                                     if(response.data==1){
                                         that2.$message.success('初始化成功');
@@ -227,7 +227,7 @@ export default {
         },
         getDataByOrderID(){
             let that =this;
-            this.$axios.get('http://localhost:8084/worker/getOrderById?id='+this.query.name)
+            this.$axios.get('http://huajiao.site:8084/worker/getOrderById?id='+this.query.name)
                 .then(function(response) {                  
                     console.log(response.data);                     
                     var ssss=[]                   
@@ -254,12 +254,12 @@ export default {
                 this.getData();
             }else{
                 var that=this
-                this.$axios.get('http://localhost:8084/worker/getSomeNum?status='+that.query.address)
+                this.$axios.get('http://huajiao.site:8084/worker/getSomeNum?status='+that.query.address)
                 .then(function(response) {
                     that.ordernum=response.data
                     
                 })
-                this.$axios.get('http://localhost:8084/worker/getSomeOrder?status='+that.query.address+'&pageindex='+1+'&pagesize='+that.query.pageSize)
+                this.$axios.get('http://huajiao.site:8084/worker/getSomeOrder?status='+that.query.address+'&pageindex='+1+'&pagesize='+that.query.pageSize)
                 .then(function(response) {
                     that.tableData=response.data
 
@@ -285,7 +285,7 @@ export default {
                 this.$message.warning('只有未接单的订单才能接单');
             }else{
                  var that=this;
-            this.$axios.get('http://localhost:8084/worker/updateStatus?id='+accept.orderId+'&status='+'已接单')
+            this.$axios.get('http://huajiao.site:8084/worker/updateStatus?id='+accept.orderId+'&status='+'已接单')
                 .then(function(response){
                     if(response.data==1){
                         that.$message.success('接受订单成功');
@@ -310,7 +310,7 @@ export default {
                 this.$message.warning('只有已分配的订单才能完成');
             }else{
                  var that=this;
-            this.$axios.get('http://localhost:8084/worker/updateStatus?id='+finsh.orderId+'&status='+'已完成')
+            this.$axios.get('http://huajiao.site:8084/worker/updateStatus?id='+finsh.orderId+'&status='+'已完成')
                 .then(function(response){
                     if(response.data==1){
                         that.$message.success('该订单已完成');
@@ -331,7 +331,7 @@ export default {
                 this.$message.warning('只有已接单的订单才能分配');
             }else{
             var that=this;
-            this.$axios.get('http://localhost:8084/worker/updateOrderEmployee?id='+allot.orderId+'&employeeId='+'000001')
+            this.$axios.get('http://huajiao.site:8084/worker/updateOrderEmployee?id='+allot.orderId+'&employeeId='+'000001')
                 .then(function(response){
                     if(response.data==1){
                        that.$message.success('分配人员成功');
@@ -360,7 +360,7 @@ export default {
                     console.log(del)
                     del=del[0]
                     var that=this;
-                    this.$axios.delete('http://localhost:8084/worker/deleteOrder?id='+del.orderId)
+                    this.$axios.delete('http://huajiao.site:8084/worker/deleteOrder?id='+del.orderId)
                         .then(function(response){
                             if(response.data==1){
                                 that.$message.success('删除成功');
@@ -395,7 +395,7 @@ export default {
                         console.log(del)
                         //del=del[0]
                         var that=this;
-                        this.$axios.delete('http://localhost:8084/worker/deleteOrder?id='+del.orderId)
+                        this.$axios.delete('http://huajiao.site:8084/worker/deleteOrder?id='+del.orderId)
                             .then(function(response){
                                 if(response.data==1){
                                     that.$message.success('删除'+del.orderId+'成功');
@@ -428,7 +428,7 @@ export default {
                 }
                 else{
                     var that=this;
-                    this.$axios.get('http://localhost:8084/worker/updateStatus?id='+accept.orderId+'&status='+'已接单')
+                    this.$axios.get('http://huajiao.site:8084/worker/updateStatus?id='+accept.orderId+'&status='+'已接单')
                         .then(function(response){
                             if(response.data==1){
                                 that.$message.success('接受订单'+accept.orderId+'成功');
@@ -459,7 +459,7 @@ export default {
                     this.$message.warning('只有已接单的订单才能分配');
                 }else{
                 var that=this;
-                this.$axios.get('http://localhost:8084/worker/updateOrderEmployee?id='+allot.orderId+'&employeeId='+'000001')
+                this.$axios.get('http://huajiao.site:8084/worker/updateOrderEmployee?id='+allot.orderId+'&employeeId='+'000001')
                     .then(function(response){
                         if(response.data==1){
                         that.$message.success('分配人员成功');
@@ -494,11 +494,11 @@ export default {
             let order=this.form
           
             var that=this;
-            this.$axios.post('http://localhost:8084/worker/updateOrder',order)
+            this.$axios.post('http://huajiao.site:8084/worker/updateOrder',order)
                 .then(function(response){
                     if(response.data==1){
                         that.$message.success(`修改第 ${that.idx + 1} 行成功`);
-                        that.$set(this.tableData, that.idx, this.form);
+                        that.$set(that.tableData, that.idx, this.form);
                     }else{
 
                     }

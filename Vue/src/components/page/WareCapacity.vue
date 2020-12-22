@@ -170,7 +170,7 @@ export default {
 
             console.log("getData");
             let that =this;
-            this.$axios.get('http://localhost:8084/getWareInfo')
+            this.$axios.get('http://huajiao.site:8084/getWareInfo')
                 .then(function(response) {
                     console.log(response.data);             
                     that.warelist=response.data;
@@ -179,7 +179,7 @@ export default {
                 .catch(function(error) {
                     console.log("b");                
                 })
-            this.$axios.get("http://localhost:8084/getmetedata")
+            this.$axios.get("http://huajiao.site:8084/getmetedata")
                 .then(function(response){
                     
                     that.packagenum=response.data;
@@ -188,7 +188,7 @@ export default {
                     console.log(that.pageTotal)
                 })
 
-            this.$axios.get("http://localhost:8084/getWareDetails?pageindex="+"1"+"&pagesize="+this.query.pageSize)
+            this.$axios.get("http://huajiao.site:8084/getWareDetails?pageindex="+"1"+"&pagesize="+this.query.pageSize)
             // 'http://huajiao.site:8084/getWareDetails'
                 .then(function(response) {
                     console.log(response.data);
@@ -204,7 +204,7 @@ export default {
         // 触发搜索按钮
         handleSearch() {
             let that =this;
-            this.$axios.get('http://localhost:8084/worker/getWarePackageById?id='+this.query.name)
+            this.$axios.get('http://huajiao.site:8084/worker/getWarePackageById?id='+this.query.name)
                 .then(function(response) {                  
                     console.log(response.data);                     
                     that.tableData=[];                                                
@@ -289,7 +289,7 @@ export default {
         handlePageChange(val) {
             console.log(val)
             let that=this
-            this.$axios.get("http://localhost:8084/getWareDetails?pageindex="+val+"&pagesize="+this.query.pageSize)
+            this.$axios.get("http://huajiao.site:8084/getWareDetails?pageindex="+val+"&pagesize="+this.query.pageSize)
             .then(function(response) {
                     console.log(response.data);
                     that.tableData=response.data;

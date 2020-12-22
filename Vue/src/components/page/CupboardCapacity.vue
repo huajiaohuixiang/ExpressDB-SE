@@ -56,33 +56,66 @@
 
             <div calss="container">
                  <div>
-                <el-tag
-                
-                >左边</el-tag>
-                 <!-- <el-tag
-                
-                >右边</el-tag> -->
-                </div>
-                 <div
-                v-for="(row,index) in boxarray"        
-                v-bind:key="index"
-            >
-            
-                <el-tag
-                type="info"
-                >
-                    第{{9-index}}行
-                </el-tag>
-               <el-tag
-                size="medium"
-               v-for="col in row"
-               v-bind:todo="col"
-                    v-bind:key="col.boxId"
+                     <el-row>
+                         <el-col :span="1">
+                            <el-tag type="error">左 边</el-tag>
+                         </el-col>
+
+                         <el-col :span="1"
+                            v-for="(item,index) in [...Array(20)]"
+                            v-bind:key="index"
+                         >
+                            <el-tag type="info">
+                                第{{index}}列
+                                </el-tag>
+                         </el-col>
+                        <el-col :span="1">
+                            <el-tag type="error">右边</el-tag>
+                        </el-col>
+
+                     </el-row>
                     
-                    :type="col.state"
-               >
-                    {{test(col.state)}}
-               </el-tag>
+                    
+                    
+                </div>
+                
+                
+                <div
+                    v-for="(row,index) in boxarray"        
+                    v-bind:key="index"
+                >
+            
+                     <el-row>
+                         <el-col :span="1">
+                             <el-tag
+                                type="info"
+                                >
+                                第{{10-index}}行
+                                </el-tag> 
+                         </el-col>
+                        
+                       <el-col :span="1"
+                         v-for="col in row"
+                                v-bind:todo="col"
+                                        v-bind:key="col.boxId"                                            
+                       >                          
+                            <el-tag
+                                size="medium"
+                               :type="col.state"
+                                >
+                                {{test(col.state)}}
+                    </el-tag></el-col>
+                    <el-col :span="1">
+                             <el-tag
+                                type="info"
+                                >
+                                第{{10-index}}行
+                                </el-tag> 
+                         </el-col>
+                    </el-row>
+                    
+                    
+                    
           
             </div>
             </div>
@@ -331,6 +364,13 @@ export default {
     width: 100%;
     font-size: 14px;
 }
+.el-row {
+    margin-bottom: 5px;
+    
+}
+.el-col {
+    border-radius: 4px;
+  }
 .red {
     color: #ff0000;
 }

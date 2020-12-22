@@ -17,13 +17,41 @@
                 >批量删除</el-button>
                 <el-select v-model="query.address" placeholder="请选择状态" class="handle-select mr10"  @change="getDataBySelect($event)">
                     <el-option key="1" label="全部" value="全部"></el-option>
-                    <el-option key="2" label="已入库" value="已入库"></el-option>
-                    <el-option key="3" label="已入柜" value="已入柜"></el-option>
+                    <el-option key="2" label="问题包裹" value="问题包裹"></el-option>
+                    <el-option key="3" label="未签收" value="未签收"></el-option>
                     <el-option key="4" label="已签收" value="已签收"></el-option>
                 </el-select>
                 <el-input v-model="query.name" placeholder="包裹编号" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
             </div>
+            <el-drawer
+                size='20%'
+                title="包裹溯源"
+                :visible.sync="drawer"
+                direction="rtl"
+                
+                >
+                <el-main>
+                <el-timeline  >
+                    <el-timeline-item
+                        placement="top"
+                        v-for="(activity, index) in activities"
+                        :key="index"
+                        :timestamp="activity.timestamp">
+                        <el-card>
+                            <h4>{{activity.content}}</h4>
+                            <p></p>
+                        </el-card>
+                        
+                    </el-timeline-item>
+                </el-timeline>
+                </el-main>
+                
+                
+            </el-drawer>
+            <!-- <el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
+                    点我打开
+            </el-button> -->
             <el-table
                 :data="tableData.slice((query.pageIndex-1)*query.pageSize,query.pageIndex*query.pageSize)"
                 stripe
@@ -32,6 +60,7 @@
                 ref="multipleTable"
                 header-cell-class-name="table-header"
                 @selection-change="handleSelectionChange"
+                @row-click="showInfo"
             >
                 <el-table-column type="selection" width="55" align="center"></el-table-column>
                 <el-table-column prop="packageID" label="包裹编号" width="100" align="center"></el-table-column>
@@ -86,6 +115,7 @@
                     @current-change="handlePageChange"
                 ></el-pagination>
             </div>
+
         </div>
 
         <!-- 编辑弹出框 -->
@@ -137,6 +167,7 @@ export default {
                 pageIndex: 1,
                 pageSize: 10
             },
+            drawer:false,
             tableData: [],
             sumData:[],
             multipleSelection: [],
@@ -147,7 +178,21 @@ export default {
             form: {},
             delpack:{},
             idx: -1,
-            id: -1
+            id: -1,
+            packInfo:{
+
+            },
+            activities: [{
+                content: '活动按期开始',
+                timestamp: '2018-04-15'
+                }, {
+                content: '通过审核',
+                timestamp: '2018-04-13'
+                }, {
+                content: '创建成功',
+                timestamp: '2018-04-11'
+            }]
+
         };
     },
     created() {
@@ -177,7 +222,19 @@ export default {
             //     this.sumData=this.tableData;
             // });
         },
-       
+        showInfo(row, column, event){
+            this.packInfo=row
+            console.log(this.packInfo)           
+            if(column.label=='操作'){
+                
+            }else{
+                this.drawer = true
+            }
+
+
+
+            //下面为抽屉里的东西赋值，调用接口
+        },
         // 触发搜索按钮
         handleSearch() {
             let that=this;
@@ -195,31 +252,34 @@ export default {
         },
 
         test(packstatus){
-            if(packstatus=="0"){
-                return "已入库"
+            if(packstatus=="2"){
+                return "问题包裹"
             }else if(packstatus=="1"){
-                return "已入柜"
-            }else if(packstatus=="2"){
-                return "已出库"
+                return "未签收"
+            }else if(packstatus=="0"){
+                return "已签收"
             }
         },
         //筛选
         getDataBySelect(){
-            console.log("还活着");
-            if(this.query.address=="全部"){
-                this.tableData=this.sumData;
-                this.$set(this.query, 'pageIndex', 1)
-            }else{
-                let tempData=this.sumData;
-                console.log(tempData);
-                let result=[];           
-                tempData.forEach(element => {
-                    if(element.state==this.query.address){ result.push(element);}  
-                });
-                this.tableData=result;
-            }
-            this.pageTotal=this.tableData.length
-            console.log("没了")
+                
+
+
+            // console.log("还活着");
+            // if(this.query.address=="全部"){
+            //     this.tableData=this.sumData;
+            //     this.$set(this.query, 'pageIndex', 1)
+            // }else{
+            //     let tempData=this.sumData;
+            //     console.log(tempData);
+            //     let result=[];           
+            //     tempData.forEach(element => {
+            //         if(element.state==this.query.address){ result.push(element);}  
+            //     });
+            //     this.tableData=result;
+            // }
+            // this.pageTotal=this.tableData.length
+            // console.log("没了")
         },
         // 删除操作
         handleDelete(index, row) {
