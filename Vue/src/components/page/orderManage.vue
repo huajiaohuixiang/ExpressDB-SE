@@ -402,7 +402,7 @@ export default {
                                     that.getData();
                                 }else{
 
-                                }
+                                } 
                             })  
                             console.log(this.multipleSelection[i]);
                     }

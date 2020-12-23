@@ -6,7 +6,7 @@ Vue.use(Router);
 export default new Router({
     routes: [{
             path: '/',
-            redirect: '/dashboard'
+            redirect: '/login'
         },
         {
             path: '/',
@@ -178,12 +178,7 @@ export default new Router({
                         import ( /* webpackChunkName: "403" */ '../components/page/wrongpage/403.vue'),
                     meta: { title: '403' }
                 },
-                {
-                    path: '/donate',
-                    component: () =>
-                        import ( /* webpackChunkName: "donate" */ '../components/page/useless/Donate.vue'),
-                    meta: { title: '支持作者' }
-                }
+               
             ]
         },
         {
@@ -198,12 +193,6 @@ export default new Router({
                 import ( /* webpackChunkName: "login" */ '../components/page/registry.vue'),
             meta: { title: '注册' }
         },
-        // {
-        //     path: '/tabs',
-        //     component: () =>
-        //         import ( /* webpackChunkName: "tabs" */ '../components/page/Message.vue'),
-        //     meta: { title: '个人中心' }
-        // },
         {
             path: '*',
             redirect: '/404'

@@ -14,6 +14,7 @@
                 </el-select>
                 <el-input v-model="query.id" placeholder="用户id" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+                  <el-button type="primary" icon="el-icon-refresh-right" @click="getData()">还原</el-button>
             </div>
             <el-table
                 :data="tableData"
