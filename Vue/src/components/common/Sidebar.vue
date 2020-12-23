@@ -69,8 +69,8 @@ export default {
                     title: '个人中心',
                     subs:[
                         {
-                            index:'personalcenter',
-                            title:'个人主页'
+                            index:'employeeManage',
+                            title:'员工管理'
                         },
                         {
                             index:'message',
@@ -130,8 +130,8 @@ export default {
                 },
                 {
                     icon:'el-icon-lx-comment',
-                    index:'table',
-                    title:'取件消息管理'
+                    index:'messageManage',
+                    title:'消息管理'
                 },
                 // {
                 //     icon: 'el-icon-lx-warn',

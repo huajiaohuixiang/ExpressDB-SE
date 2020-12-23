@@ -21,7 +21,7 @@
                 <div class="login-btn">
                     <el-button type="primary" @click="submitForm()">登录</el-button>
                 </div>
-                <el-link class="login-tips" @click="gotoRegistry()"> 还没有账号？现在去注册 </el-link>
+                <p class="login-tips">Tips : 用户名和密码随便填。</p>
             </el-form>
         </div>
     </div>
@@ -33,7 +33,7 @@ export default {
         return {
             param: {
                 username: 'admin',
-                password: '123456',
+                password: '123123',
             },
             rules: {
                 username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
@@ -43,42 +43,18 @@ export default {
     },
     methods: {
         submitForm() {
-            // this.$refs.login.validate(valid => {
-            //     if (valid) {
-            //         this.$message.success('登录成功');
-            //         localStorage.setItem('ms_username', this.param.username);
-            //         this.$router.push('/');
-            //     } else {
-            //         this.$message.error('请输入账号和密码');
-            //         console.log('error submit!!');
-            //         return false;
-            //     }
-            // });
-
-            let that =this;
-            console.log(that.param);
-           // this.$router.push('/dashboard');
-             this.$axios.post('http://localhost:8084/login?admin_name='+that.param.username+'&password='+that.param.password)
-                .then(function(response) {
-                    console.log(that.param);
-                    console.log(response.data);   
-                    if (response.data.code=='200') {
-                        localStorage.setItem("ms_username",that.param.username);
-                       that.$router.replace({path: '/dashboard'});
-                        that.$message.success("登陆成功");
-                    } else {
-                        that.$message.success("登陆失败，请重新输入密码");
-                    }
-                   
-                   
-                })
-                .catch(function(error) {
-                    console.log("b");                
-                })
+            this.$refs.login.validate(valid => {
+                if (valid) {
+                    this.$message.success('登录成功');
+                    localStorage.setItem('ms_username', this.param.username);
+                    this.$router.push('/');
+                } else {
+                    this.$message.error('请输入账号和密码');
+                    console.log('error submit!!');
+                    return false;
+                }
+            });
         },
-        gotoRegistry(){
-            this.$router.replace({path:'/registry'});
-        }
     },
 };
 </script>

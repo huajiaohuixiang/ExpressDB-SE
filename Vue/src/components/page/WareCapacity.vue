@@ -255,7 +255,7 @@ export default {
         handlePageChange(val) {
             console.log(val)
             let that=this
-            this.$axios.get("http://huajiao.site:8084/getWareDetails?pageindex="+val+"&pagesize="+this.query.pageSize)
+            this.$axios.get("http://localhost:8084/getWareDetails?pageindex="+val+"&pagesize="+this.query.pageSize)
             .then(function(response) {
                     console.log(response.data);
                     that.tableData=response.data;

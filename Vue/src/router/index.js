@@ -19,7 +19,18 @@ export default new Router({
                         import ( /* webpackChunkName: "dashboard" */ '../components/page/Dashboard/Dashboard.vue'),
                     meta: { title: '系统首页' }
                 },
-
+                {
+                    path: '/messageManage',
+                    component: () =>
+                        import ( /* webpackChunkName: "messageManage" */ '../components/page/messageManage.vue'),
+                    meta: { title: '消息管理' }
+                },
+                {
+                    path: '/employeeManage',
+                    component: () =>
+                        import ( /* webpackChunkName: "messageManage" */ '../components/page/employeeManage.vue'),
+                    meta: { title: '员工管理' }
+                },
                 {
                     path: '/icon',
                     component: () =>
@@ -180,6 +191,12 @@ export default new Router({
             component: () =>
                 import ( /* webpackChunkName: "login" */ '../components/page/Login.vue'),
             meta: { title: '登录' }
+        },
+        {
+            path: '/registry',
+            component: () =>
+                import ( /* webpackChunkName: "login" */ '../components/page/registry.vue'),
+            meta: { title: '注册' }
         },
         // {
         //     path: '/tabs',

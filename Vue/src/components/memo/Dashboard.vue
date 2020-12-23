@@ -22,15 +22,15 @@
                     <el-progress :percentage="5.9" color="#f56c6c"></el-progress>
                 </el-card> -->
             </el-col>
-            <el-col :span="16">
+            <!-- <el-col :span="16">
                 <el-row :gutter="20" class="mgb20">
                     <el-col :span="8">
                         <el-card shadow="hover" :body-style="{padding: '0px'}">
                             <div class="grid-content grid-con-1">
                                 <i class="el-icon-lx-people grid-con-icon"></i>
                                 <div class="grid-cont-right">
-                                    <div class="grid-num">{{number.user_total}}</div>
-                                    <div>用户总量</div>
+                                    <div class="grid-num">1234</div>
+                                    <div>用户访问量</div>
                                 </div>
                             </div>
                         </el-card>
@@ -41,9 +41,9 @@
                             <div class="grid-content grid-con-2">
                                 <i class="el-icon-lx-notice grid-con-icon"></i>
                                 <div class="grid-cont-right">
-                                    <div class="grid-num">{{number.message_total}}</div>
+                                    <div class="grid-num">321</div>
                                     <div>
-                                        消息总量
+                                        系统消息
                                     </div>
                                 </div>
                             </div>
@@ -55,8 +55,8 @@
                             <div class="grid-content grid-con-3">
                                 <i class="el-icon-lx-goods grid-con-icon"></i>
                                 <div class="grid-cont-right">
-                                    <div class="grid-num">{{number.package_total}}</div>
-                                    <div>包裹数量</div>
+                                    <div class="grid-num">5000</div>
+                                    <div>数量</div>
                                 </div>
                             </div>
                         </el-card>
@@ -89,7 +89,7 @@
                         </el-table-column>
                     </el-table>
                 </el-card>
-            </el-col>
+            </el-col> -->
         </el-row>
         <!-- <el-row :gutter="20">
             <el-col :span="12">
@@ -113,12 +113,6 @@ export default {
     name: 'dashboard',
     data() {
         return {
-            number:{
-                user_total:0,
-                package_total:0,
-                message_total:0
-
-            },
             name: localStorage.getItem('ms_username'),
             todoList: [
                 {
@@ -130,8 +124,20 @@ export default {
                     status: false
                 },
                 {
-                    title: '您有新的寄件订单！',
+                    title: '今天要写100行代码加几个bug吧',
                     status: false
+                },
+                {
+                    title: '今天要修复100个bug',
+                    status: false
+                },
+                {
+                    title: '今天要修复100个bug',
+                    status: true
+                },
+                {
+                    title: '今天要写100行代码加几个bug吧',
+                    status: true
                 }
             ],
             data: [
@@ -217,9 +223,6 @@ export default {
             return this.name === 'admin' ? '超级管理员' : '普通用户';
         }
     },
-    created() {
-        this.getData();
-    },
     // created() {
     //     this.handleListener();
     //     this.changeDate();
@@ -238,14 +241,6 @@ export default {
                 const date = new Date(now - (6 - index) * 86400000);
                 item.name = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
             });
-        },
-        getData(){
-            let that=this;
-             this.$axios.post('http://localhost:8084/getNum').then(function (response) {
-                console.log(response.data);
-                that.number=response.data;
-            });
-
         }
         // handleListener() {
         //     bus.$on('collapse', this.handleBus);

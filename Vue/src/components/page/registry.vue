@@ -2,26 +2,41 @@
     <div class="login-wrap">
         <div class="ms-login">
             <div class="ms-title">后台管理系统</div>
-            <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
+            <el-form :model="param" :rules="rules" ref="registry" label-width="0px" class="ms-content">
                 <el-form-item prop="username">
-                    <el-input v-model="param.username" placeholder="username">
+                    <el-input v-model="param.username" placeholder="用户名">
                         <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="password">
                     <el-input
-                        type="password"
-                        placeholder="password"
+                        placeholder="密码"
                         v-model="param.password"
-                        @keyup.enter.native="submitForm()"
                     >
                         <el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
                     </el-input>
                 </el-form-item>
+                  <el-form-item prop="confirmpw">
+                    <el-input
+                        placeholder="确认密码"
+                        v-model="param.confirmpw"
+                    >
+                        <el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
+                    </el-input>
+                </el-form-item>
+                  <el-form-item prop="employeeid">
+                    <el-input
+                        placeholder="员工工号"
+                        v-model="param.employee_id"
+                    >
+                        <el-button slot="prepend" icon="el-icon-s-management"></el-button>
+                    </el-input>
+                </el-form-item>
+
                 <div class="login-btn">
-                    <el-button type="primary" @click="submitForm()">登录</el-button>
+                    <el-button type="primary" @click="submitForm()">注册</el-button>
                 </div>
-                <el-link class="login-tips" @click="gotoRegistry()"> 还没有账号？现在去注册 </el-link>
+                <el-link class="login-tips" @click="gotoLogin()"> 已有帐号？现在去登陆 </el-link>
             </el-form>
         </div>
     </div>
@@ -34,40 +49,42 @@ export default {
             param: {
                 username: 'admin',
                 password: '123456',
+                confirmpw: '123456',
+                employee_id:'000001'
+            },
+            form:{
+                adminName:'',
+                password:'',
+                employeeId:''
             },
             rules: {
                 username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
                 password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+                confirmpw:[{ required: true, message: '请确认密码', trigger: 'blur'}],
+                employee_id:[{ required: true, message: '请输入工号', trigger: 'blur'}],
             },
         };
     },
     methods: {
         submitForm() {
-            // this.$refs.login.validate(valid => {
-            //     if (valid) {
-            //         this.$message.success('登录成功');
-            //         localStorage.setItem('ms_username', this.param.username);
-            //         this.$router.push('/');
-            //     } else {
-            //         this.$message.error('请输入账号和密码');
-            //         console.log('error submit!!');
-            //         return false;
-            //     }
-            // });
+         
 
             let that =this;
             console.log(that.param);
+            this.form.adminName=this.param.username;
+            this.form.password=this.param.password;
+            this.form.employeeId=this.param.employee_id;
+            console.log(that.form);
            // this.$router.push('/dashboard');
-             this.$axios.post('http://localhost:8084/login?admin_name='+that.param.username+'&password='+that.param.password)
+             this.$axios.post('http://localhost:8084/registry',that.form)
                 .then(function(response) {
-                    console.log(that.param);
-                    console.log(response.data);   
+                  //  console.log(that.param);
+                    console.log(response);   
                     if (response.data.code=='200') {
-                        localStorage.setItem("ms_username",that.param.username);
-                       that.$router.replace({path: '/dashboard'});
-                        that.$message.success("登陆成功");
+                       that.$router.replace({path: '/login'});
+                       that.$message.success('注册成功！跳转至登陆页面');
                     } else {
-                        that.$message.success("登陆失败，请重新输入密码");
+                        that.$message.success('注册失败，请重新注册！');
                     }
                    
                    
@@ -76,8 +93,8 @@ export default {
                     console.log("b");                
                 })
         },
-        gotoRegistry(){
-            this.$router.replace({path:'/registry'});
+        gotoLogin(){
+            this.$router.replace({path:'/login'});
         }
     },
 };

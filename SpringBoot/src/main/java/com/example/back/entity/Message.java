@@ -1,17 +1,17 @@
 package com.example.back.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.sql.Time;
+import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
+@Table(name = "MESSAGE", schema = "TEST")
 public class Message {
     private String messageId;
-    private Time sendDate;
+    private String sendDate;
     private String userId;
     private String content;
+    private String messageType;
+    private String status;
 
     @Id
     @Column(name = "MESSAGE_ID")
@@ -25,11 +25,11 @@ public class Message {
 
     @Basic
     @Column(name = "SEND_DATE")
-    public Time getSendDate() {
+    public String getSendDate() {
         return sendDate;
     }
 
-    public void setSendDate(Time sendDate) {
+    public void setSendDate(String sendDate) {
         this.sendDate = sendDate;
     }
 
@@ -53,27 +53,41 @@ public class Message {
         this.content = content;
     }
 
+    @Basic
+    @Column(name = "MESSAGE_TYPE")
+    public String getMessageType() {
+        return messageType;
+    }
+
+    public void setMessageType(String messageType) {
+        this.messageType = messageType;
+    }
+
+    @Basic
+    @Column(name = "STATUS")
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        Message message = (Message) o;
-
-        if (messageId != null ? !messageId.equals(message.messageId) : message.messageId != null) return false;
-        if (sendDate != null ? !sendDate.equals(message.sendDate) : message.sendDate != null) return false;
-        if (userId != null ? !userId.equals(message.userId) : message.userId != null) return false;
-        if (content != null ? !content.equals(message.content) : message.content != null) return false;
-
-        return true;
+        Message that = (Message) o;
+        return Objects.equals(messageId, that.messageId) &&
+                Objects.equals(sendDate, that.sendDate) &&
+                Objects.equals(userId, that.userId) &&
+                Objects.equals(content, that.content) &&
+                Objects.equals(messageType, that.messageType) &&
+                Objects.equals(status, that.status);
     }
 
     @Override
     public int hashCode() {
-        int result = messageId != null ? messageId.hashCode() : 0;
-        result = 31 * result + (sendDate != null ? sendDate.hashCode() : 0);
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
-        result = 31 * result + (content != null ? content.hashCode() : 0);
-        return result;
+        return Objects.hash(messageId, sendDate, userId, content, messageType, status);
     }
 }

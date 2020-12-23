@@ -1,11 +1,10 @@
 package com.example.back.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
+@Table(name = "EMPLOYEE", schema = "TEST")
 public class Employee {
     private String employeeId;
     private String sex;
@@ -14,6 +13,7 @@ public class Employee {
     private String cellPhone;
     private String departmentId;
     private String position;
+    private String status;
 
     @Id
     @Column(name = "EMPLOYEE_ID")
@@ -85,34 +85,33 @@ public class Employee {
         this.position = position;
     }
 
+    @Basic
+    @Column(name = "STATUS")
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        Employee employee = (Employee) o;
-
-        if (employeeId != null ? !employeeId.equals(employee.employeeId) : employee.employeeId != null) return false;
-        if (sex != null ? !sex.equals(employee.sex) : employee.sex != null) return false;
-        if (name != null ? !name.equals(employee.name) : employee.name != null) return false;
-        if (address != null ? !address.equals(employee.address) : employee.address != null) return false;
-        if (cellPhone != null ? !cellPhone.equals(employee.cellPhone) : employee.cellPhone != null) return false;
-        if (departmentId != null ? !departmentId.equals(employee.departmentId) : employee.departmentId != null)
-            return false;
-        if (position != null ? !position.equals(employee.position) : employee.position != null) return false;
-
-        return true;
+        Employee that = (Employee) o;
+        return Objects.equals(employeeId, that.employeeId) &&
+                Objects.equals(sex, that.sex) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(address, that.address) &&
+                Objects.equals(cellPhone, that.cellPhone) &&
+                Objects.equals(departmentId, that.departmentId) &&
+                Objects.equals(position, that.position) &&
+                Objects.equals(status, that.status);
     }
 
     @Override
     public int hashCode() {
-        int result = employeeId != null ? employeeId.hashCode() : 0;
-        result = 31 * result + (sex != null ? sex.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (address != null ? address.hashCode() : 0);
-        result = 31 * result + (cellPhone != null ? cellPhone.hashCode() : 0);
-        result = 31 * result + (departmentId != null ? departmentId.hashCode() : 0);
-        result = 31 * result + (position != null ? position.hashCode() : 0);
-        return result;
+        return Objects.hash(employeeId, sex, name, address, cellPhone, departmentId, position, status);
     }
 }

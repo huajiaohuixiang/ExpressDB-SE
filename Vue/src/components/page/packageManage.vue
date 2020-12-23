@@ -25,13 +25,43 @@
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
             </div>
             <el-drawer
-                size='20%'
+                size='30%'
                 title="包裹溯源"
                 :visible.sync="drawer"
                 direction="rtl"
                 
                 >
+                    <el-form ref="packinfoo" :model="packInfo" align='left' label-width="100px">
+                <el-form-item label="订单编号">
+                    <el-input v-model="packInfo.packageID"></el-input>
+                </el-form-item>
+                <!-- <el-form-item label="发件人">
+                    <el-input v-model="packInfo.senderName"></el-input>
+                </el-form-item>
+                <el-form-item label="发件人手机号">
+                    <el-input v-model="packInfo.senderPhone"></el-input>
+                </el-form-item>
+                <el-form-item label="收件人">
+                    <el-input v-model="packInfo.receiverName"></el-input>
+                </el-form-item>
+                <el-form-item label="收件人手机号">
+                    <el-input v-model="packInfo.receiverPhone"></el-input>
+                </el-form-item>
+                <el-form-item label="寄件地址">
+                    <el-input v-model="packInfo.senderAddress"></el-input>
+                </el-form-item>
+                <el-form-item label="快递公司">
+                    <el-input v-model="packInfo.company"></el-input>
+                </el-form-item> -->
+                
+
+
+                    </el-form>
+                
                 <el-main>
+
+
+
                 <el-timeline  >
                     <el-timeline-item
                         placement="top"
@@ -60,8 +90,10 @@
                 ref="multipleTable"
                 header-cell-class-name="table-header"
                 @selection-change="handleSelectionChange"
-                @row-click="showInfo"
+                
+                @cell-dblclick="dbshowInfo"
             >
+            <!-- @row-click="showInfo" -->
                 <el-table-column type="selection" width="55" align="center"></el-table-column>
                 <el-table-column prop="packageID" label="包裹编号" width="100" align="center"></el-table-column>
                 <el-table-column prop="senderName" label="发件人" width="80" align="center"></el-table-column>
@@ -228,8 +260,22 @@ export default {
             if(column.label=='操作'){
                 
             }else{
+                console.log(column)
                 this.drawer = true
             }
+
+
+
+            //下面为抽屉里的东西赋值，调用接口
+        },
+        dbshowInfo(row, column, cell,event){
+            this.packInfo=row
+            console.log(this.packInfo)           
+            console.log(cell)
+                
+                console.log(column)
+                this.drawer = true
+           
 
 
 
