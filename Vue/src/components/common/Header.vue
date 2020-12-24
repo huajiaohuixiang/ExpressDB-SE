@@ -5,7 +5,7 @@
             <i v-if="!collapse" class="el-icon-s-fold"></i>
             <i v-else class="el-icon-s-unfold"></i>
         </div>
-        <div class="logo">iExpress后台管理系统</div>
+        <div class="logo">iExpress快递服务中心</div>
         <div class="header-right">
             <div class="header-user-con">
                 <!-- 全屏显示 -->
@@ -13,19 +13,6 @@
                     <el-tooltip effect="dark" :content="fullscreen?`取消全屏`:`全屏`" placement="bottom">
                         <i class="el-icon-rank"></i>
                     </el-tooltip>
-                </div>
-                <!-- 消息中心 -->
-                <div class="btn-bell">
-                    <el-tooltip
-                        effect="dark"
-                        :content="message?`有${message}条未读消息`:`消息中心`"
-                        placement="bottom"
-                    >
-                        <router-link to="/Message">
-                            <i class="el-icon-bell"></i>
-                        </router-link>
-                    </el-tooltip>
-                    <span class="btn-bell-badge" v-if="message"></span>
                 </div>
                 <!-- 用户头像 -->
                 <div class="user-avator">
@@ -38,12 +25,10 @@
                         <i class="el-icon-caret-bottom"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
-                        <!-- <a href="https://github.com/lin-xin/vue-manage-system" target="_blank">
-                            <el-dropdown-item>个人中心</el-dropdown-item>
-                        </a> -->
+                     
                         <el-dropdown-item divided command="PersonalCentre">
-                            <router-link to="/Message">
-                            消息中心
+                            <router-link to="/employeeManage">
+                            员工管理
                         </router-link>
                         </el-dropdown-item>
                         <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
@@ -80,13 +65,7 @@ export default {
                
             }
         },
-        // handleCommand(command) {
-        //     if (command=='PersonalCentre'){
-        //         localStorage.removeItem('ms_username');
-        //         this.$router.push('/tabs');
-        //     }
-        // },
-        // 侧边栏折叠
+      
         collapseChage() {
             this.collapse = !this.collapse;
             bus.$emit('collapse', this.collapse);

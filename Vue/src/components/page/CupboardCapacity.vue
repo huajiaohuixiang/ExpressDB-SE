@@ -49,11 +49,10 @@
                     
                     
                 </el-select>
-                <!-- <el-input v-model="query.name" placeholder="包裹编号" class="handle-input mr10"></el-input>
-                <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button> -->
+               
             </div>
             
-
+            
             <div calss="container">
                  <div>
                      <el-row>
@@ -66,7 +65,7 @@
                             v-bind:key="index"
                          >
                             <el-tag type="info">
-                                第{{index}}列
+                                第{{index+1}}列
                                 </el-tag>
                          </el-col>
                         <el-col :span="1">
@@ -95,16 +94,18 @@
                          </el-col>
                         
                        <el-col :span="1"
-                         v-for="col in row"
-                                v-bind:todo="col"
-                                        v-bind:key="col.boxId"                                            
+                            v-for="col in row"
+                            v-bind:todo="col"
+                            v-bind:key="col.boxId"                                            
                        >                          
                             <el-tag
                                 size="medium"
                                :type="col.state"
+                               @click="showInfo"
                                 >
                                 {{test(col.state)}}
-                    </el-tag></el-col>
+                            </el-tag>
+                        </el-col>
                     <el-col :span="1">
                              <el-tag
                                 type="info"
@@ -172,7 +173,12 @@ export default {
             console.log(this.test("success"));
             console.log("getData");
             let that =this;
-            this.$axios.get('http://huajiao.site:8084/getCupInfo')
+            this.$axios.get('https://www.csystd.cn:9999/worker/getCupInfo',{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            })
                 .then(function(response) {
                     console.log(response.data);                
                     that.cuplist=response.data;
@@ -181,7 +187,12 @@ export default {
                 .catch(function(error) {
                     console.log("b");                
                 })
-            this.$axios.get('http://huajiao.site:8084/getCupDetails')
+            this.$axios.get('https://www.csystd.cn:9999/worker/getCupDetails',{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            })
                 .then(function(response) {
                     console.log(response.data);
                     that.boxlist=response.data;
@@ -218,7 +229,9 @@ export default {
                 })
         },
 
-        
+        showInfo(){
+            this.$message.success("ss")
+        },
         test(temp){
             if(temp=="success"){
                 return "空闲"

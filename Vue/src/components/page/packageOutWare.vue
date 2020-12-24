@@ -106,14 +106,22 @@ export default {
             }else{
                 this.form.flag=0;
             }
-            this.$axios.post('https://www.csystd.cn:9999/worker/package/packInBox',this.form)  
-            .then(function(response) {                  
+            this.$axios.post('https://www.csystd.cn:9999/worker/package/packInBox',this.form,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            }
+
+            )  
+            .then(function(response) { 
+                console.log(response)                 
                     console.log(response.data);     
                     let temp_flag=response.data;            
                     if(temp_flag.result=='success'){
-                        this.$message.success('提交成功！');
+                        that.$message.success('提交成功！');
                     }else{
-                        this.$message.success('提交失败！');
+                        that.$message.success('提交失败！');
                     }                                                  
                 })
                 .catch(function(error) {
@@ -122,7 +130,12 @@ export default {
         },
         getData(){
             let that=this;
-            this.$axios.get('http://huajiao.site:8084/getCupInfo')
+            this.$axios.get('https://www.csystd.cn:9999/worker/getCupInfo',{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            })
             .then(function(response) {
                 console.log(response.data);                
                 that.cuplist=response.data;
@@ -131,7 +144,12 @@ export default {
             .catch(function(error) {
                 console.log("b");                
             })
-            this.$axios.get('http://huajiao.site:8084/getWareInfo')
+            this.$axios.get('https://www.csystd.cn:9999/worker/getWareInfo',{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            })
                 .then(function(response) {
                     console.log(response.data);
                     that.warelist=response.data;

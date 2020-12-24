@@ -65,18 +65,9 @@ export default {
                 },
                  {
                     icon: 'el-icon-lx-people',
-                    index: '2',
-                    title: '个人中心',
-                    subs:[
-                        {
-                            index:'employeeManage',
-                            title:'员工管理'
-                        },
-                        {
-                            index:'message',
-                            title:'消息中心'
-                        }
-                    ]
+                    index: 'employeeManage',
+                    title: '员工管理',
+                 
                 },
                 {
                     icon: 'el-icon-lx-calendar',
@@ -91,14 +82,7 @@ export default {
                             index: 'packageOutWare',
                             title: '包裹出库入柜'
                         },
-                        // {
-                        //     index: 'ExpressInWare',
-                        //     title: '寄件快递入库'
-                        // },
-                        // {
-                        //     index: 'ExpressOutWare',
-                        //     title: '寄件快递出库'
-                        // },
+                      
                        
                     ]
                 },
@@ -133,57 +117,7 @@ export default {
                     index:'messageManage',
                     title:'消息管理'
                 },
-                // {
-                //     icon: 'el-icon-lx-warn',
-                //     index: '7',
-                //     title: '错误处理',
-                //     subs: [
-                //         {
-                //             index: 'permission',
-                //             title: '权限测试'
-                //         },
-                //         {
-                //             index: '404',
-                //             title: '404页面'
-                //         }
-                //     ]
-                // },
-                // {
-                //     icon: 'el-icon-lx-recharge',
-                //     index: 'pay',
-                //     title: '支付'
-                // },
-                // {
-                //     icon: 'el-icon-lx-emoji',
-                //     index: 'icon',
-                //     title: '自定义图标'
-                // },
-                // {
-                //     icon: 'el-icon-rank',
-                //     index: '6',
-                //     title: '拖拽组件',
-                //     subs: [
-                //         {
-                //             index: 'drag',
-                //             title: '拖拽列表'
-                //         },
-                //         {
-                //             index: 'dialog',
-                //             title: '拖拽弹框'
-                //         }
-                //     ]
-                // },
-                // {
-                //     icon: 'el-icon-lx-global',
-                //     index: 'i18n',
-                //     title: '更换语言'
-                // },
                
-                // {
-                //     icon: 'el-icon-lx-info',
-                //     index: '/donate',
-                //     title: '作者信息'
-                // }
             ]
         };
     },

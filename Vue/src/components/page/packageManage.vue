@@ -17,9 +17,9 @@
                 >批量删除</el-button>
                 <el-select v-model="query.address" placeholder="请选择状态" class="handle-select mr10"  @change="getDataBySelect($event)">
                     <el-option key="1" label="全部" value="全部"></el-option>
-                    <el-option key="2" label="问题包裹" value="问题包裹"></el-option>
-                    <el-option key="3" label="未签收" value="未签收"></el-option>
-                    <el-option key="4" label="已签收" value="已签收"></el-option>
+                    <el-option key="2" label="问题包裹" value=2></el-option>
+                    <el-option key="3" label="未签收" value=1></el-option>
+                    <el-option key="4" label="已签收" value=0></el-option>
                 </el-select>
                 <el-input v-model="query.name" placeholder="包裹编号" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
@@ -28,8 +28,7 @@
                 size='30%'
                 title="包裹溯源"
                 :visible.sync="drawer"
-                direction="rtl"
-                
+                direction="rtl"                
                 >
                     <el-form ref="packinfoo" :model="packInfo" align='left' label-width="100px">
                 <el-form-item label="订单编号">
@@ -60,7 +59,13 @@
                 
                 <el-main>
 
-
+<!-- boxID: "1"
+employee1: "000001"
+employee2: "000002"
+inBoxDate: "2020-12-24"
+inWareDate: "2020-12-24"
+receiveDate: null
+warehouseID: "000001" -->
 
                 <el-timeline  >
                     <el-timeline-item
@@ -91,7 +96,7 @@
                 header-cell-class-name="table-header"
                 @selection-change="handleSelectionChange"
                 
-                @cell-dblclick="dbshowInfo"
+                @cell-dblclick="showInfo"
             >
             <!-- @row-click="showInfo" -->
                 <el-table-column type="selection" width="55" align="center"></el-table-column>
@@ -234,27 +239,41 @@ export default {
         // 获取 easy-mock 的模拟数据
         getData() {
             var that=this;
-            this.$axios.get('https://www.csystd.cn:9999/worker/package/countPackage')
-                .then(function(response){
+            console.log(localStorage.getItem('token'))
+          //  this.$axios.defaults.headers['authorization']=`Bearer ${localStorage.getItem('token')}`
+            this.$axios.get('https://www.csystd.cn:9999/worker/package/countPackage',{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            }).then(function(response){
+                    console.log("aaa")
                     console.log(response.data)
                     that.packagenum=response.data
 
                 }) 
-            this.$axios.get('https://www.csystd.cn:9999/worker/package/allQuery/'+this.query.pageSize+'/1')
+           
+            
+           
+           
+            this.$axios({
+                params: {
+                    'token': localStorage.getItem('token')
+                },
+                method:"get",
+                url:'https://www.csystd.cn:9999/worker/package/allQuery/'+this.query.pageSize+'/1'
+            })
+           
                 .then(function(response){
                     console.log("start")
                     that.tableData=response.data.records
                     
                     console.log(response.data)
                 })   
-            // fetchData(this.query).then(res => {
-            //     console.log(res);
-            //     this.tableData = res.list;
-            //     this.pageTotal = res.pageTotal ;    //|| 50
-            //     this.sumData=this.tableData;
-            // });
+          
         },
         showInfo(row, column, event){
+            let that=this
             this.packInfo=row
             console.log(this.packInfo)           
             if(column.label=='操作'){
@@ -262,8 +281,37 @@ export default {
             }else{
                 console.log(column)
                 this.drawer = true
+                 this.$axios.get('https://www.csystd.cn:9999/worker/package/tracePackage/'+this.packInfo.packageID,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+                }).then(function(response){
+                        console.log("aaa")
+                        console.log(response.data)
+                        that.packInfo=response.data
+                        that.activities[0].content="由员工"+response.data.employee1+"于"+response.data.inWareDate+"日将快递放入"+response.data.warehouseID+"仓库"
+                        that.activities[0].timestamp=response.data.inWareDate
+                        that.activities[1].content="由员工"+response.data.employee2+"于"+response.data.inBoxDate+"日将快递放入"+response.data.boxID+"快递箱"
+                        that.activities[1].timestamp=response.data.inBoxDate
+                        if(response.data.receiveDate==null){
+                            that.activities[2].timestamp=""
+                            that.activities[2].content="未签收"
+                        }else{
+                            that.activities[2].content="您的快递于"+response.data.receiveDate+"日签收"
+                            that.activities[2].timestamp=response.data.receiveDate
+                        }
+                        
+                        
+                    }) 
             }
-
+//  boxID: "1"
+// employee1: "000001"
+// employee2: "000002"
+// inBoxDate: "2020-12-24"
+// inWareDate: "2020-12-24"
+// receiveDate: null
+// warehouseID: "000001" -
 
 
             //下面为抽屉里的东西赋值，调用接口
@@ -284,7 +332,12 @@ export default {
         // 触发搜索按钮
         handleSearch() {
             let that=this;
-            this.$axios.get('https://www.csystd.cn:9999/worker/package/singleQuery/'+this.query.name)
+            this.$axios.get('https://www.csystd.cn:9999/worker/package/singleQuery/'+this.query.name,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            })
             .then(function(response){
                 that.tableData=[];
                 that.tableData.push(response.data);
@@ -308,7 +361,23 @@ export default {
         },
         //筛选
         getDataBySelect(){
-                
+            let that=this;
+            if(this.query.address=='全部'){
+                this.getData();
+            }else{
+                this.$axios.get('https://www.csystd.cn:9999/worker/package/queryPackagesByStatus/'+this.query.address+'/1000000000/1',{
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            })
+            .then(function(response){
+                 that.tableData=response.data.records;
+                  that.packagenum=response.data.total
+                console.log(response)
+             //   console.log(response.data)
+            })   
+            }
+            
 
 
             // console.log("还活着");
@@ -384,7 +453,12 @@ export default {
         saveEdit() {
             this.editVisible = false;
             let that=this;
-            this.$axios.post('https://www.csystd.cn:9999/worker/package/updatePackageInfo',this.form)
+            this.$axios.post('https://www.csystd.cn:9999/worker/package/updatePackageInfo',this.form,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            })
                 .then(function(response){
                     
                     console.log(response)
@@ -410,7 +484,12 @@ export default {
             //         that.packagenum=response.data
 
             //     })
-            this.$axios.get('https://www.csystd.cn:9999/worker/package/allQuery/'+that.query.pageSize+'/'+val)
+            this.$axios.get('https://www.csystd.cn:9999/worker/package/allQuery/'+that.query.pageSize+'/'+val,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            })
                 .then(function(response){
                     console.log(val)
                     that.tableData=response.data.records

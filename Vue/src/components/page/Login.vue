@@ -3,8 +3,8 @@
         <div class="ms-login">
             <div class="ms-title">后台管理系统</div>
             <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
-                <el-form-item prop="username">
-                    <el-input v-model="param.username" placeholder="username">
+                <el-form-item prop="admin_name">
+                    <el-input v-model="param.admin_name" placeholder="admin_name">
                         <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
                     </el-input>
                 </el-form-item>
@@ -27,14 +27,17 @@
     </div>
 </template>
 
+
 <script>
 export default {
     data: function() {
         return {
             param: {
-                username: 'admin',
+                admin_name: 'admin',
                 password: '123456',
             },
+            token:'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJleHByZXNzIiwidXNlcklEIjoiMTc1MjU1NDMyMjIiLCJuYW1lIjoidG9tIiwic2V4IjoibSIsInJvbGUiOiJ3b3JrZXIiLCJpYXQiOjE2MDg2NDY2NDUsImV4cCI6MTYwODkwNTg0NX0.jQqDJ1rHO_xIazueFuWDN1nyLLy8aSPPBtdRoVskrT8'
+            ,
             rules: {
                 username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
                 password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
@@ -43,38 +46,49 @@ export default {
     },
     methods: {
         submitForm() {
-            // this.$refs.login.validate(valid => {
-            //     if (valid) {
-            //         this.$message.success('登录成功');
-            //         localStorage.setItem('ms_username', this.param.username);
-            //         this.$router.push('/');
-            //     } else {
-            //         this.$message.error('请输入账号和密码');
-            //         console.log('error submit!!');
-            //         return false;
-            //     }
-            // });
-
             let that =this;
             console.log(that.param);
-           // this.$router.push('/dashboard');
-             this.$axios.post('http://localhost:8084/login?admin_name='+that.param.username+'&password='+that.param.password)
+           
+             this.$axios.post('https://www.csystd.cn:9999/worker/login?admin_name='+this.param.admin_name+'&password='+this.param.password,{})
                 .then(function(response) {
-                    console.log(that.param);
+                    //console.log(that.param);
                     console.log(response.data);   
-                    if (response.data.code=='200') {
-                        localStorage.setItem("ms_username",that.param.username);
+                    console.log('aa')
+                        localStorage.setItem("ms_username",that.param.admin_name);
+                        localStorage.setItem('token',response.data.Token)
+                          localStorage.setItem("_position",response.data.position);
+                        localStorage.setItem("_id",response.data.employee_id);
+                        console.log('aa')
                        that.$router.replace({path: '/dashboard'});
                         that.$message.success("登陆成功");
-                    } else {
-                        that.$message.success("登陆失败，请重新输入密码");
-                    }
+                   this.$axios.defaults.headers.common["token"] = response.data
                    
                    
                 })
                 .catch(function(error) {
                     console.log("b");                
                 })
+
+            // let that =this;
+            // console.log(that.param);
+           
+            //  this.$axios.post('http://localhost:8084/worker/login?admin_name='+that.param.username+'&password='+that.param.password)
+            //     .then(function(response) {
+            //         console.log(that.param);
+            //         console.log(response.data);   
+            //         if (response.data.code=='200') {
+            //             localStorage.setItem("ms_username",that.param.username);
+            //            that.$router.replace({path: '/dashboard'});
+            //             that.$message.success("登陆成功");
+            //         } else {
+            //             that.$message.success("登陆失败，请重新输入密码");
+            //         }
+                   
+                   
+            //     })
+            //     .catch(function(error) {
+            //         console.log("b");                
+            //     })
         },
         gotoRegistry(){
             this.$router.replace({path:'/registry'});
@@ -88,7 +102,7 @@ export default {
     position: relative;
     width: 100%;
     height: 100%;
-    background-image: url(../../assets/img/login-bg.jpg);
+    background-image: url(../../assets/img/login-bg4.jpg);
     background-size: 100%;
 }
 .ms-title {

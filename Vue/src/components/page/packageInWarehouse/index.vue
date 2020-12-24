@@ -67,7 +67,12 @@
           submitform.weight=submitform.weight*1
           
           console.log(submitform)
-          this.$axios.post('https://www.csystd.cn:9999/worker/package/packInWare',this.form)
+          this.$axios.post('https://www.csystd.cn:9999/worker/package/packInWare',this.form,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            })
             .then(function(response) {
               console.log(response.data)
               console.log(response)
@@ -93,15 +98,7 @@
       },
 
       
-      // handle1(index,active, form) {
-      //   this.active = active
-      //   if (form) this.form = Object.assign(this.form, form)
-      //   switch (index){
-      //     case 1:
-      //       this.form1=Object.assign(this.form1, form)
-      //       case 2:
-      //   }
-      // }
+     
     },
   }
 </script>

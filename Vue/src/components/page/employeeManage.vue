@@ -146,7 +146,7 @@ export default {
             addVisible: false,
             pageTotal: 0,
             form: {
-                employeeId: '000013',
+                employeeId: '',
                 sex: '男',
                 name: '匡爬爬',
                 address: '上海嘉定',
@@ -167,7 +167,12 @@ export default {
         // 获取 easy-mock 的模拟数据
         getData() {
             let that = this;
-            this.$axios.get('http://localhost:8084/getEmployee').then(function (response) {
+            this.$axios.get('https://www.csystd.cn:9999/worker/getEmployee',{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            }).then(function (response) {
                 console.log(response.data);
                 that.tableData = response.data;
                 that.pageTotal = response.data.length;
@@ -179,9 +184,16 @@ export default {
         addEmployee() {
             let that = this;
             console.log(that.form);
-            this.$axios.post('http://localhost:8084/addEmployee', that.form).then(function (response) {
+            this.$axios.post('https://www.csystd.cn:9999/worker/addEmployee', that.form,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            }).then(function (response) {
                 console.log(response);
-                that.$message.success('添加成功！');
+                 if (response.data.code='400'){
+                   that.$message.error(response.data.message);
+               }else{ that.$message.success('添加成功！');}
             });
         },
         // 触发搜索按钮
@@ -189,7 +201,12 @@ export default {
             let that = this;
             console.log(this.query);
             that.$axios
-                .get('http://localhost:8084/searchEmployee?employee_id=' + that.query.id )
+                .get('https://www.csystd.cn:9999/worker/searchEmployee?employee_id=' + that.query.id ,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            })
                 .then(function (response) {
                     console.log(response);
                     that.tableData = response.data;
@@ -211,7 +228,12 @@ export default {
                     this.$message.success('删除成功');
                     let that = this;
                     console.log(row);
-                    that.$axios.post('http://localhost:8084/deleteEmployee?employee_id=' + row.employeeId).then(function (response) {
+                    that.$axios.post('https://www.csystd.cn:9999/worker/deleteEmployee?employee_id=' + row.employeeId,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            }).then(function (response) {
                         console.log(response);
                         that.getData();
                     });
@@ -236,7 +258,12 @@ export default {
             })
                 .then(() => {
                     that.$axios
-                        .post('http://localhost:8084/updateEmployee', that.form)
+                        .post('https://www.csystd.cn:9999/worker/updateEmployee', that.form,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            })
                         .then(function (response) {
                             console.log(response);
                             that.$message.success('修改成功！');

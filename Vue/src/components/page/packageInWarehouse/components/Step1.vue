@@ -22,9 +22,9 @@
                     <el-option
                         v-for="item in warelist"
                         v-bind:todo="item"
-                        v-bind:key="item.warehouseName"
-                        :label="item.warehouseName"
-                        :value="item.warehouseName"
+                        v-bind:key="item.warehouseId"
+                        :label="item.warehouseId"
+                        :value="item.warehouseId"
                     >
                     </el-option>
          </el-select>
@@ -83,13 +83,19 @@
       getData(){
           console.log("getData");
             let that =this;
-            this.$axios.get('http://huajiao.site:8084/getWareInfo')
+            this.$axios.get('https://www.csystd.cn:9999/worker/getWareInfo',{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            }
+)
                 .then(function(response) {
-                    console.log(response.data);
+                  console.log(response.data);
                    
                    
-                    that.warelist=response.data;
-                    console.log("a"); 
+                  that.warelist=response.data;
+                  console.log("a"); 
                    
                 })
                 .catch(function(error) {

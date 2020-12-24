@@ -136,7 +136,11 @@ export default {
 
             console.log("getData");
             let that =this;
-            this.$axios.get('http://huajiao.site:8084/getWareInfo')
+            this.$axios.get('https://www.csystd.cn:9999/worker/getWareInfo',{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }})
                 .then(function(response) {
                     console.log(response.data);             
                     that.warelist=response.data;
@@ -145,7 +149,11 @@ export default {
                 .catch(function(error) {
                     console.log("b");                
                 })
-            this.$axios.get("http://huajiao.site:8084/getmetedata")
+            this.$axios.get("https://www.csystd.cn:9999/worker/getmetedata",{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }})
                 .then(function(response){
                     
                     that.packagenum=response.data;
@@ -154,7 +162,12 @@ export default {
                     console.log(that.pageTotal)
                 })
 
-            this.$axios.get("http://huajiao.site:8084/getWareDetails?pageindex="+"1"+"&pagesize="+this.query.pageSize)
+            this.$axios.get("https://www.csystd.cn:9999/worker/getWareDetails?pageindex="+"1"+"&pagesize="+this.query.pageSize,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            })
             // 'http://huajiao.site:8084/getWareDetails'
                 .then(function(response) {
                     console.log(response.data);

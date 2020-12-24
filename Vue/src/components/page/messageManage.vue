@@ -14,7 +14,6 @@
                 </el-select>
                 <el-input v-model="query.id" placeholder="用户id" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
-                  <el-button type="primary" icon="el-icon-refresh-right" @click="getData()">还原</el-button>
             </div>
             <el-table
                 :data="tableData"
@@ -113,7 +112,12 @@ export default {
         // 获取 easy-mock 的模拟数据
         getData() {
             let that = this;
-            this.$axios.get('http://localhost:8084/getMessage').then(function (response) {
+            this.$axios.get('https://www.csystd.cn:9999/worker/getMessage',{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            }).then(function (response) {
                 console.log(response.data);
                 that.tableData = response.data;
                 that.pageTotal = response.data.length;
@@ -124,7 +128,12 @@ export default {
             let that = this;
             console.log(this.query);
             that.$axios
-                .get('http://localhost:8084/searchMessage?user_id=' + that.query.id + '&message_type=' + that.query.ms_type)
+                .get('https://www.csystd.cn:9999/worker/searchMessage?user_id=' + that.query.id + '&message_type=' + that.query.ms_type,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            })
                 .then(function (response) {
                     console.log(response);
                     that.tableData = response.data;
@@ -146,7 +155,12 @@ export default {
                     this.$message.success('删除成功');
                     let that = this;
                     console.log(row);
-                    that.$axios.post('http://localhost:8084/deleteMessage?message_id=' + row.messageId).then(function (response) {
+                    that.$axios.post('https://www.csystd.cn:9999/worker/deleteMessage?message_id=' + row.messageId,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            }).then(function (response) {
                         console.log(response);
                     });
                 })
@@ -166,7 +180,12 @@ export default {
                     this.$message.success('删除成功');
                     let that = this;
                     for (let i = 0; i < length; i++) {
-                         that.$axios.post('http://localhost:8084/deleteMessage?message_id=' + that.multipleSelection[i].messageId).then(function (response) {
+                         that.$axios.post('https://www.csystd.cn:9999/worker/deleteMessage?message_id=' + that.multipleSelection[i].messageId,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            }).then(function (response) {
                         console.log(response);
                     });
                
@@ -196,17 +215,32 @@ export default {
 
             that.form.status = '已重发';
             that.$axios
-                .post('http://localhost:8084/updateMessage', that.form)
+                .post('https://www.csystd.cn:9999/worker/updateMessage', that.form,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            })
                 .then(function (response) {
                     console.log(response);
-                    that.$axios.get('http://localhost:8084/lastMessage').then(function (response) {
+                    that.$axios.get('https://www.csystd.cn:9999/worker/lastMessage',{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            }).then(function (response) {
                         console.log(response.data);
                         that.maxid = (parseInt(response.data.messageId) + 1).toString();
                         console.log(that.maxid);
                         that.form.messageId = that.maxid;
                         console.log(that.form);
                         that.$axios
-                            .post('http://localhost:8084/resendMessage', that.form)
+                            .post('https://www.csystd.cn:9999/worker/resendMessage', that.form,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            })
                             .then(function (response) {
                                 console.log(response);
                                 that.getData();

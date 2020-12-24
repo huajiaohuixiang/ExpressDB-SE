@@ -21,13 +21,13 @@
                     <el-option key="已接单" label="已接单" value="已接单"></el-option>
                     <el-option key="已分配" label="已分配" value="已分配"></el-option>
                      <el-option key="已完成" label="已完成" value="已完成"></el-option>
-                  
+                  <el-option key="已取消" label="已取消" value="已取消"></el-option>
                 </el-select>
                 <el-input v-model="query.name" placeholder="订单编号" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
                 <el-button type="primary" icon="el-icon-check" @click="AcceptAllSelection">接单</el-button> 
                 <el-button type="primary" icon="el-icon-bicycle" @click="AllotAllSelection">分配</el-button>
-
+     <el-button type="primary" icon="el-icon-check" @click="myOrder">查看我的订单</el-button> 
             </div>
             <el-table
                 :data="tableData"
@@ -155,6 +155,32 @@
                 <el-button type="primary" @click="saveEdit">确 定</el-button>
             </span>
         </el-dialog>
+
+
+         <el-dialog title="分配员工" :visible.sync="allocVisible" width="50%">
+            <el-table :data="emData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
+                <el-table-column prop="EMPLOYEE_ID" label="员工ID" width="100" align="center"></el-table-column>
+                <el-table-column prop="NAME" label="姓名" align="center" width="120"></el-table-column>
+    
+                <el-table-column prop="CELL_PHONE" label="联系电话" align="center" width="175"></el-table-column>
+
+                <el-table-column prop="STATUS" label="状态" align="center" width="110">
+                 
+                </el-table-column>
+
+                <el-table-column label="操作" width="150" align="center">
+                    <template slot-scope="scope">
+                       
+                        <el-button type="text" icon="el-icon-edit" @click="handleAllocc(scope.$index, scope.row)">分配</el-button>
+                        
+                    </template>
+                </el-table-column>
+            </el-table>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="allocVisible = false">完成</el-button>
+   
+            </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -173,14 +199,33 @@ export default {
             sumData:[],
             tableData: [],
             ordernum:0,
-
+            emData:[],
+            status1:'已接单',
             multipleSelection: [],
             delList: [],
+            emmData:[],
+               position:localStorage.getItem("_position"),
+            myId:localStorage.getItem("_id"),
             editVisible: false,
+            allocVisible:false,
             pageTotal: 0,
+            allotion:{},
             form: {},
             idx: -1,
             id: -1
+            // sumData:[],
+            // tableData: [],
+            // ordernum:0,
+
+            // multipleSelection: [],
+            // delList: [],
+            // editVisible: false,
+            // allocVisible:false,
+            // pageTotal: 0,
+            // allotion:{},
+            // form: {},
+            // idx: -1,
+            // id: -1
         };
     },
     created() {
@@ -190,14 +235,35 @@ export default {
         getData() {
             console.log("getData");
             let that =this;
-            this.$axios.get('http://huajiao.site:8084/worker/getOrderNum')
-                .then(function(response) {
-                    console.log(response.data);
-                    that.ordernum=response.data;
-                })
+            this.$axios({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                method:"get",
+                url:'https://www.csystd.cn:9999/worker/getOrderNum',
+                 params:{
+                    token:localStorage.getItem('token')
+                }
+            }).then(function(response){
+                console.log(response)
+                    console.log(response.data)
+                    that.packagenum=response.data
+
+                }) 
+            // this.$axios.get('https://www.csystd.cn:9999/worker/getOrderNum')
+            //     .then(function(response) {
+            //         console.log(response.data);
+            //         that.ordernum=response.data;
+            //     })
 
 
-            this.$axios.get('http://huajiao.site:8084/worker/getOrder?pageindex=1&pagesize='+that.query.pageSize)
+            this.$axios.get('https://www.csystd.cn:9999/worker/getOrder?pageindex=1&pagesize='+that.query.pageSize,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            }
+)
                 .then(function(response) {
                     console.log(response.data);
                     that.tableData=response.data;
@@ -207,7 +273,13 @@ export default {
                        if(element.status==null){
                            console.log(1)
                            var that2=that;
-                            that.$axios.get('http://huajiao.site:8084/worker/updateStatus?id='+element.orderId+'&status='+'未接单')
+                            that.$axios.get('https://www.csystd.cn:9999/worker/updateStatus?id='+element.orderId+'&status='+'未接单',{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            }
+)
                                 .then(function(response){
                                     if(response.data==1){
                                         that2.$message.success('初始化成功');
@@ -225,9 +297,31 @@ export default {
 
             
         },
+             myOrder(){
+            let that=this;
+            if (this.position!='快递员'){
+                   this.$message.warning('只有快递员才可以查看自己的订单！');}
+                
+            else{
+                 that.$axios.post('https://www.csystd.cn:9999/worker/getMyOrder?employee_id='+that.myId,{},{
+                     params:{
+                    token:localStorage.getItem('token')
+                }
+                 }).then(function(response){
+              console.log(response);
+              that.tableData=response.data;
+          })
+            }
+        },
         getDataByOrderID(){
             let that =this;
-            this.$axios.get('http://huajiao.site:8084/worker/getOrderById?id='+this.query.name)
+            this.$axios.get('https://www.csystd.cn:9999/worker/getOrderById?id='+this.query.name,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            }
+)
                 .then(function(response) {                  
                     console.log(response.data);                     
                     var ssss=[]                   
@@ -254,12 +348,24 @@ export default {
                 this.getData();
             }else{
                 var that=this
-                this.$axios.get('http://huajiao.site:8084/worker/getSomeNum?status='+that.query.address)
+                this.$axios.get('https://www.csystd.cn:9999/worker/getSomeNum?status='+that.query.address,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            }
+)
                 .then(function(response) {
                     that.ordernum=response.data
                     
                 })
-                this.$axios.get('http://huajiao.site:8084/worker/getSomeOrder?status='+that.query.address+'&pageindex='+1+'&pagesize='+that.query.pageSize)
+                this.$axios.get('https://www.csystd.cn:9999/worker/getSomeOrder?status='+that.query.address+'&pageindex='+1+'&pagesize='+that.query.pageSize,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            }
+)
                 .then(function(response) {
                     that.tableData=response.data
 
@@ -285,7 +391,13 @@ export default {
                 this.$message.warning('只有未接单的订单才能接单');
             }else{
                  var that=this;
-            this.$axios.get('http://huajiao.site:8084/worker/updateStatus?id='+accept.orderId+'&status='+'已接单')
+            this.$axios.get('https://www.csystd.cn:9999/worker/updateStatus?id='+accept.orderId+'&status='+'已接单'+'&phone='+accept.sendPhone,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            }
+)
                 .then(function(response){
                     if(response.data==1){
                         that.$message.success('接受订单成功');
@@ -310,7 +422,13 @@ export default {
                 this.$message.warning('只有已分配的订单才能完成');
             }else{
                  var that=this;
-            this.$axios.get('http://huajiao.site:8084/worker/updateStatus?id='+finsh.orderId+'&status='+'已完成')
+            this.$axios.get('https://www.csystd.cn:9999/worker/updateOK?id='+finsh.orderId+'&status='+'已完成'+'&phone='+finsh.sendPhone+'&employeeID='+finsh.employeeId,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            }
+)
                 .then(function(response){
                     if(response.data==1){
                         that.$message.success('该订单已完成');
@@ -321,31 +439,65 @@ export default {
             console.log(finsh.orderId)
             }
         },
-        handleAllot(index, row){
-            //还需添加post函数
+       
 
-            
+        handleAllot(index, row){
             let allot=this.tableData.slice(index,index+1);
             allot=allot[0]
             if(allot.status!='已接单'){
                 this.$message.warning('只有已接单的订单才能分配');
             }else{
-            var that=this;
-            this.$axios.get('http://huajiao.site:8084/worker/updateOrderEmployee?id='+allot.orderId+'&employeeId='+'000001')
-                .then(function(response){
-                    if(response.data==1){
-                       that.$message.success('分配人员成功');
-                       allot.status="已分配"
-                       allot.employeeId='000001'
-                    }else{
-
-                    }
-                })         
+            var that=this; 
+            this.allotion=allot;
+            that.allocVisible=true;
+              that.$axios.get('https://www.csystd.cn:9999/worker/getCourier',{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            }
+).then(function(response){
+              console.log(response);
+              that.emData=response.data;
+          })
+          
+           
             }
             
                    
         },
+        handleAllocc(index, row){
+          console.log(row);
+          let that=this;
+           this.$axios.get('https://www.csystd.cn:9999/worker/updateOrderEmployee?id='+this.allotion.orderId+'&phone='+this.allotion.sendPhone+'&employeeId='+row.EMPLOYEE_ID,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            }
+)
+                .then(function(response){
+                    if(response.data==1){
+                       that.$message.success('分配人员成功');
+                       that.allotion.status='已分配';
+                       that.allotion.employeeId=row.EMPLOYEE_ID;
+//                         that.$axios.post('https://www.csystd.cn:9999/worker/dispatcherEmployee?employee_id='+row.EMPLOYEE_ID,{
+               
+//                 params:{
+//                     token:localStorage.getItem('token')
+//                 }
+//             }
+// ).then(function (response) {
+//                 console.log(response);
+              
+//             });
+                       
+                    }else{
 
+                    }
+                    })        
+        
+        },
 
 
         // 删除操作
@@ -360,7 +512,13 @@ export default {
                     console.log(del)
                     del=del[0]
                     var that=this;
-                    this.$axios.delete('http://huajiao.site:8084/worker/deleteOrder?id='+del.orderId)
+                    this.$axios.delete('https://www.csystd.cn:9999/worker/deleteOrder?id='+del.orderId,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            }
+)
                         .then(function(response){
                             if(response.data==1){
                                 that.$message.success('删除成功');
@@ -395,14 +553,20 @@ export default {
                         console.log(del)
                         //del=del[0]
                         var that=this;
-                        this.$axios.delete('http://huajiao.site:8084/worker/deleteOrder?id='+del.orderId)
+                        this.$axios.delete('https://www.csystd.cn:9999/worker/deleteOrder?id='+del.orderId,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            }
+)
                             .then(function(response){
                                 if(response.data==1){
                                     that.$message.success('删除'+del.orderId+'成功');
                                     that.getData();
                                 }else{
 
-                                } 
+                                }
                             })  
                             console.log(this.multipleSelection[i]);
                     }
@@ -428,7 +592,13 @@ export default {
                 }
                 else{
                     var that=this;
-                    this.$axios.get('http://huajiao.site:8084/worker/updateStatus?id='+accept.orderId+'&status='+'已接单')
+                    this.$axios.get('https://www.csystd.cn:9999/worker/updateStatus?id='+accept.orderId+'&status='+'已接单',{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            }
+)
                         .then(function(response){
                             if(response.data==1){
                                 that.$message.success('接受订单'+accept.orderId+'成功');
@@ -459,7 +629,13 @@ export default {
                     this.$message.warning('只有已接单的订单才能分配');
                 }else{
                 var that=this;
-                this.$axios.get('http://huajiao.site:8084/worker/updateOrderEmployee?id='+allot.orderId+'&employeeId='+'000001')
+                this.$axios.get('https://www.csystd.cn:9999/worker/updateOrderEmployee?id='+allot.orderId+'&employeeId='+'000001',{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            }
+)
                     .then(function(response){
                         if(response.data==1){
                         that.$message.success('分配人员成功');
@@ -494,7 +670,13 @@ export default {
             let order=this.form
           
             var that=this;
-            this.$axios.post('http://huajiao.site:8084/worker/updateOrder',order)
+            this.$axios.post('https://www.csystd.cn:9999/worker/updateOrder',order,{
+               
+                params:{
+                    token:localStorage.getItem('token')
+                }
+            }
+)
                 .then(function(response){
                     if(response.data==1){
                         that.$message.success(`修改第 ${that.idx + 1} 行成功`);

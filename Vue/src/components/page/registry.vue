@@ -10,6 +10,7 @@
                 </el-form-item>
                 <el-form-item prop="password">
                     <el-input
+                     type="password"
                         placeholder="密码"
                         v-model="param.password"
                     >
@@ -18,6 +19,7 @@
                 </el-form-item>
                   <el-form-item prop="confirmpw">
                     <el-input
+                     type="password"
                         placeholder="确认密码"
                         v-model="param.confirmpw"
                     >
@@ -45,12 +47,31 @@
 <script>
 export default {
     data: function() {
+         var validatePass = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入密码'));
+        } else {
+          if (this.param.confirmpw !== '') {
+            this.$refs.param.validateField('confirmpw');
+          }
+          callback();
+        }
+      };
+      var validatePass2 = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请再次输入密码'));
+        } else if (value !== this.param.password) {
+          callback(new Error('两次输入密码不一致!'));
+        } else {
+          callback();
+        }
+      };
         return {
             param: {
-                username: 'admin',
-                password: '123456',
-                confirmpw: '123456',
-                employee_id:'000001'
+                username: '',
+                password: '',
+                confirmpw: '',
+                employee_id:''
             },
             form:{
                 adminName:'',
@@ -59,12 +80,13 @@ export default {
             },
             rules: {
                 username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-                password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-                confirmpw:[{ required: true, message: '请确认密码', trigger: 'blur'}],
+                password: [{ validator: validatePass, trigger: 'blur' }],
+                confirmpw:[{ validator: validatePass2, trigger: 'blur' }],
                 employee_id:[{ required: true, message: '请输入工号', trigger: 'blur'}],
             },
         };
     },
+  
     methods: {
         submitForm() {
          
@@ -76,7 +98,7 @@ export default {
             this.form.employeeId=this.param.employee_id;
             console.log(that.form);
            // this.$router.push('/dashboard');
-             this.$axios.post('http://localhost:8084/registry',that.form)
+             this.$axios.post('http://localhost:8084/worker/registry',that.form)
                 .then(function(response) {
                   //  console.log(that.param);
                     console.log(response);   
@@ -105,7 +127,7 @@ export default {
     position: relative;
     width: 100%;
     height: 100%;
-    background-image: url(../../assets/img/login-bg.jpg);
+    background-image: url(../../assets/img/login-bg4.jpg);
     background-size: 100%;
 }
 .ms-title {
