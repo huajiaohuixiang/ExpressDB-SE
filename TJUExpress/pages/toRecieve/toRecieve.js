@@ -4,30 +4,38 @@ var url1, url2, that, data, listadd;
 Page({
   data: {
     "userid":app.globalData.userInfo.userId,
-    "list":[{
-      Company:"顺丰速运",
-      ExpressId:"Bq908",
-      Sender_name:"DBJ",
-      Sender_province:"上海",
-      Sender_city:"直辖市",
-      Sender_region:"杨浦区",
-      Sender_detail:"同济大学",
-      Rec_name:"Sleepycat",
-      Rec_province:"上海",
-      Rec_city:"直辖市",
-      Rec_region:"嘉定区",
-      Rec_detail:"同济大学",
-      status:1
-
-    }],
+    "list":[],
     "choose":1,
     "color1":"#7ccefd",
     "color2":"darkgrey",
     "color3":"darkgrey"
   },
-  onLoad: function (options) {
+  onShow: function (options) {
+    wx.showLoading({
+      title: '正在加载',
+    })
     // 页面初始化 options为页面跳转所带来的参数
-    
+    var userid=app.globalData.userInfo.userId
+    var token=app.globalData.token
+    var that = this
+    wx.request({
+      url:'https://www.csystd.cn:9999/user/checkReadyExpress',
+      method:'POST',
+      data:{
+        userID:userid
+      },
+      header:{
+        "Token":token
+      },
+      success:function(res){
+        wx.hideLoading()
+        console.log(res.data)
+        var list = res.data
+        that.setData({
+          list:list
+        })
+      }
+    })
   },
   torecieve: function() {
     this.setData({
@@ -59,19 +67,40 @@ Page({
     console.log(e);
     var that = this;
     var index = e.currentTarget.dataset.index;
+    var id=e.currentTarget.id;
+    var token=app.globalData.token
     wx.showModal({
       title: '注意事项',
       content: '确认签收后不可取消',
       complete:function(){
+        wx.showLoading({
+          title: '正在签收',
+        })
         var temp= "list["+ index + "].status";
         that.setData({
           [temp]:0
         })
-        wx.showToast({
-          title: '签收成功',
-          icon: 'success',
-          duration: 1500
+        console.log(id)
+        wx.request({
+          url:'https://www.csystd.cn:9999/user/ackExpress',
+          method:'POST',
+          data:{
+            packageID:id
+          },
+          header:{
+            'Token':token
+          },
+          success:function(res){
+            console.log(res.data)
+            wx.hideLoading()
+            wx.showToast({
+              title: '签收成功',
+              icon: 'success',
+              duration: 1500
+            })
+          }
         })
+        
       }
     })
         

@@ -9,20 +9,24 @@ Page({
     "color2":"darkgrey",
     "color3":"darkgrey"
   },
-  onLoad: function (options) {
+  onShow: function (options) {
     wx.showLoading({
       title: '正在加载',
     })
+    var token = app.globalData.token
     var userid = app.globalData.userInfo.userId
     var that=this
     this.setData({
       userid:userid
     })
     wx.request({
-      url:'https://www.csystd.cn:9999/checkMyOrder',
+      url:'https://www.csystd.cn:9999/user/checkMyOrder',
       method:'POST',
       data:{
         userID:userid
+      },
+      header:{
+        'Token':token
       },
       success:function(res){
         wx.hideLoading()
@@ -65,21 +69,44 @@ Page({
   },
   //撤单监听事件
   cancel_click:function(e){
+    var token=app.globalData.token
     var that = this;
+    var lt = this.list; 
     var index = e.currentTarget.dataset.index;
+    var id = e.currentTarget.id;
     wx.showModal({
       title: '注意事项',
       content: '确认撤单后不可取消',
       complete:function(){
-        var temp= "list["+ index + "].status";
+        wx.showLoading({
+          title: '正在撤单',
+        })
+        var temp= "list["+ index + "].intStatus";
         that.setData({
           [temp]:2
         })
-        wx.showToast({
-          title: '撤单成功',
-          icon: 'success',
-          duration: 1500
+       
+        console.log(id);
+        wx.request({
+          url: 'https://www.csystd.cn:9999/user/quitOrder',
+          method:'POST',
+          data:{
+            orderID:id
+          },
+          header:{
+            'Token':token
+          },
+          success:function(res){
+            wx.hideLoading()
+            console.log(res.data)
+            wx.showToast({
+              title: '撤单成功',
+              icon: 'success',
+              duration: 1500
+            })
+          }
         })
+            
       }
     })
          

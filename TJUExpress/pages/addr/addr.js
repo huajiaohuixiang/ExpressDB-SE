@@ -99,6 +99,7 @@ Page({
     })
   },
   formSubmit: function (e) {
+    var token = app.globalData.token
     var userid = app.globalData.userInfo.userId
     console.log(userid)
     var params = e.detail.value
@@ -119,7 +120,7 @@ Page({
       title: '正在提交',
     })
     wx.request({
-      url: 'https://www.csystd.cn:9999/updateUserInfo',
+      url: 'https://www.csystd.cn:9999/user/updateUserInfo',
       method:'POST',
       data:{
         userID:userid,
@@ -128,6 +129,9 @@ Page({
         city:params.sender_city_name,
         region:params.sender_district_name,
         detail:params.sender_address
+      },
+      header:{
+        'Token':token
       },
       success:function(res){
         console.log(res.data)

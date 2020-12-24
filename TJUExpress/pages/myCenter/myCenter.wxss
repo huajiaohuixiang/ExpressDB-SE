@@ -5,7 +5,7 @@
   width:100%;
   background-color:white;
   margin-bottom: 20px;
-  box-shadow: 0px 5px 5px #727272d2;
+  box-shadow: 0px 0px 5px #727272d2;
 }
 .userinfo-avatar {
   width: 60px;

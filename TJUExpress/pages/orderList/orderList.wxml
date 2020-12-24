@@ -7,7 +7,7 @@
 <view class="content" wx:if="{{choose==1}}">
   <scroll-view scroll-y="true" class="scrollView" bindscrolltolower="lower">
     <block wx:for="{{list}}">
-      <view class="item2" wx:if="{{item.status==0}}">
+      <view class="item2" wx:if="{{item.intStatus==1}}">
         <view class="item21">
           <text>{{item.company}}：{{item.orderID}}</text>
           <text>寄件人：{{item.senderName}}</text>
@@ -16,7 +16,7 @@
           <text>收件地址：{{item.receiverAddress}}</text>
         </view>
         <view class="item22">
-          <button bindtap="cancel_click" data-index="{{index}}" class="btn" wx:if="{{item.status==0}}">取消</button>
+          <button bindtap="cancel_click" id="{{item.orderID}}"data-index="{{index}}" class="btn" wx:if="{{item.intStatus==1}}">取消</button>
         </view>
       </view> 
     </block>
@@ -25,7 +25,7 @@
 <view class="content" wx:if="{{choose==2}}">
   <scroll-view scroll-y="true" class="scrollView" bindscrolltolower="lower">
     <block wx:for="{{list}}">
-      <view class="item2" wx:if="{{item.status==1}}">
+      <view class="item2" wx:if="{{item.intStatus==0}}">
         <view class="item21">
           <text>{{item.company}}：{{item.orderID}}</text>
           <text>寄件人：{{item.senderName}}</text>
@@ -40,7 +40,7 @@
 <view class="content" wx:if="{{choose==3}}">
   <scroll-view scroll-y="true" class="scrollView" bindscrolltolower="lower">
     <block wx:for="{{list}}">
-      <view class="item2" wx:if="{{item.status==2}}">
+      <view class="item2" wx:if="{{item.intStatus==2}}">
         <view class="item21">
           <text>{{item.company}}：{{item.orderID}}</text>
           <text>寄件人：{{item.senderName}}</text>

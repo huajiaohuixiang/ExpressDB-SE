@@ -48,7 +48,7 @@ Page({
     })
   },
   com: function (e) {
-
+    var token = app.globalData.token
     var params = this.mergeJsonObject(this.data.recipient, this.data.sender)
     var company=this.data.chooseCouriers
     console.log('company:'+company)
@@ -70,7 +70,7 @@ Page({
           title: '下单中',
         })
         wx.request({
-          url: 'https://www.csystd.cn:9999/addOrder',
+          url: 'https://www.csystd.cn:9999/user/addOrder',
           method:'POST',
           data:{
             senderPhone:senderphone,
@@ -81,6 +81,9 @@ Page({
             receiverPhone:recphone,
             receiverAddress:recaddr,
             orderDate:OrderDate
+          },
+          header:{
+            'Token':token
           },
           success:function(res){
             wx.hideLoading()
