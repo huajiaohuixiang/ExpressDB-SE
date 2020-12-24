@@ -32,7 +32,6 @@ Page({
     })
   },
   formSubmit: function (e) {
-    var login=this.login
     var params = e.detail.value
     params.userid = this.data.userid
     params.password = this.data.password
@@ -51,13 +50,40 @@ Page({
       })
       return
     }
-    app.globalData.login=1
-    app.globalData.userInfo.userid=this.data.userid
-    if(app.globalData.login==1){
-      wx.switchTab({
-        url: '../myCenter/myCenter',
-      })
-    }
+    
+    wx.showLoading({
+      title: '正在登录',
+    })
+    wx.request({
+      url:'https://www.csystd.cn:9999/account/enroll',
+      data:{
+        userID:params.userid,
+        password:params.password
+      },
+      method:'POST',
+      header:{
+        'content-type':'application/json'
+      },
+      success(res){
+        wx.hideLoading()
+        var jwt = res.data
+        if(jwt==""){
+          wx.showModal({
+            title: '登陆失败',
+            content:'用户名不存在或密码错误'
+          })
+        }
+        else{
+          app.globalData.login=1
+          app.globalData.userInfo.userId=params.userid
+          app.globalData.token=jwt
+          wx.switchTab({
+            url: '../myCenter/myCenter',
+          })
+        }
+          
+      }
+    })
   },
   
   /**

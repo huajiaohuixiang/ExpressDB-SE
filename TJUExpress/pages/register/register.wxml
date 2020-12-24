@@ -24,7 +24,7 @@
       </radio-group>
     </view>
     <view class="item">
-      <view class="tips">注意：本程序不提供验证手机号功能，请用户自觉输入正确手机号以便享受更多功能，若注册手机号有误，可前往个人信息页进行修改。
+      <view class="tips">注意：本程序不提供验证手机号功能，请用户自觉输入正确手机号以便享受更多功能。手机号绑定后不可修改，请谨慎操作。
       </view>
     </view>
     <button class="bnt" formType="submit"><text decode="{{true}}" space="{{true}}">注&nbsp;&nbsp;&nbsp;&nbsp;册</text></button>

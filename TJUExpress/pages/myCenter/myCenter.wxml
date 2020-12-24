@@ -31,11 +31,12 @@
 <view class="body" wx:if="{{iflogin==1}}">
   <view class="userInfo">
     <view class="item11">
-      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover" ></image>
+      <image class="userinfo-avatar" wx:if="{{sex==1}}" src="../../images/boy.png" background-size="cover" ></image>
+      <image class="userinfo-avatar" wx:if="{{sex==0}}" src="../../images/girl.png" background-size="cover" ></image>
     </view>
     <view class="item12">
-      <view class="item121"><text>{{userInfo.nickName}}，欢迎您！</text></view>
-      <view class="item122"><text>这里是快递中心</text></view>
+      <view class="item121"><text>{{userInfo.userName}}，欢迎您！</text></view>
+      <view class="item122"><text>这里是IExpress快递中心</text></view>
     </view>
   </view>
   <view class="item2" bindtap="changeaddr">

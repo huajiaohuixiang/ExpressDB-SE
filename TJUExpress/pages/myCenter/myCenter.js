@@ -2,47 +2,76 @@
 var app = getApp();
 Page({
   data: {
-    "iflogin":app.globalData.login,
-    //canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    "userInfo":{
-      "nickName":"Sleepycat",
-      "avatarUrl":"../../images/header.jpg"
-    }
+    "iflogin":0,
+    "userInfo":{},
+    sex:0
   },
-  onShow:function() {
-    console.log(app.globalData.login)
-    var iflogin = app.globalData.login
-    if(iflogin==0){
-      wx.showModal({
-        title: '提示',
-        content:'请先登录'
-      })
-    }
-    this.setData({
-      iflogin:app.globalData.login
-    })
-  },
-  onLoad: function () {
-    console.log(app.globalData.login)
-   
-    //调用应用实例的方法获取全局数据
-    /*wx.getSetting({
-      success (res){
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-          wx.getUserInfo({
-            success: function(res) {
-              console.log(res.userInfo)
-              that.setData({
-                userInfo: res.userInfo
-              })
-            }
+  
+  onShow: function () {
+    
+    var token=app.globalData.token
+    var that = this
+    console.log(token)
+    wx.request({
+      url:'https://www.csystd.cn:9999/user/getUserInfo',
+      method:'GET',
+      data:{
+      },
+      header:{
+        "Token":token
+      },
+      success:function(res){
+        var userId=res.data.userID
+        var userName=res.data.name
+        var city=res.data.city
+        var province=res.data.province
+        var region=res.data.region
+        var detail=res.data.detail
+        var sex=res.data.sex
+        app.globalData.userInfo.userId=userId
+        app.globalData.userInfo.userName=userName
+        app.globalData.userInfo.city=city
+        app.globalData.userInfo.province=province
+        app.globalData.userInfo.region=region
+        app.globalData.userInfo.detail=detail
+        app.globalData.userInfo.sex=sex
+        var userinfo = app.globalData.userInfo
+        var login = app.globalData.login
+        that.setData({
+          iflogin:login,
+          userInfo:userinfo
+        })
+        if(userinfo.sex=="男")
+        {
+          that.setData({
+            sex:1
+          })
+        }
+        else{
+          that.setData({
+            sex:0
           })
         }
       }
+    })
+    
+   /*wx.login({
+     success:res => {
+       console.log("code"+res.code)
+     }
+   })*/
+    
+    
+    /*wx.requestSubscribeMessage({
+      tmplIds: ['M4jSd-7ICN-c615OLQmAx9QJqs9EYTtH3jfTx7nveig'],
+      success(res){
+        console.log("用户订阅通知成功。")
+      }
     })*/
     
+   
   },
+  
   login:function(){
     wx.navigateTo({
       url: '../login/login',

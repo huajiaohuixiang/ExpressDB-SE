@@ -9,14 +9,15 @@
     <block wx:for="{{list}}">
       <view class="item2" wx:if="{{item.status==1}}">
         <view class="item21">
-          <text>{{item.Company}}：{{item.ExpressId}}</text>
-          <text>寄件人：{{item.Sender_name}}</text>
-          <text>寄件地址：{{item.Sender_province}}{{item.Sender_city}}{{item.Sender_region}}{{item.Sender_detail}}</text>
-          <text>收件人：{{item.Rec_name}}</text>
-          <text>收件地址：{{item.Rec_province}}{{item.Rec_city}}{{item.Rec_region}}{{item.Rec_detail}}</text>
+          <text>{{item.company}}：{{item.packageID}}</text>
+          <text>寄件人：{{item.senderName}} | {{item.senderPhone}}</text>
+          <text>寄件地址：{{item.senderAddress}}</text>
+          <text>收件人：{{item.receiverName}} | {{item.receiverPhone}}</text>
+          <text>收件地址：{{item.receiverAddress}}</text>
+          
         </view>
         <view class="item22">
-          <button bindtap="qianshou_click" data-index="{{index}}" class="btn" wx:if="{{item.status==1}}">签收</button>
+          <button bindtap="qianshou_click" id="{{item.packageID}}" data-index="{{index}}" class="btn" wx:if="{{item.status==1}}">签收</button>
         </view>
       </view> 
     </block>
@@ -27,11 +28,11 @@
     <block wx:for="{{list}}">
       <view class="item2" wx:if="{{item.status==0}}">
         <view class="item21">
-          <text>{{item.Company}}：{{item.ExpressId}}</text>
-          <text>寄件人：{{item.Sender_name}}</text>
-          <text>寄件地址：{{item.Sender_province}}{{item.Sender_city}}{{item.Sender_region}}{{item.Sender_detail}}</text>
-          <text>收件人：{{item.Rec_name}}</text>
-          <text>收件地址：{{item.Rec_province}}{{item.Rec_city}}{{item.Rec_region}}{{item.Rec_detail}}</text>
+          <text>{{item.company}}：{{item.packageID}}</text>
+          <text>寄件人：{{item.senderName}} | {{item.senderPhone}}</text>
+          <text>寄件地址：{{item.senderAddress}}</text>
+          <text>收件人：{{item.receiverName}} | {{item.receiverPhone}}</text>
+          <text>收件地址：{{item.receiverAddress}}</text>
         </view>
       </view> 
     </block>
@@ -42,11 +43,11 @@
     <block wx:for="{{list}}">
       <view class="item2" wx:if="{{item.status==2}}">
         <view class="item21">
-          <text>{{item.Company}}：{{item.ExpressId}}</text>
-          <text>寄件人：{{item.Sender_name}}</text>
-          <text>寄件地址：{{item.Sender_province}}{{item.Sender_city}}{{item.Sender_region}}{{item.Sender_detail}}</text>
-          <text>收件人：{{item.Rec_name}}</text>
-          <text>收件地址：{{item.Rec_province}}{{item.Rec_city}}{{item.Rec_region}}{{item.Rec_detail}}</text>
+          <text>{{item.company}}：{{item.packageID}}</text>
+          <text>寄件人：{{item.senderName}} | {{item.senderPhone}}</text>
+          <text>寄件地址：{{item.senderAddress}}</text>
+          <text>收件人：{{item.receiverName}} | {{item.receiverPhone}}</text>
+          <text>收件地址：{{item.receiverAddress}}</text>
         </view>
       </view> 
     </block>

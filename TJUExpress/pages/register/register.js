@@ -81,15 +81,12 @@ Page({
       })
       return
     }
-    app.globalData.login=1
-    app.globalData.userInfo.userName=this.data.username
-    app.globalData.userInfo.phone=this.data.phone
-    app.globalData.userInfo.sex=this.data.sex
+    
     wx.showLoading({
       title: '正在注册',
     }),
     wx.request({
-      url:'https://www.csystd.cn:9999/register',
+      url:'https://www.csystd.cn:9999/account/register',
       
       data:{
         'userID':params.phone,
@@ -104,14 +101,15 @@ Page({
       
       success(res){
         wx.hideLoading()
+        console.log(res.data)
         if(res.data=='success'){
           wx.showModal({
             title: '提示',
             content:'注册成功！',
             complete:function(){
               try{
-                wx.switchTab({
-                  url: '../myCenter/myCenter',
+                wx.navigateTo({
+                  url: '../login/login',
                 })
               }catch(e){
                 console.log("页面导航失败")
@@ -122,7 +120,7 @@ Page({
         else{
           wx.showModal({
             title: '提示',
-            content:'注册失败，请检查手机号是否以及注册，或用户名\密码过长。'
+            content:'注册失败，请检查手机号是否已经注册，或用户名\密码过长。'
           })
         }
           

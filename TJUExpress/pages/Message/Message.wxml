@@ -3,17 +3,14 @@
 <view class="item">
   <view class="tab">
     <image class="server-img" src="../../images/systemmsg.png" background-size="cover"></image>
-    <view class="title">系统通知</view>
+    <view class="title">寄件通知</view>
   </view>
   <view class="show">
-    <view class="warning" wx:if="{{num1==0}}">暂无消息</view>
-    <scroll-view class="scroll" scroll-y="true" bindscrolltolower="lower" wx:if="{{num1!=0}}">
-      <block wx:for="{{list1}}">
-        <view class="item11">
-          {{items.no}}
-        </view>
-        <view class="item12">
-          {{items.content}}
+    <scroll-view class="scroll" scroll-y="true" bindscrolltolower="lower">
+      <block wx:for="{{list}}">
+        <view class="item12" wx:if="{{item.messageType=='寄件消息'}}">
+          <text>{{item.sendDate}}</text>
+          <text>{{item.content}}</text>
         </view>
       </block>
     </scroll-view>
@@ -25,14 +22,10 @@
     <view class="title">取件通知</view>
   </view>
   <view class="show">
-    <view class="warning" wx:if="{{num2==0}}">暂无消息</view>
-    <scroll-view class="scroll" scroll-y="true" bindscrolltolower="lower" wx:if="{{num1!=0}}">
-      <block wx:for="{{list2}}">
-        <view class="item11">
-          {{items.no}}
-        </view>
-        <view class="item12">
-          {{items.content}}
+    <scroll-view class="scroll" scroll-y="true" bindscrolltolower="lower">
+      <block wx:for="{{list}}">
+        <view class="item12" wx:if="{{item.messageType=='取件消息'}}">
+          {{item.content}}
         </view>
       </block>
     </scroll-view>

@@ -23,7 +23,6 @@ page {
   box-shadow: 0px 0px 5px #888888;
 }
 .tab {
-  margin-bottom: 5px;
   display: flex;
   flex-direction: row;
   height:40px;
@@ -42,14 +41,21 @@ page {
   margin-left: 10px;
 }
 .show {
-  height: 20px;
-  margin-left: 5px;
-  margin-top: 5px;
+  width:100%;
   font-size: small;
-  color:rgb(105, 104, 104);
 }
 .scroll {
-  margin-left: 20px;
+  width:100%;
   flex-flow: row wrap;
   align-items: flex-start;
+  background-color: rgba(217, 245, 255, 0.959);
+}
+.item12 {
+  padding:5px 5px 5px 5px;
+  margin:5px 5px 5px 5px;
+  flex-flow: wrap;
+  background-color:white;
+  border-radius: 2px;
+  display:flex;
+  flex-direction: column;
 }
